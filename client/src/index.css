@@ -3,3 +3,22 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+/*
+blue: #0e2049  / rgb(14, 32, 73)
+orange: #f7a64a  / rgb(247, 166, 74)
+*/
+
+.logo {
+  color: #f7a64a;
+  font-weight: bold;
+  font-size: 1.7em;
+}
+
+.logo:hover {
+  color: #f7a64a;
+}
+
+.rightMenu {
+  color: #133070;
+}

@@ -42,7 +42,7 @@ class Auth extends React.Component {
             onChange={this.handleChange}
             value={password}
           />
-          <Button>Submit</Button>
+          <Button className="ui primary button">Submit</Button>
         </Form>
       </div>
     )
