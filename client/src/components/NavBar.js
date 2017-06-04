@@ -65,11 +65,9 @@ class NavBar extends React.Component {
 
   return (
     <Menu>
-
       <Menu.Item
         key='Eventech'
         name='Eventech'
-        active={ location.pathname === '/' }
       >
         <NavLink to='/' className='logo' >
           Eventech
