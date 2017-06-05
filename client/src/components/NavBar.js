@@ -54,7 +54,7 @@ class NavBar extends React.Component {
   }
 
   render() {
-    let { id, location } = this.props;
+    let { id } = this.props;
     let navs;
 
     if (id) {

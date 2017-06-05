@@ -14,6 +14,8 @@ const app = express();
 
 //AUTH CONTROLLER
 const auth = require('./routes/auth');
+//Event
+const events = require('./routes/events');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -43,6 +45,9 @@ passport.deserializeUser(User.deserializeUser());
 
 //AUTH ROUTES
 app.use('/api/auth', auth);
+
+//EVENT routes
+app.use('/api/events', events);
 
 app.get('*', (request, response) => {
   response.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));

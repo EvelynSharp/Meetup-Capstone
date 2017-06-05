@@ -7,8 +7,9 @@ import Auth from './components/Auth';
 import Dashboard from './components/Dashboard';
 import FetchUser from './components/FetchUser';
 import ProtectedRoute from './components/ProtectedRoute';
-import NewEvent from './components/NewEvent';
+import EventForm from './components/EventForm';
 import NoMatch from './components/NoMatch';
+import Event from './components/Event';
 
 
 const App = () => (
@@ -17,11 +18,12 @@ const App = () => (
     <FetchUser>
       <Switch>
         <Route exact path="/" component={Home} />
+        <ProtectedRoute path='/event/:id' component={Event} />
         <Route path="/about" component={About} />
         <ProtectedRoute path="/dashboard" component={Dashboard} />
         <Route path="/register" render={ (props) => <Auth {...props} title="Register" /> } />
         <Route path="/login" render={ (props) => <Auth {...props} title="Login" /> } />
-        <ProtectedRoute path="/newevent" component={NewEvent} />
+        <ProtectedRoute path="/newevent" component={EventForm} />
         <Route component={NoMatch} />
       </Switch>
     </FetchUser>
