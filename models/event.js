@@ -7,6 +7,7 @@ const Event = new Schema({
   organizer: { type : String, required : true },
   date: { type : String, required : true },
   location: { type: String },
+  description: { type: String },
   attendeeIds: { type: Array }
 });
 

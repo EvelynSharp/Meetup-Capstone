@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { addEvent, updateEvent } from '../actions/events';
 
 class EventForm extends Component {
-  defaultData = { eventName: '', organizer: '', date: '', location: '', attendeeIds: [], updateEvent: false }
+  defaultData = { eventName: '', organizer: '', date: '', location: '', description: '', attendeeIds: [], updateEvent: false }
 
   state={  ...this.defaultData  }
 
@@ -42,7 +42,7 @@ class EventForm extends Component {
 
   render() {
     let { username } = this.props;
-    let { eventName, date, location } = this.state;
+    let { eventName, date, location, description } = this.state;
     return(
       <div>
         <Header as="h2">{username}</Header>
@@ -66,10 +66,19 @@ class EventForm extends Component {
             />
           </Form.Field>
           <Form.Field>
-            <label>Location:</label>
+            <label>location:</label>
             <input
               id='location'
               value={location}
+              type="text"
+              onChange={this.handleEventChange}
+            />
+          </Form.Field>
+          <Form.Field>
+            <Form.TextArea
+              label="description:"
+              id='description'
+              value={description}
               type="text"
               onChange={this.handleEventChange}
             />
