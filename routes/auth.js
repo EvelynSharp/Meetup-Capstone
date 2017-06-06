@@ -21,7 +21,6 @@ router.post('/signup', (req, res) => {
   User.register(new User({username: email}), password, (err, user) => {
     if (err)
       return res.status(500).json(err);
-
     user.save( (err, user) => {
       if (err)
         return res.status(500).json(err);
@@ -38,7 +37,6 @@ router.post('/signin', (req, res) => {
        return res.json(500, 'User not found');
      if (passwordErr)
        return res.json(500, passwordErr.message)
-
      req.logIn(user, (err) => {
        return res.json(userAttrs(user));
      })
