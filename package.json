@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "build-production": "cd client/ && npm install --only=dev && npm install && npm run build"
+    "build-production": "cd client/ && npm install --only=dev && npm install && npm run build",
+    "postinstall": "yarn build-production"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
