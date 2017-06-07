@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import { Header, Icon } from 'semantic-ui-react';
 import { getEvents, deleteEvent, addAttendee, removeAttendee } from '../actions/events';
 import EventForm from './EventForm';
+import InviteForm from './InviteForm';
 
 class Event extends Component {
 
-  state={ edit: false }
+  state={ edit: false, share: false }
 
   componentDidMount = () => {
     this.refreshEvents();
@@ -18,6 +19,10 @@ class Event extends Component {
 
   toggleEdit = () => {
     this.setState({ edit: !this.state.edit });
+  }
+
+  shareEvent = () => {
+    this.setState({ share: !this.state.share });
   }
 
   handleDelete = (_id) => {
@@ -62,7 +67,7 @@ class Event extends Component {
 
   render() {
     let { eventName, organizer, date, location, description, _id } = this.props.event;
-    let { edit } = this.state;
+    let { edit, share } = this.state;
     let eventToUpdate = this.props.event;
     let dateDisplay = date.slice(0, 10);
     let isOrganizer;
@@ -89,8 +94,9 @@ class Event extends Component {
           <Header as="h4">{ location }</Header>
           <p> { description } </p>
           { this.displayAttendOption(isOrganizer) }
-          { isOrganizer &&
-            <div>
+          <div>
+            { isOrganizer &&
+              <span>
               <Icon
                 name='edit'
                 size='large'
@@ -101,8 +107,24 @@ class Event extends Component {
                 size='large'
                 onClick={ () => this.handleDelete(_id) }
               />
-            </div>
-          }
+            </span>
+            }
+            <Icon
+              name='external share'
+              size='large'
+              onClick={ this.shareEvent }
+            />
+          </div>
+        </div>
+      }
+      { share ?
+        <div>
+          <InviteForm
+            event={ this.props.event }
+            shareEvent={ this.shareEvent }/>
+        </div>
+        :
+        <div>
         </div>
       }
       </div>
