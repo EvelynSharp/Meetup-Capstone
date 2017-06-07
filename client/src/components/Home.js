@@ -20,7 +20,7 @@ class Home extends Component {
         <Header as="h3">
           { username ? `Welcome ${username}` : 'Welcome please sign in' }
         </Header>
-        <EventCards events={events} />
+        <EventCards events={events} history={this.props.history} />
       </div>
     )
   }

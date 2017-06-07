@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy
 const mongoose = require('mongoose');
-const dbUrl = process.env.MONGODB_URI ? process.env.MONGODB_URI : 'mongodb://localhost//eventech-capstone';
+const dbUrl = process.env.MONGODB_URI ? process.env.MONGODB_URI : 'mongodb://localhost/meetup-capstone';
 mongoose.connect(dbUrl);
 
 const app = express();

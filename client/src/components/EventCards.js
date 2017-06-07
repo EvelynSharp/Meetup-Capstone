@@ -1,17 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Icon, Image, Modal, Button } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 
 
-const EventCards = ({ events }) => (
+const EventCards = ({ events, user, history }) => (
   <Card.Group>
-    { displayEventCards(events) }
+    { displayEventCards(events, user, history) }
   </Card.Group>
 );
 
 
-
-const displayEventCards = ( events ) => {
+const displayEventCards = ( events, user, history ) => {
   return events.map( (event, index) => {
     return(
       <Card key={index}>
@@ -31,20 +31,7 @@ const displayEventCards = ( events ) => {
         </Card.Content>
         <Card.Content extra>
           <Icon name='external share' size="large" />
-          <Modal size="small" trigger={<Icon name='eye' size="large" />}>
-            <Modal.Header>View This Event</Modal.Header>
-            <Modal.Content>
-              <div>Log in or sign up to view the event you are interested in.</div>
-              <Link to={'/register'}>
-                <Button primary>SIGN UP</Button>
-              </Link>
-              <div>
-                Already have an account? 
-                <Link to={'/login'}>Log in</Link>
-              </div>
-
-            </Modal.Content>
-          </Modal>
+          { checkUser(user) }
         </Card.Content>
       </Card>
 
@@ -52,4 +39,33 @@ const displayEventCards = ( events ) => {
   })
 }
 
-export default EventCards;
+const checkUser = (user) => {
+  if(Object.keys(user).length === 0) {
+    return (
+      <span>
+        <Modal size="small" trigger={<Icon name='eye' size="large" />}>
+          <Modal.Header>View This Event</Modal.Header>
+          <Modal.Content>
+            <div>Log in or sign up to view the event you are interested in.</div>
+            <Link to={'/register'}>
+              <Button primary>SIGN UP</Button>
+            </Link>
+            <div>
+              Already have an account?
+              <Link to={'/login'}>Log in</Link>
+            </div>
+          </Modal.Content>
+        </Modal>
+      </span>
+    )
+  } else {
+    return <Icon name='eye' size="large"/>
+  }
+}
+
+
+const mapStateToProps = (state) => {
+  return { user: state.user }
+}
+
+export default connect(mapStateToProps)(EventCards);
