@@ -11,7 +11,10 @@ const EventList = ({ events }) => (
 );
 
 const displayEvents = ( events ) => {
-  return events.map( (event, index) => {
+  let sortedEvents = events.sort((a,b) => {
+    return new Date(a.date) - new Date(b.date);
+  });
+  return sortedEvents.map( (event, index) => {
     return(
       <List.Item key={index} className="listItem">
           <List.Content>

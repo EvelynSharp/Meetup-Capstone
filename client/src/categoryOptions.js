@@ -1,6 +1,11 @@
 
 export const categoryOptions = [
   {
+    key: 'blank',
+    text: '',
+    value: '',
+  },
+  {
     key: 'Business',
     text: 'Business',
     value: 'Business',
