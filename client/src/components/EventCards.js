@@ -31,7 +31,7 @@ const displayEventCards = ( events, user, history ) => {
         </Card.Content>
         <Card.Content extra>
           <Icon name='external share' size="large" />
-          { checkUser(user) }
+          { checkUser(event, user, history) }
         </Card.Content>
       </Card>
 
@@ -39,7 +39,7 @@ const displayEventCards = ( events, user, history ) => {
   })
 }
 
-const checkUser = (user) => {
+const checkUser = (event, user, history) => {
   if(Object.keys(user).length === 0) {
     return (
       <span>
@@ -59,7 +59,7 @@ const checkUser = (user) => {
       </span>
     )
   } else {
-    return <Icon name='eye' size="large"/>
+    return <Icon name='eye' size="large" onClick={ () => history.push(`/event/${event._id}`)}/>
   }
 }
 
