@@ -9,7 +9,8 @@ const Event = new Schema({
   location: { type: String },
   category: { type: String, required: true},
   description: { type: String },
-  attendeeIds: { type: Array }
+  attendeeIds: { type: Array },
+  comments: { type: Array, default: [] }
 });
 
 

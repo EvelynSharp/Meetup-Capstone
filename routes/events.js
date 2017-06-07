@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  let { eventName, organizer, date, location, category, description, attendeeIds  } = req.body;
+  let { eventName, organizer, date, location, category, description, attendeeIds } = req.body;
   new Event ({
     eventName,
     organizer,
@@ -40,10 +40,10 @@ router.put('/:id', (req, res) => {
       }
     )
   } else if(actionType === 'ATTEND') {
-    let { attendeeId } = req.body;
+    let { updateContents } = req.body;
     Event.findByIdAndUpdate(
       req.params.id,
-      { $push: { attendeeIds: attendeeId }},
+      { $push: { attendeeIds: updateContents }},
       { new: true },
       (err, updatedEvent) => {
         if(err)
@@ -52,15 +52,39 @@ router.put('/:id', (req, res) => {
       }
     )
   } else if (actionType === 'UNATTEND') {
-    let { filteredAttendees } = req.body;
+    let { updateContents } = req.body;
     Event.findByIdAndUpdate(
       req.params.id,
-      { $set: { attendeeIds: filteredAttendees }},
+      { $set: { attendeeIds: updateContents }},
       { new: true },
       (err, updatedEvent) => {
         if(err)
           return res.json(err)
         return res.json(updatedEvent)
+      }
+    )
+  } else if (actionType === 'ADD_COMMENT') {
+    let { updateContents } = req.body;
+    Event.findByIdAndUpdate(
+      req.params.id,
+      { $push: { comments: updateContents }},
+      { new: true },
+      (err, updatedEvent) => {
+        if(err)
+          return res.json(err)
+        return res.json(updatedEvent)
+      }
+    )
+  } else if (actionType === 'REMOVE_COMMENT') {
+    let { updateContents } = req.body;
+    Event.findByIdAndUpdate(
+      req.params.id,
+      { $set: { comments: updateContents }},
+      { new: true },
+      (err, updateEvent) => {
+        if(err)
+          return res.json(err)
+        return res.json(updateEvent)
       }
     )
   }

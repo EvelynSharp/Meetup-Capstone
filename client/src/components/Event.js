@@ -1,9 +1,13 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Header, Icon } from 'semantic-ui-react';
-import { getEvents, deleteEvent, addAttendee, removeAttendee } from '../actions/events';
+import { getEvents,
+         deleteEvent,
+         eventArrayUpdate
+       } from '../actions/events';
 import EventForm from './EventForm';
 import InviteForm from './InviteForm';
+import CommentFormList from './CommentFormList';
 
 class Event extends Component {
 
@@ -34,10 +38,10 @@ class Event extends Component {
   toggleAttendance = (actionType) => {
     let { dispatch, user, event } = this.props;
     if(actionType === 'ATTEND') {
-      dispatch(addAttendee(user._id, event._id));
+      dispatch(eventArrayUpdate( user._id, event._id, 'ATTEND'));
     } else if (actionType === 'UNATTEND') {
       let filteredAttendees = event.attendeeIds.filter( id => id !== user._id);
-      dispatch(removeAttendee(filteredAttendees, event._id));
+      dispatch(eventArrayUpdate(filteredAttendees, event._id, 'UNATTEND'));
     }
   }
 
@@ -66,7 +70,7 @@ class Event extends Component {
   }
 
   render() {
-    let { eventName, organizer, date, location, category, description, _id } = this.props.event;
+    let { eventName, organizer, date, location, category, description, _id, comments } = this.props.event;
     let { edit, share } = this.state;
     let eventToUpdate = this.props.event;
     let dateDisplay = date.slice(0, 10);
@@ -98,36 +102,27 @@ class Event extends Component {
           <div>
             { isOrganizer &&
               <span>
-              <Icon
-                name='edit'
-                size='large'
-                onClick={ this.toggleEdit }
-              />
-              <Icon
-                name='remove'
-                size='large'
-                onClick={ () => this.handleDelete(_id) }
-              />
+              <Icon name='edit' size='large' onClick={ this.toggleEdit } />
+              <Icon name='remove' size='large' onClick={ () => this.handleDelete(_id) } />
             </span>
             }
-            <Icon
-              name='external share'
-              size='large'
-              onClick={ this.shareEvent }
-            />
+            <Icon name='external share' size='large' onClick={ this.shareEvent } />
           </div>
         </div>
       }
       { share ?
         <div>
-          <InviteForm
-            event={ this.props.event }
-            shareEvent={ this.shareEvent }/>
+          <InviteForm event={ this.props.event } shareEvent={ this.shareEvent }/>
         </div>
         :
         <div>
         </div>
       }
+      <CommentFormList
+        eventId={ _id }
+        existingComments={ comments }
+        username={this.props.user.username}
+      />
       </div>
 
     )

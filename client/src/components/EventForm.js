@@ -48,25 +48,27 @@ class EventForm extends Component {
       <div>
         <Header as="h2">{username}</Header>
         <Form onSubmit={ this.submitNewEvent }>
-          <Form.Field>
+          <Form.Field required>
             <label>Event Name:</label>
             <input
               id='eventName'
               value={eventName}
               type="text"
               onChange={this.handleEventChange}
+              required
             />
           </Form.Field>
-          <Form.Field>
+          <Form.Field required>
             <label>Date:</label>
             <input
               id='date'
               value={date}
               type="date"
               onChange={this.handleEventChange}
+              required
             />
           </Form.Field>
-          <Form.Field>
+          <Form.Field >
             <label>Location:</label>
             <input
               id='location'
@@ -84,6 +86,7 @@ class EventForm extends Component {
             }}
             id='category'
             options = {categoryOptions}
+            required
           />
           <Form.Field>
             <Form.TextArea
