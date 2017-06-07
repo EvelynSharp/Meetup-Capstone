@@ -66,7 +66,7 @@ class Event extends Component {
   }
 
   render() {
-    let { eventName, organizer, date, location, description, _id } = this.props.event;
+    let { eventName, organizer, date, location, category, description, _id } = this.props.event;
     let { edit, share } = this.state;
     let eventToUpdate = this.props.event;
     let dateDisplay = date.slice(0, 10);
@@ -92,6 +92,7 @@ class Event extends Component {
           <Header as="h6">{ organizer }</Header>
           <Header as="h4">{ dateDisplay }</Header>
           <Header as="h4">{ location }</Header>
+          <Header as="h4">{ category }</Header>
           <p> { description } </p>
           { this.displayAttendOption(isOrganizer) }
           <div>

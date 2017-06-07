@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Header, Form, Button } from 'semantic-ui-react';
+import { Header, Form, Button, Select } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { addEvent, updateEvent } from '../actions/events';
+import { categoryOptions } from '../categoryOptions';
 
 class EventForm extends Component {
-  defaultData = { eventName: '', organizer: '', date: '', location: '', description: '', attendeeIds: [], updateEvent: false }
+  defaultData = { eventName: '', organizer: '', date: '', location: '', category: '', description: '', attendeeIds: [], updateEvent: false }
 
   state={  ...this.defaultData  }
 
@@ -42,7 +43,7 @@ class EventForm extends Component {
 
   render() {
     let { username } = this.props;
-    let { eventName, date, location, description } = this.state;
+    let { eventName, date, location, category, description } = this.state;
     return(
       <div>
         <Header as="h2">{username}</Header>
@@ -66,7 +67,7 @@ class EventForm extends Component {
             />
           </Form.Field>
           <Form.Field>
-            <label>location:</label>
+            <label>Location:</label>
             <input
               id='location'
               value={location}
@@ -74,9 +75,19 @@ class EventForm extends Component {
               onChange={this.handleEventChange}
             />
           </Form.Field>
+          <Form.Field
+            control={Select}
+            label="Category: "
+            value={category}
+            onChange={ (e, data) => {
+              this.setState({ category: data.value })
+            }}
+            id='category'
+            options = {categoryOptions}
+          />
           <Form.Field>
             <Form.TextArea
-              label="description:"
+              label="Description:"
               id='description'
               value={description}
               type="text"
