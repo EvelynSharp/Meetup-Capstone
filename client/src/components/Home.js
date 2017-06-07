@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Header, List} from 'semantic-ui-react';
+import { Header } from 'semantic-ui-react';
 import { getEvents } from '../actions/events';
-import { Link } from 'react-router-dom';
-import EventList from './EventList';
+import EventCards from './EventCards';
 
-
+//<EventList events={events}/>
 class Home extends Component {
 
   componentDidMount = () => {
     this.props.dispatch(getEvents());
   }
+
 
   render(){
     let { events, username } = this.props;
@@ -20,7 +20,7 @@ class Home extends Component {
         <Header as="h3">
           { username ? `Welcome ${username}` : 'Welcome please sign in' }
         </Header>
-        <EventList events={events}/>
+        <EventCards events={events} />
       </div>
     )
   }

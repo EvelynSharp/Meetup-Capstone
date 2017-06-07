@@ -13,14 +13,17 @@ const EventList = ({ events }) => (
 const displayEvents = ( events ) => {
   return events.map( (event, index) => {
     return(
-      <List.Item key={index} >
-        <List.Content>
-          <List.Header>
-            <Link to={`/event/${event._id}`}>
-              { event.eventName }
-            </Link>
-          </List.Header>
-        </List.Content>
+      <List.Item key={index} className="listItem">
+          <List.Content>
+            <List.Header>
+              <Link className='eventListHeader' to={`/event/${event._id}`}>
+                { event.eventName }
+              </Link>
+            </List.Header>
+            { event.date }
+            <br />
+            { event.location }
+          </List.Content>
       </List.Item>
     )
   })

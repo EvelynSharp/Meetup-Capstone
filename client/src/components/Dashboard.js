@@ -41,7 +41,7 @@ class Dashboard extends Component {
     let { activeItem } = this.state;
     return(
       <Grid>
-        <Grid.Column stretch width={4}>
+        <Grid.Column width={4}>
           <Header as="h3">MY ACCOUNT</Header>
           <Menu fluid vertical tabular>
             <Menu.Item

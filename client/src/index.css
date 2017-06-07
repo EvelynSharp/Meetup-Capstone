@@ -22,3 +22,11 @@ orange: #f7a64a  / rgb(247, 166, 74)
 .rightMenu {
   color: #133070;
 }
+
+.eventListHeader {
+  color: #133070;
+}
+
+.listItem {
+  border-color: #f7a64a
+}
