@@ -30,7 +30,7 @@ const displayEventCards = ( events, user, history ) => {
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
-          <Icon name='external share' size="large" />
+          <a><Icon name='external share' size="large" /></a>
           { checkUser(event, user, history) }
         </Card.Content>
       </Card>
@@ -43,7 +43,7 @@ const checkUser = (event, user, history) => {
   if(Object.keys(user).length === 0) {
     return (
       <span>
-        <Modal size="small" trigger={<Icon name='eye' size="large" />}>
+        <Modal size="small" trigger={<a><Icon name='eye' size="large" /></a>}>
           <Modal.Header>View This Event</Modal.Header>
           <Modal.Content>
             <div>Log in or sign up to view the event you are interested in.</div>
@@ -59,7 +59,7 @@ const checkUser = (event, user, history) => {
       </span>
     )
   } else {
-    return <Icon name='eye' size="large" onClick={ () => history.push(`/event/${event._id}`)}/>
+    return <a><Icon name='eye' size="large" onClick={ () => history.push(`/event/${event._id}`)}/></a>
   }
 }
 
