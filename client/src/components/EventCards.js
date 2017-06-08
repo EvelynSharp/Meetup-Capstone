@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Card, Icon, Image, Modal, Button } from 'semantic-ui-react';
+import { Card, Icon, Image, Modal, Button, Menu } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 
 
@@ -16,7 +16,7 @@ const displayEventCards = ( events, user, history ) => {
     return(
       <Card key={index}>
         <Image src='#'/>
-        <Card.Content>
+        <Card.Content >
           <Card.Header>
             <Link className='eventListHeader' to={`/event/${event._id}`}>
               { event.eventName }
@@ -30,8 +30,17 @@ const displayEventCards = ( events, user, history ) => {
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
-          <a><Icon name='external share' size="large" /></a>
-          { checkUser(event, user, history) }
+          <Menu secondary>
+            <Menu.Item key={`${index} tag`}>
+              { `#${event.category}` }
+            </Menu.Item>
+            <Menu.Menu position="right" >
+              <Menu.Item as='a' key={`${index} share`} >
+                <Icon name='external share' size="large" />
+              </Menu.Item>
+              { checkUser(event, user, history, index) }
+            </Menu.Menu>
+          </Menu>
         </Card.Content>
       </Card>
 
@@ -39,11 +48,11 @@ const displayEventCards = ( events, user, history ) => {
   })
 }
 
-const checkUser = (event, user, history) => {
+const checkUser = (event, user, history, index) => {
   if(Object.keys(user).length === 0) {
     return (
-      <span>
-        <Modal size="small" trigger={<a><Icon name='eye' size="large" /></a>}>
+      <Menu.Item as='a' key={`${index} view`}>
+        <Modal size="small" trigger={<Icon name='eye' size="large" />}>
           <Modal.Header>View This Event</Modal.Header>
           <Modal.Content>
             <div>Log in or sign up to view the event you are interested in.</div>
@@ -56,10 +65,14 @@ const checkUser = (event, user, history) => {
             </div>
           </Modal.Content>
         </Modal>
-      </span>
+      </Menu.Item>
     )
   } else {
-    return <a><Icon name='eye' size="large" onClick={ () => history.push(`/event/${event._id}`)}/></a>
+    return(
+      <Menu.Item as='a' key={`${index} view`} onClick={ () => history.push(`/event/${event._id}`)}>
+        <Icon name='eye' size="large" />
+      </Menu.Item>
+    )
   }
 }
 
