@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  let { eventName, organizer, date, location, category, description, attendeeIds } = req.body;
+  let { eventName, organizer, date, location, category, description, attendeeIds, imageUrl } = req.body;
   new Event ({
     eventName,
     organizer,
@@ -17,7 +17,8 @@ router.post('/', (req, res) => {
     location,
     category,
     description,
-    attendeeIds
+    attendeeIds,
+    imageUrl
   }).save( (err, newEvent) => {
     if(err)
       return res.json();

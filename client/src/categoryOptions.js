@@ -26,11 +26,6 @@ export const categoryOptions = [
     value: 'Music & Arts',
   },
   {
-    key: 'Charity',
-    text: 'Charity',
-    value: 'Charity',
-  },
-  {
     key: 'Food & Drink',
     text: 'Food & Drink',
     value: 'Food & Drink',

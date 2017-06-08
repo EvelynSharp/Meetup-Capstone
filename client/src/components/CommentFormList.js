@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button, List, Icon } from 'semantic-ui-react';
+import { Form, Button, List, Icon, Image } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { eventArrayUpdate } from '../actions/events';
 
@@ -9,8 +9,9 @@ class CommentFormList extends Component {
   handleCommentSubmit = (e) => {
     e.preventDefault();
     let { currentComment } = this.state;
-    let { dispatch, eventId, username } = this.props;
-    let commentContent = {username, userComment: currentComment};
+    let { dispatch, eventId } = this.props;
+    let { username, avatarUrl } = this.props.user;
+    let commentContent = {username, avatarUrl, userComment: currentComment};
     dispatch(eventArrayUpdate( commentContent, eventId, 'ADD_COMMENT' ));
     this.setState({ currentComment: '' });
   }
@@ -23,10 +24,12 @@ class CommentFormList extends Component {
   }
 
   displayComments = () => {
-    let { existingComments, username } = this.props;
+    let { existingComments } = this.props;
+    let { username } = this.props.user;
     return existingComments.map( (comment, index) => {
       return(
         <List.Item key={index}>
+          <Image avatar src={comment.avatarUrl} />
           <List.Content>
             <List.Header>
               { comment.username }

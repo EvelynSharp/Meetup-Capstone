@@ -10,7 +10,8 @@ const Event = new Schema({
   category: { type: String, required: true},
   description: { type: String },
   attendeeIds: { type: Array },
-  comments: { type: Array, default: [] }
+  comments: { type: Array, default: [] },
+  imageUrl: { type: String }
 });
 
 

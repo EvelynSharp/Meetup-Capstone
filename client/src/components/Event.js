@@ -121,7 +121,7 @@ class Event extends Component {
       <CommentFormList
         eventId={ _id }
         existingComments={ comments }
-        username={this.props.user.username}
+        user={this.props.user}
       />
       </div>
 

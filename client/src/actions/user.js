@@ -11,7 +11,7 @@ const currentUser = (user = {}) => {
   return { type: 'USER', user }
 }
 
-export const authenticate = (email, password, title, history) => {
+export const authenticate = (email, password, avatarUrl, title, history) => {
   return (dispatch) => {
     let endpoint = title === 'Register' ? 'signup' : 'signin';
     fetch(`/api/auth/${endpoint}`, {
@@ -21,7 +21,7 @@ export const authenticate = (email, password, title, history) => {
       },
       credentials: 'include',
       method: 'POST',
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ email, password, avatarUrl })
    }).then( res => res.json() )
      .then( user => {
        if(user.username) {
