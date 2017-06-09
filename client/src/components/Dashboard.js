@@ -17,7 +17,7 @@ class Dashboard extends Component {
   displayDashbord = () => {
     let { activeItem } = this.state;
     let { username, _id, role } = this.props.user;
-    let { events } = this.props;
+    let { events, history } = this.props;
     if(activeItem === 'Account Details') {
       return (
         <div>
@@ -30,7 +30,7 @@ class Dashboard extends Component {
       let userEvents = events.filter( event => event.attendeeIds.includes(_id));
       return (
         <div>
-            <EventList events={userEvents}/>
+            <EventList events={userEvents} history={history}/>
         </div>
       )
     }

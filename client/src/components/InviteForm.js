@@ -17,7 +17,7 @@ class InviteForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     let {emailAddress, email} = this.state;
-    if(emailAddress!="")
+    if(emailAddress!== "")
       this.props.shareEvent(emailAddress, email);
   }
   handleChange = (e) => {

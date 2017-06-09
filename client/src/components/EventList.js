@@ -1,33 +1,34 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { List} from 'semantic-ui-react';
 
 
-
-const EventList = ({ events }) => (
+const EventList = ({ events, history }) => (
   <List selection verticalAlign='middle'>
-    { displayEvents(events) }
+    { displayEvents(events, history) }
   </List>
 );
 
-const displayEvents = ( events ) => {
+const displayEvents = ( events, history ) => {
   let sortedEvents = events.sort((a,b) => {
     return new Date(a.date) - new Date(b.date);
   });
   return sortedEvents.map( (event, index) => {
     return(
-      <List.Item key={index} className="listItem">
+      <List.Item
+        key={index}
+        className="listItem"
+        onClick={() => history.push(`/event/${event._id}`)}
+      >
           <List.Content>
             <List.Header>
-              <Link className='eventListHeader' to={`/event/${event._id}`}>
-                { event.eventName }
-              </Link>
+              { event.eventName }
             </List.Header>
             { event.date }
             <br />
             { event.location }
           </List.Content>
       </List.Item>
+
     )
   })
 }

@@ -33,8 +33,11 @@ router.post('/signin', (req, res) => {
  let { email, password } = req.body
  User.findOne({ username: req.body.email}, (err, user) => {
    user.authenticate(req.body.password, (err, user, passwordErr) => {
-     if (err)
+     if (err){
+       console.log(res.json(500, 'User not found'));
+       console.log(err);
        return res.json(500, 'User not found');
+     }
      if (passwordErr)
        return res.json(500, passwordErr.message)
      req.logIn(user, (err) => {

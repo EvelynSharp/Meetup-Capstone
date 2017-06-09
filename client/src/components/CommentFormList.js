@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button, List, Icon, Image, Comment } from 'semantic-ui-react';
+import { Form, Button, Comment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { eventArrayUpdate } from '../actions/events';
 
