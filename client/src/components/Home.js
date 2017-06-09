@@ -41,7 +41,6 @@ class Home extends Component {
               options={categoryOptions}
               onChange={(e, data) => this.setState({filter: data.value}) }
               width={4}
-              float='right'
             />
           </Menu.Item>
         </Menu>

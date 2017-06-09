@@ -57,7 +57,7 @@ class Dashboard extends Component {
           </Menu>
         </Grid.Column>
 
-        <Grid.Column stretch width={12}>
+        <Grid.Column  width={12}>
           <Segment>
             { this.displayDashbord() }
           </Segment>
