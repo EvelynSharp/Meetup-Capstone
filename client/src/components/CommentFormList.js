@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button, List, Icon, Image } from 'semantic-ui-react';
+import { Form, Button, List, Icon, Image, Comment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { eventArrayUpdate } from '../actions/events';
 
@@ -26,30 +26,26 @@ class CommentFormList extends Component {
   displayComments = () => {
     let { existingComments } = this.props;
     let { username } = this.props.user;
-    return existingComments.map( (comment, index) => {
+    return existingComments.map( (c, index) => {
       return(
-        <List.Item key={index}>
-          <Image avatar src={comment.avatarUrl} />
-          <List.Content floated='right'>
-          { username === comment.username &&
-            <span>
-            <Icon
-              name='remove'
-              size='large'
-              onClick={ () => this.commentDeletion(index) }
-              floated='right'
-            />
-            </span>
-          }
-          </List.Content>
-          <List.Content>
-            <List.Header>
-              { comment.username }
-            </List.Header>
-              { comment.userComment }
-          </List.Content>
-
-        </List.Item>
+        <Comment key={index}>
+          <Comment.Avatar src={c.avatarUrl} />
+          <Comment.Content>
+            <Comment.Author as='a'> { c.username } </Comment.Author>
+            <Comment.Metadata>
+              <div> Updated At: </div>
+            </Comment.Metadata>
+            <Comment.Text> { c.userComment } </Comment.Text>
+            <Comment.Actions>
+              <Comment.Action>Reply</Comment.Action>
+              { username === c.username &&
+                <Comment.Action
+                  onClick={ () => this.commentDeletion(index) }
+                >Delete</Comment.Action>
+              }
+            </Comment.Actions>
+          </Comment.Content>
+        </Comment>
       )
     })
   }
@@ -68,9 +64,9 @@ class CommentFormList extends Component {
           />
           <Button primary>Add A Comment</Button>
         </Form>
-        <List verticalAlign='middle' relaxed='very' celled size='large'>
+        <Comment.Group>
           { this.displayComments() }
-        </List>
+        </Comment.Group>
       </div>
     )
   }
