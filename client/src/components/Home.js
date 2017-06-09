@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Header, Dropdown } from 'semantic-ui-react';
+import { Header, Dropdown, Button, Menu, Input } from 'semantic-ui-react';
 import { getEvents } from '../actions/events';
 import EventCards from './EventCards';
 import { categoryOptions } from '../categoryOptions';
+
 
 //<EventList events={events}/>
 class Home extends Component {
@@ -27,12 +28,24 @@ class Home extends Component {
         <Header as="h3">
           { username ? `Welcome ${username}` : 'Welcome please sign in' }
         </Header>
-        <Dropdown
-          id='ddFilter'
-          selection
-          options={categoryOptions}
-          onChange={(e, data) => this.setState({filter: data.value}) }
-        />
+        <Menu className='homesearch'>
+          <Menu.Item className='homesearch'>
+            <Input icon='search' width={4} className='searchBar'/>
+            <Button primary width={3}>Search</Button>
+          </Menu.Item>
+          <Menu.Item position='right' className='homesearch'>
+            Filter By Category:
+            <Dropdown
+              id='ddFilter'
+              selection
+              options={categoryOptions}
+              onChange={(e, data) => this.setState({filter: data.value}) }
+              width={4}
+              float='right'
+            />
+          </Menu.Item>
+        </Menu>
+
         <EventCards events={sortedEvents} history={this.props.history} />
       </div>
     )

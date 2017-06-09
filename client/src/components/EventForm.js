@@ -99,10 +99,11 @@ class EventForm extends Component {
     let { eventName, date, location, category, description, categoryCheck } = this.state;
 
     return(
-      <div>
-        <Header as="h2">{username}</Header>
+      <div className='formContainer'>
+        <Header as="h2" className="eventFormHeader">Please Provide Event Details: </Header>
+        <Header as="h4">{`Organizer: ${username}`}</Header>
         <Form onSubmit={ this.submitNewEvent } error>
-          <Form.Field required>
+          <Form.Field required width={7}>
             <label>Event Name:</label>
             <input
               id='eventName'
@@ -112,17 +113,7 @@ class EventForm extends Component {
               required
             />
           </Form.Field>
-          <Form.Field required>
-            <label>Date:</label>
-            <input
-              id='date'
-              value={date}
-              type="date"
-              onChange={this.handleEventChange}
-              required
-            />
-          </Form.Field>
-          <Form.Field >
+          <Form.Field width={7}>
             <label>Location:</label>
             <input
               id='location'
@@ -131,8 +122,8 @@ class EventForm extends Component {
               onChange={this.handleEventChange}
             />
           </Form.Field>
-
           <Form.Field
+            width={4}
             control={Select}
             label="Category: "
             value={category}
@@ -149,6 +140,17 @@ class EventForm extends Component {
               content='Please fill out this field.'
             />
           }
+          <Form.Field required width={4}>
+            <label>Date:</label>
+            <input
+              id='date'
+              value={date}
+              type="date"
+              onChange={this.handleEventChange}
+              required
+            />
+          </Form.Field>
+
           <Form.Field>
             <Form.TextArea
               label="Description:"

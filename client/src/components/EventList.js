@@ -1,11 +1,11 @@
 import React from 'react';
-import { List} from 'semantic-ui-react';
+import { Item } from 'semantic-ui-react';
 
 
 const EventList = ({ events, history }) => (
-  <List selection verticalAlign='middle'>
+  <Item.Group relaxed='very' divided>
     { displayEvents(events, history) }
-  </List>
+  </Item.Group>
 );
 
 const displayEvents = ( events, history ) => {
@@ -14,21 +14,19 @@ const displayEvents = ( events, history ) => {
   });
   return sortedEvents.map( (event, index) => {
     return(
-      <List.Item
-        key={index}
-        className="listItem"
-        onClick={() => history.push(`/event/${event._id}`)}
-      >
-          <List.Content>
-            <List.Header>
-              { event.eventName }
-            </List.Header>
-            { event.date }
-            <br />
-            { event.location }
-          </List.Content>
-      </List.Item>
-
+        <Item
+          key={index}
+          className="listItem"
+          onClick={() => history.push(`/event/${event._id}`)}
+        >
+          <Item.Image size='small' src={event.imageUrl} />
+          <Item.Content>
+            <Item.Meta>{ event.date }</Item.Meta>
+            <Item.Header> { event.eventName } </Item.Header>
+            <Item.Description>{ event.location }</Item.Description>
+            <Item.Extra> {`#${ event.category }`}</Item.Extra>
+          </Item.Content>
+        </Item>
     )
   })
 }

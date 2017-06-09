@@ -8,7 +8,18 @@ body {
 blue: #0e2049  / rgb(14, 32, 73)
 orange: #f7a64a  / rgb(247, 166, 74)
 */
+.searchBar {
+  margin-right: 1em !important;
+}
 
+.eventFormHeader {
+  color: #133070 !important;
+  margin-top: 1.5em !important;
+}
+.formContainer{
+  margin-left: 3em;
+  margin-right: 3em;
+}
 .logo {
   color: #f7a64a;
   font-weight: bold;
