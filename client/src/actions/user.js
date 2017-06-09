@@ -24,17 +24,17 @@ export const authenticate = (email, password, avatarUrl, title, history) => {
       body: JSON.stringify({ email, password, avatarUrl })
    }).then( res => res.json() )
      .then( user => {
-       if(user)
         if(user.username) {
-          dispatch(currentUser(user))
-          history.push('/dashboard')
+          dispatch(currentUser(user));
+          history.push('/dashboard');
         } else {
           if(endpoint==="signup"){
-            alert("username already exists");
+            dispatch({ type: 'USER_ERROR', userError: 'dupedUser' });
           } else {
-            alert("wrong password, please try again");
+            dispatch({ type: 'USER_ERROR', userError: 'wrongPW' });
           }
-      }}
+        }
+      }
     )
   }}
 

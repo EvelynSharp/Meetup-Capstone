@@ -5,7 +5,14 @@ import { connect } from 'react-redux';
 import { avatarOptions } from '../avatarOptions';
 
 class Auth extends React.Component {
-  defaults = { email: '', password: '', avatarUrl: '', avatarCheck: true, passwordValidation: '' }
+  defaults = {
+                email: '',
+                password: '',
+                avatarUrl: '',
+                avatarCheck: true,
+                passwordValidation: '',
+                passwordCheck: true,
+              }
   state = { ...this.defaults }
 
   componentDidMount = () => {
@@ -14,25 +21,39 @@ class Auth extends React.Component {
 
   handleChange = (e) => {
     let { target: { id, value }} = e;
-    this.setState({ [id]: value });
+    if (id === 'passwordValidation') {
+      this.setState({ passwordCheck: true });
+    }
+
+    this.setState({ [id]: value }, () => {
+      if (id === 'email' || id === 'password') {
+        this.props.dispatch({ type: 'RESET_USER_ERROR'});
+      }
+    });
   }
+
 
   handleSubmit = (e) => {
     e.preventDefault();
     let { title, history, dispatch } = this.props;
     let { email, password, avatarUrl, passwordValidation } = this.state;
-    if ( title === 'Register' && avatarUrl === '') {
-      this.setState({ avatarCheck: false });
-    } else if ( title ==='Register' && password !== passwordValidation) {
-      alert("Passwords must match");
+    if ( title === 'Register') {
+      if (avatarUrl === '' || password !== passwordValidation) {
+        if (avatarUrl === '')
+          this.setState({ avatarCheck: false });
+        if (password !== passwordValidation)
+          this.setState({ passwordCheck: false });
+      } else {
+        dispatch(authenticate(email, password, avatarUrl, title, history));
+      }
     } else {
-      dispatch(authenticate(email, password, avatarUrl, title, history));
+        dispatch(authenticate(email, password, avatarUrl, title, history));
     }
   }
 
   render() {
     let { title } = this.props;
-    let { email, password, avatarCheck, passwordValidation } = this.state;
+    let { email, password, avatarCheck, passwordValidation, passwordCheck} = this.state;
     return (
       <div>
         <Header as="h3">{title}</Header>
@@ -45,6 +66,18 @@ class Auth extends React.Component {
             onChange={this.handleChange}
             value={email}
           />
+          { title=== 'Register' && this.props.userError === 'dupedUser' &&
+            <Message
+              error
+              content='User already exist.'
+            />
+          }
+          { title=== 'Login' && this.props.userError === 'NotAUser' &&
+            <Message
+              error
+              content='User does not exist.'
+            />
+          }
           <Form.Input
             id="password"
             label="Password:"
@@ -53,15 +86,29 @@ class Auth extends React.Component {
             onChange={this.handleChange}
             value={password}
           />
-          { title=== 'Register' &&
-            <Form.Input
-              id="passwordValidation"
-              label="Re-enter Password:"
-              required
-              type="password"
-              onChange={this.handleChange}
-              value={passwordValidation}
+          { title=== 'Login' && this.props.userError === 'wrongPW' &&
+            <Message
+              error
+              content='Password entered is incorrect.'
             />
+          }
+          { title=== 'Register' &&
+            <Form.Field>
+              <Form.Input
+                id="passwordValidation"
+                label="Re-enter Password:"
+                required
+                type="password"
+                onChange={this.handleChange}
+                value={passwordValidation}
+              />
+              { !passwordCheck &&
+                <Message
+                  error
+                  content='Password entries need to be the same.'
+                />
+              }
+            </Form.Field>
           }
           { title === 'Register' &&
 
@@ -91,4 +138,8 @@ class Auth extends React.Component {
   }
 }
 
-export default connect()(Auth);
+const mapStateToProps = (state) => {
+  return { userError: state.userError }
+}
+
+export default connect(mapStateToProps)(Auth);
