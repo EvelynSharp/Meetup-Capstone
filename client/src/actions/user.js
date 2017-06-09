@@ -24,13 +24,19 @@ export const authenticate = (email, password, avatarUrl, title, history) => {
       body: JSON.stringify({ email, password, avatarUrl })
    }).then( res => res.json() )
      .then( user => {
-       if(user.username) {
-         dispatch(currentUser(user))
-         history.push('/dashboard')
-       }
-     })
-  }
-}
+       if(user)
+        if(user.username) {
+          dispatch(currentUser(user))
+          history.push('/dashboard')
+        } else {
+          if(endpoint==="signup"){
+            alert("username already exists");
+          } else {
+            alert("wrong password, please try again");
+          }
+      }}
+    )
+  }}
 
 export const tryFetchUser = (cb) => {
   return (dispatch) => {

@@ -1,5 +1,8 @@
 import React from 'react';
-import { Container, Header, Grid, Icon, Card, Segment } from 'semantic-ui-react';
+import { Container, Header, Grid, Icon, Card, Segment, Image } from 'semantic-ui-react';
+import  JoeyImage from '../images/JoeyImage.jpg';
+import  KamityImage from '../images/KamityImage.jpg';
+import avatar1 from '../images/avatar1.jpg';
 
 const About = () => (
 
@@ -138,6 +141,119 @@ const About = () => (
     </Grid.Column>
   </Grid.Row>
 </Grid>
+
+<Segment raised>
+  <Header as='h1' textAlign="center" color="blue">Who are we?</Header>
+  <Header as='h3' textAlign="center">We learned to code at DevPoint Labs coding boot camp.</Header>
+</Segment>
+
+<Grid divided='vertically'>
+ <Grid.Row columns={3}>
+   <Grid.Column>
+   <Card>
+     <Image src={KamityImage} />
+     <Card.Content>
+       <Card.Header>
+         Kami Dewey
+       </Card.Header>
+       <Card.Meta>
+         <span>
+           30 years old
+         </span>
+       </Card.Meta>
+       <Card.Description>
+         Kami is from Seattle, WA.
+       </Card.Description>
+       <Card.Content>
+        <Grid divided='vertically'>
+          <Grid.Row columns={3}>
+            <Grid.Column>
+              <Icon fitted color='blue' name='github' size='huge'/>
+            </Grid.Column>
+            <Grid.Column>
+              <Icon fitted color='blue' name='facebook square' size='huge'/>
+            </Grid.Column>
+            <Grid.Column>
+              <Icon fitted color='blue' name='linkedin' size='huge'/>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+       </Card.Content>
+     </Card.Content>
+   </Card>
+   </Grid.Column>
+
+   <Grid.Column>
+   <Card>
+     <Image src={JoeyImage} />
+     <Card.Content>
+       <Card.Header>
+         Evelyn Sharp
+       </Card.Header>
+       <Card.Meta>
+         <span>
+           27 years old
+         </span>
+       </Card.Meta>
+       <Card.Description>
+         Evelyn is from China.
+       </Card.Description>
+       <Card.Content>
+        <Grid divided='vertically'>
+          <Grid.Row columns={3}>
+            <Grid.Column>
+              <Icon fitted color='blue' name='github' size='huge'/>
+            </Grid.Column>
+            <Grid.Column>
+              <Icon fitted color='blue' name='facebook square' size='huge'/>
+            </Grid.Column>
+            <Grid.Column>
+              <Icon fitted color='blue' name='linkedin' size='huge'/>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+       </Card.Content>
+     </Card.Content>
+   </Card>
+   </Grid.Column>
+
+   <Grid.Column>
+     <Card>
+       <Image src={JoeyImage} />
+       <Card.Content>
+         <Card.Header>
+           Joey Schrader
+         </Card.Header>
+         <Card.Meta>
+           <span>
+             28 years old
+           </span>
+         </Card.Meta>
+         <Card.Description>
+           Joey is from Riverton, UT.
+         </Card.Description>
+         <Card.Content>
+          <Grid divided='vertically'>
+            <Grid.Row columns={3}>
+              <Grid.Column>
+                <Icon fitted color='blue' name='github' size='huge'/>
+              </Grid.Column>
+              <Grid.Column>
+                <Icon fitted color='blue' name='facebook square' size='huge'/>
+              </Grid.Column>
+              <Grid.Column>
+                <Icon fitted color='blue' name='linkedin' size='huge'/>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+         </Card.Content>
+       </Card.Content>
+     </Card>
+   </Grid.Column>
+ </Grid.Row>
+</Grid>
+
+
  </Container>
 )
 

@@ -30,20 +30,25 @@ class CommentFormList extends Component {
       return(
         <List.Item key={index}>
           <Image avatar src={comment.avatarUrl} />
+          <List.Content floated='right'>
+          { username === comment.username &&
+            <span>
+            <Icon
+              name='remove'
+              size='large'
+              onClick={ () => this.commentDeletion(index) }
+              floated='right'
+            />
+            </span>
+          }
+          </List.Content>
           <List.Content>
             <List.Header>
               { comment.username }
             </List.Header>
               { comment.userComment }
-              { username === comment.username &&
-                <span>
-                <Icon
-                  name='remove'
-                  size='large'
-                  onClick={ () => this.commentDeletion(index) } />
-                </span>
-              }
           </List.Content>
+
         </List.Item>
       )
     })
@@ -63,7 +68,7 @@ class CommentFormList extends Component {
           />
           <Button primary>Add A Comment</Button>
         </Form>
-        <List verticalAlign='middle'>
+        <List verticalAlign='middle' relaxed='very' celled size='large'>
           { this.displayComments() }
         </List>
       </div>

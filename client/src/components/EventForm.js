@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Form, Button, Select } from 'semantic-ui-react';
+import { Header, Form, Button, Select, Message } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { addEvent, updateEvent } from '../actions/events';
 import { categoryOptions } from '../categoryOptions';
@@ -24,7 +24,7 @@ import  Sports3 from '../images/Sports3.jpg';
 
 
 class EventForm extends Component {
-  defaultData = { eventName: '', organizer: '', date: '', location: '', category: '', description: '', attendeeIds: [], imageUrl:'', updateEvent: false }
+  defaultData = { eventName: '', organizer: '', date: '', location: '', category: '', description: '', attendeeIds: [], imageUrl:'', updateEvent: false, categoryCheck: true }
 
   state={  ...this.defaultData  }
 
@@ -57,14 +57,18 @@ class EventForm extends Component {
     let imageIndex = Math.floor((Math.random()*3));
     let imageDisplay = this.decideImage(this.state.category, imageIndex);
     if (!this.state.updateEvent) {
-      this.setState(
-        { organizer: username, attendeeIds: [ _id ], imageUrl: imageDisplay },
-        () => {
-          let eventDetails = { ...this.state };
-          this.props.dispatch(addEvent(eventDetails));
-          this.setState({ ...this.defaultData });
-          history.push('/');
-        })
+      if (this.state.category === '') {
+        this.setState({ categoryCheck: false })
+      } else {
+        this.setState(
+          { organizer: username, attendeeIds: [ _id ], imageUrl: imageDisplay },
+          () => {
+            let eventDetails = { ...this.state };
+            this.props.dispatch(addEvent(eventDetails));
+            this.setState({ ...this.defaultData });
+            history.push('/');
+          })
+        }
       } else {
         let eventDetails = { ...this.state };
         this.props.dispatch(updateEvent(eventDetails));
@@ -92,11 +96,12 @@ class EventForm extends Component {
 
   render() {
     let { username } = this.props;
-    let { eventName, date, location, category, description } = this.state;
+    let { eventName, date, location, category, description, categoryCheck } = this.state;
+
     return(
       <div>
         <Header as="h2">{username}</Header>
-        <Form onSubmit={ this.submitNewEvent }>
+        <Form onSubmit={ this.submitNewEvent } error>
           <Form.Field required>
             <label>Event Name:</label>
             <input
@@ -126,17 +131,24 @@ class EventForm extends Component {
               onChange={this.handleEventChange}
             />
           </Form.Field>
+
           <Form.Field
             control={Select}
             label="Category: "
             value={category}
             onChange={ (e, data) => {
-              this.setState({ category: data.value })
+              this.setState({ category: data.value, categoryCheck: true })
             }}
             id='category'
             options = {categoryOptions}
             required
           />
+          { !categoryCheck &&
+            <Message
+              error
+              content='Please fill out this field.'
+            />
+          }
           <Form.Field>
             <Form.TextArea
               label="Description:"
