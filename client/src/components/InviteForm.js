@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
-import { Header, Form, Button } from 'semantic-ui-react';
+import { Header, Form, Button, Input } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-
 class InviteForm extends Component {
-  state={ email: ''}
-
+  state={ emailAddress: '', email: ''}
   componentDidMount(){
-    console.log(this.props.event);
     let email = this.composeText();
     this.setState({ email });
   }
-
   composeText = () => {
     let { organizer, eventName, location, date, _id } = this.props.event;
     let emailText = (organizer + " would like to invite you to " +
@@ -18,21 +14,32 @@ class InviteForm extends Component {
       "Click here to view event: http://localhost:3000/event/" + _id);
     return(emailText);
   }
-
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.shareEvent();
+    let {emailAddress, email} = this.state;
+    if(emailAddress!="")
+      this.props.shareEvent(emailAddress, email);
   }
-
-
+  handleChange = (e) => {
+    let { id, value } = e.target;
+    this.setState({ [id]: value });
+  }
   render(){
     let emailText = this.state.email;
     return(
       <div>
         <Form onSubmit={ this.handleSubmit }>
-          <Form.Field type='textArea' rows='10'>
-            <input value={emailText}>
+          <Form.Field>
+            <input
+              type='email'
+              id='emailAddress'
+              placeholder="enter recipient's email address"
+              onChange={this.handleChange}>
             </input>
+          </Form.Field>
+          <Form.Field>
+            <Input type='TextArea' id='emailText' value={emailText} onChange={this.handleChange}>
+            </Input>
           </Form.Field>
           <Form.Button>
             Submit
@@ -42,5 +49,4 @@ class InviteForm extends Component {
     )
   }
 }
-
 export default connect()(InviteForm);

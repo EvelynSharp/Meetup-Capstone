@@ -43,7 +43,7 @@ class EventCards extends Component {
         return(
           <Card key={index}>
             <Link className='eventListHeader' to={`/event/${event._id}`}>
-              <Image src={event.imageUrl}/>
+              <Image src={event.imageUrl} />
             </Link>
             <Card.Content >
               <Card.Header>

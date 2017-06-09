@@ -25,7 +25,8 @@ class Event extends Component {
     this.setState({ edit: !this.state.edit });
   }
 
-  shareEvent = () => {
+  shareEvent = (emailAddress, email) => {
+    console.log(email + " to " + emailAddress);
     this.setState({ share: !this.state.share });
   }
 
