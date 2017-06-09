@@ -1,8 +1,7 @@
 import React from 'react';
 import { Container, Header, Grid, Icon, Card, Segment, Image } from 'semantic-ui-react';
 import  JoeyImage from '../images/JoeyImage.jpg';
-import  KamityImage from '../images/KamityImage.jpg';
-import avatar1 from '../images/avatar1.jpg';
+import KamiImage from '../images/KamiImage.jpg';
 
 const About = () => (
 
@@ -151,7 +150,7 @@ const About = () => (
  <Grid.Row columns={3}>
    <Grid.Column>
    <Card>
-     <Image src={KamityImage} />
+     <Image src={KamiImage} height='300px' centered />
      <Card.Content>
        <Card.Header>
          Kami Dewey
@@ -185,7 +184,7 @@ const About = () => (
 
    <Grid.Column>
    <Card>
-     <Image src={JoeyImage} />
+     <Image src={JoeyImage} height='300px' centered/>
      <Card.Content>
        <Card.Header>
          Evelyn Sharp
@@ -219,7 +218,7 @@ const About = () => (
 
    <Grid.Column>
      <Card>
-       <Image src={JoeyImage} />
+       <Image src={JoeyImage} height='300px' centered/>
        <Card.Content>
          <Card.Header>
            Joey Schrader
