@@ -6,21 +6,24 @@ import { connect } from 'react-redux';
 
 class EventCards extends Component {
 
-
   checkUser = (event, user, history, index) => {
     if(Object.keys(user).length === 0) {
       return (
         <Menu.Item as='a' key={`${index} view`}>
-          <Modal size="small" trigger={<Icon name='eye' size="large" />}>
+          <Modal size="small" trigger={
+            <span data-tooltip="view event">
+              <Icon className='eye large red' />
+            </span>
+            }>
             <Modal.Header>View This Event</Modal.Header>
             <Modal.Content>
-              <div>Log in or sign up to view the event you are interested in.</div>
+              <div>Log in or sign up to view this event.</div>
               <Link to={'/register'}>
                 <Button primary>SIGN UP</Button>
               </Link>
               <div>
                 Already have an account?
-                <Link to={'/login'}>Log in</Link>
+                <Link to={'/login'}> Log in</Link>
               </div>
             </Modal.Content>
           </Modal>
@@ -29,7 +32,7 @@ class EventCards extends Component {
     } else {
       return(
         <Menu.Item as='a' key={`${index} view`} onClick={ () => history.push(`/event/${event._id}`)}>
-          <Icon name='eye' size="large" />
+          <span data-tooltip="View event"><Icon className='eye large blue'/></span>
         </Menu.Item>
       )
     }
@@ -42,7 +45,7 @@ class EventCards extends Component {
        { events.map( (event, index) => {
         return(
           <Card key={index}>
-            <Link className='eventListHeader' to={`/event/${event._id}`}>
+            <Link className='eventListHeader'  to={`/event/${event._id}`}>
               <Image src={event.imageUrl} />
             </Link>
             <Card.Content >
@@ -64,9 +67,6 @@ class EventCards extends Component {
                   { `#${event.category}` }
                 </Menu.Item>
                 <Menu.Menu position="right" >
-                  <Menu.Item as='a' key={`${index} share`} >
-                    <Icon name='external share' size="large" />
-                  </Menu.Item>
                   { this.checkUser(event, user, history, index) }
                 </Menu.Menu>
               </Menu>
