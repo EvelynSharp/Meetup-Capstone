@@ -23,7 +23,7 @@ class ImageDropzone extends Component {
              const user = JSON.parse(response.text);
              this.props.dispatch(currentUser(user))
            });
-    this.props.toggleUpdateImage();
+    this.props.resetUpdateImage();
   };
 
   render() {

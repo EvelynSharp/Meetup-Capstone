@@ -16,8 +16,12 @@ class Dashboard extends Component {
     this.props.dispatch(getEvents());
   }
 
-  toggleUpdateImage = () => {
-    this.setState({ updateImage: !this.state.updateImage });
+  setUpdateImage = () => {
+    this.setState({ updateImage: true });
+  }
+
+  resetUpdateImage = () => {
+    this.setState({ updateImage: false });
   }
 
   deleteProfileImage =() => {
@@ -33,13 +37,13 @@ class Dashboard extends Component {
     let profileImageDisplay;
     if(profileImage === '' || updateImage ) {
       profileImageDisplay = (
-        <ImageDropzone toggleUpdateImage={this.toggleUpdateImage} userid={_id}/>
+        <ImageDropzone resetUpdateImage={this.resetUpdateImage} userid={_id}/>
       )
     } else {
       profileImageDisplay = (
         <div>
           <Image src={profileImage} />
-          <Button onClick={this.toggleUpdateImage} primary>Update Photo</Button>
+          <Button onClick={this.setUpdateImage} primary>Update Photo</Button>
           <Button onClick={this.deleteProfileImage} secondary>Delete Photo</Button>
         </div>
       )
