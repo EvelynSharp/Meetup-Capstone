@@ -63,4 +63,4 @@ const mapStateToProps = (state) => {
   return { user: state.user }
 }
 
-export default connect()(ImageDropzone);
+export default connect(mapStateToProps)(ImageDropzone);

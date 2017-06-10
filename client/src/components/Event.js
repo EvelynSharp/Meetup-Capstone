@@ -42,7 +42,7 @@ class Event extends Component {
     return(
       <div>Attendees:
         {event.attendeeIds.map((attendee, index) => {
-          return(<div>{index}: {attendee}</div>)
+          return(<div key={index}>{index}: {attendee}</div>)
         })
         }
       </div>

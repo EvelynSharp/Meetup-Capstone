@@ -45,7 +45,12 @@ export const authenticate = (email, password, avatarUrl, title, history) => {
           if(endpoint==="signup"){
             dispatch({ type: 'USER_ERROR', userError: 'dupedUser' });
           } else {
-            dispatch({ type: 'USER_ERROR', userError: 'wrongPW' });
+            console.log(user)
+            if (user === 'User not found'){
+              dispatch({ type: 'USER_ERROR', userError: 'NotAUser' });
+            } else {
+              dispatch({ type: 'USER_ERROR', userError: 'wrongPW' });
+            }
           }
         }
       }
