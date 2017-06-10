@@ -12,13 +12,13 @@ const isAuthenticated = (req, res, next) => {
 
 //Helper function to whitelist attributes
 const userAttrs = (user) => {
-  const { _id, username, role, avatarUrl } = user;
-  return { _id, username, role, avatarUrl };
+  const { _id, username, role, avatarUrl, profileImage } = user;
+  return { _id, username, role, avatarUrl, profileImage };
 }
 
 router.post('/signup', (req, res) => {
   let { email, password, avatarUrl } = req.body;
-  User.register(new User({username: email, avatarUrl: avatarUrl}), password, (err, user) => {
+  User.register(new User({username: email, avatarUrl: avatarUrl, profileImage:''}), password, (err, user) => {
     if (err)
       return res.status(500).json(err);
     user.save( (err, user) => {

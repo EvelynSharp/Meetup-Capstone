@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Grid, Menu, Segment  } from 'semantic-ui-react';
+import { Header, Grid, Menu, Segment, Image, Button  } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { getEvents } from '../actions/events';
 import EventList from './EventList';
@@ -15,14 +15,32 @@ class Dashboard extends Component {
     this.props.dispatch(getEvents());
   }
 
+  updateProfileImage = () => {
+
+  }
+
+  deleteProfileImage =( ) => {
+    
+  }
+
   displayDashbord = () => {
     let { activeItem } = this.state;
-    let { username, _id, role } = this.props.user;
+    let { username, _id, role, profileImage } = this.props.user;
     let { events, history } = this.props;
+    console.log(profileImage)
     if(activeItem === 'Account Details') {
       return (
         <div>
-          <ImageDropzone />
+          { profileImage === '' ?
+              <ImageDropzone userid={_id}/>
+            :
+              <div>
+                <Image src={profileImage} />
+                <Button onClick={this.updateProfileImage} primary>Update Photo</Button>
+                <Button onClick={this.deleteProfileImage} secondary>Delete Photo</Button>
+              </div>
+          }
+
           <Header as="h2">{username}</Header>
           <Header as="h3">{_id}</Header>
           <Header as="h3">{role}</Header>

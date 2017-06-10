@@ -7,7 +7,7 @@ export const logout = () => {
   }
 }
 
-const currentUser = (user = {}) => {
+export const currentUser = (user = {}) => {
   return { type: 'USER', user }
 }
 
@@ -28,7 +28,7 @@ export const authenticate = (email, password, avatarUrl, title, history) => {
           dispatch(currentUser(user));
           history.push('/dashboard');
         } else {
-          if(endpoint==="signup"){            
+          if(endpoint==="signup"){
             dispatch({ type: 'USER_ERROR', userError: 'dupedUser' });
           } else {
             console.log(user);
