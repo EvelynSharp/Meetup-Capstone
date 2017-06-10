@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Header, Dropdown, Button, Menu, Input } from 'semantic-ui-react';
+import {  Dropdown, Button, Menu, Input } from 'semantic-ui-react';
 import { getEvents } from '../actions/events';
 import EventCards from './EventCards';
 import { categoryOptions } from '../categoryOptions';
@@ -17,7 +17,7 @@ class Home extends Component {
 
 
   render(){
-    let { events, username } = this.props;
+    let { events } = this.props;
     let { filter } = this.state;
     let filteredEvents = filter === '' ? events : events.filter( e => e.category === filter );
     let sortedEvents = filteredEvents.sort((a,b) => {
@@ -25,7 +25,7 @@ class Home extends Component {
     });
     return(
       <div>
-        
+
         <Menu className='homesearch'>
           <Menu.Item className='homesearch'>
             <Input icon='search' width={4} className='searchBar'/>

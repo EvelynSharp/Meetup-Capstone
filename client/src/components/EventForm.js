@@ -24,7 +24,7 @@ import  Sports3 from '../images/Sports3.jpg';
 
 
 class EventForm extends Component {
-  defaultData = { eventName: '', organizer: '', date: '', location: '', category: '', description: '', attendeeIds: [], imageUrl:'', updateEvent: false, categoryCheck: true }
+  defaultData = { eventName: '', organizer: '', date: '', location: 'current location', category: '', description: '', attendeeIds: [], imageUrl:'', updateEvent: false, categoryCheck: true }
 
   state={  ...this.defaultData  }
 
