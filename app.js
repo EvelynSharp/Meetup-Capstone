@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
@@ -17,6 +18,8 @@ const app = express();
 const auth = require('./routes/auth');
 //Event
 const events = require('./routes/events');
+//cloudinary
+const cloudinarys = require('./routes/cloudinarys');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -43,12 +46,13 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-
 //AUTH ROUTES
 app.use('/api/auth', auth);
-
 //EVENT routes
 app.use('/api/events', events);
+//cloudinary routes
+app.use('/api/cloudinarys', cloudinarys);
+
 
 app.get('*', (request, response) => {
   response.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
