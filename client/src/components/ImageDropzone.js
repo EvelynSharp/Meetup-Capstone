@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import { Button } from 'semantic-ui-react';
+import request from 'superagent';
+import { connect } from 'react-redux'
+import { currentUser } from '../actions/user'
 
 class ImageDropzone extends Component {
   constructor() {
@@ -12,8 +15,15 @@ class ImageDropzone extends Component {
   }
 
   handleImageDrop = (accepted, rejected) => {
-    this.setState({ accepted, rejected });
-  }
+    this.setState({ accepted, rejected } );
+    request.post(`/api/cloudinarys/${this.props.userid}`)
+           .attach('file', accepted[0])
+           .set('Accept', 'application/json')
+           .end( (err, response) => {
+             const user = JSON.parse(response.text);
+             this.props.dispatch(currentUser(user))
+           });
+  };
 
   render() {
     let dropzoneRef;
@@ -48,4 +58,4 @@ class ImageDropzone extends Component {
   }
 }
 
-export default ImageDropzone;
+export default connect()(ImageDropzone);
