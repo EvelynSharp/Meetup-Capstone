@@ -3,7 +3,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Menu, Image } from 'semantic-ui-react';
 import { logout } from '../actions/user';
-import HomeHeader from '../images/HomeHeader.jpg';
+import HomeHeader from '../images/Homeheader.jpg';
 
 const links = [
   { name: 'Eventech', path: '/'},

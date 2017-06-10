@@ -48,3 +48,19 @@ orange: #f7a64a  / rgb(247, 166, 74)
 .listItem {
   border-color: #f7a64a
 }
+
+/* JOEY STYLES */
+
+.aboutPageText {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 16px;
+}
+
+.cardHeader {
+  font-size: 35px;
+}
+
+.iconBar {
+  margin: 10px 25px;
+}
