@@ -31,3 +31,5 @@ npm-debug.log
 
 #ignore env file
 .env
+
+uploads

@@ -23,6 +23,7 @@ class ImageDropzone extends Component {
              const user = JSON.parse(response.text);
              this.props.dispatch(currentUser(user))
            });
+    this.props.toggleUpdateImage();
   };
 
   render() {
@@ -56,6 +57,10 @@ class ImageDropzone extends Component {
       </section>
     );
   }
+}
+
+const mapStateToProps = (state) => {
+  return { user: state.user }
 }
 
 export default connect()(ImageDropzone);

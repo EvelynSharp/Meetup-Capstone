@@ -14,7 +14,6 @@ const uploadImage = multer({ dest: 'uploads/' })
 
 router.post('/:id', uploadImage.single('file'), (req, res) => {
   cloudinary.uploader.upload(req.file.path, (result) => {
-    console.log(result.url);
     User.findByIdAndUpdate(req.params.id,
       { $set: { profileImage: result.url }},
       { new: true },
@@ -25,7 +24,23 @@ router.post('/:id', uploadImage.single('file'), (req, res) => {
         return res.json(user)
       })
   })
-
 })
+
+router.put('/:id', (req, res) => {
+  User.findByIdAndUpdate(
+    req.params.id,
+    { $set: {profileImage: req.body.profileImage}},
+    { new: true },
+    (err, user) => {
+      if(err) {
+        return res.json(500)
+      }
+      return res.json(user)
+    }
+  )
+});
+
+
+
 
 module.exports = router;

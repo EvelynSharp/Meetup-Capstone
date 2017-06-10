@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { Header, Grid, Menu, Segment, Image, Button  } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { getEvents } from '../actions/events';
+import { removeUserImage } from '../actions/user';
 import EventList from './EventList';
 import ImageDropzone from './ImageDropzone';
 
 class Dashboard extends Component {
 
-  state={ activeItem: 'Account Details' }
+  state={ activeItem: 'Account Details', updateImage: false }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
@@ -15,32 +16,38 @@ class Dashboard extends Component {
     this.props.dispatch(getEvents());
   }
 
-  updateProfileImage = () => {
+  toggleUpdateImage = () => {
+    this.setState({ updateImage: !this.state.updateImage });
+  }
+
+  deleteProfileImage =() => {
+    this.props.dispatch(removeUserImage(this.props.user._id));
 
   }
 
-  deleteProfileImage =( ) => {
-    
-  }
 
   displayDashbord = () => {
-    let { activeItem } = this.state;
+    let { activeItem, updateImage } = this.state;
     let { username, _id, role, profileImage } = this.props.user;
     let { events, history } = this.props;
-    console.log(profileImage)
+    let profileImageDisplay;
+    if(profileImage === '' || updateImage ) {
+      profileImageDisplay = (
+        <ImageDropzone toggleUpdateImage={this.toggleUpdateImage} userid={_id}/>
+      )
+    } else {
+      profileImageDisplay = (
+        <div>
+          <Image src={profileImage} />
+          <Button onClick={this.toggleUpdateImage} primary>Update Photo</Button>
+          <Button onClick={this.deleteProfileImage} secondary>Delete Photo</Button>
+        </div>
+      )
+    }
     if(activeItem === 'Account Details') {
       return (
         <div>
-          { profileImage === '' ?
-              <ImageDropzone userid={_id}/>
-            :
-              <div>
-                <Image src={profileImage} />
-                <Button onClick={this.updateProfileImage} primary>Update Photo</Button>
-                <Button onClick={this.deleteProfileImage} secondary>Delete Photo</Button>
-              </div>
-          }
-
+          { profileImageDisplay }
           <Header as="h2">{username}</Header>
           <Header as="h3">{_id}</Header>
           <Header as="h3">{role}</Header>

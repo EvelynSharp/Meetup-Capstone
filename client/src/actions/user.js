@@ -7,6 +7,20 @@ export const logout = () => {
   }
 }
 
+export const removeUserImage = (userid) => {
+  return(dispatch) => {
+    fetch(`/api/cloudinarys/${userid}`, {
+      method: 'PUT',
+      headers:{
+        'ACCEPT': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ profileImage: ''})
+    }).then( res => res.json() )
+      .then( updatedUser => dispatch(currentUser(updatedUser)));
+  }
+}
+
 export const currentUser = (user = {}) => {
   return { type: 'USER', user }
 }
