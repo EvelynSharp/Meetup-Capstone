@@ -82,7 +82,7 @@ class Event extends Component {
       isOrganizer = false;
     }
     return(
-      <div>
+      <div className='pageContainer'>
       { edit ?
         <div>
           <EventForm

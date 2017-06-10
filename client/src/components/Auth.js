@@ -55,7 +55,7 @@ class Auth extends React.Component {
     let { title } = this.props;
     let { email, password, avatarCheck, passwordValidation, passwordCheck} = this.state;
     return (
-      <div>
+      <div className='pageContainer'>
         <Header as="h3">{title}</Header>
         <Form onSubmit={this.handleSubmit} error >
           <Form.Input

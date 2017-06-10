@@ -1,8 +1,9 @@
 import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Menu } from 'semantic-ui-react';
+import { Menu, Image } from 'semantic-ui-react';
 import { logout } from '../actions/user';
+import HomeHeader from '../images/HomeHeader.jpg';
 
 const links = [
   { name: 'Eventech', path: '/'},
@@ -54,7 +55,7 @@ class NavBar extends React.Component {
   }
 
   render() {
-    let { id } = this.props;
+    let { id, location } = this.props;
     let navs;
 
     if (id) {
@@ -64,19 +65,24 @@ class NavBar extends React.Component {
     }
 
   return (
-    <Menu>
-      <Menu.Item
-        key='Eventech'
-        name='Eventech'
-      >
-        <NavLink to='/' className='logo' >
-          Eventech
-        </NavLink>
-      </Menu.Item>
-      <Menu.Menu  position='right'>
-        { this.buildNavs(navs) }
-      </Menu.Menu>
-    </Menu>
+    <div>
+      <Menu className='mainNav'>
+        <Menu.Item
+          key='Eventech'
+          name='Eventech'
+        >
+          <NavLink to='/' className='logo' >
+            Eventech
+          </NavLink>
+        </Menu.Item>
+        <Menu.Menu  position='right'>
+          { this.buildNavs(navs) }
+        </Menu.Menu>
+      </Menu>
+      { location.pathname === '/' &&
+        <Image src={HomeHeader} />
+      }
+    </div>
   )
  }
 }

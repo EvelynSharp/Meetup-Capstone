@@ -2,10 +2,11 @@ import React from 'react';
 import { Container, Header, Grid, Icon, Card, Segment, Image } from 'semantic-ui-react';
 import  JoeyImage from '../images/JoeyImage.jpg';
 import KamiImage from '../images/KamiImage.jpg';
+import EvelynImage from '../images/EvelynImage.jpg';
 
 const About = () => (
 
-<Container>
+<Container className='pageContainer'>
     <Segment raised>
       <Header as='h1' textAlign="center" color="blue">What is EventTech?</Header>
       <Header as='h3' textAlign="center">
@@ -18,7 +19,7 @@ const About = () => (
      <Grid.Column>
        <Card>
         <Icon fitted color='orange' name='unhide' size='massive'/>
-         <Card.Content textAlign="center">
+         <Card.Content >
            <Card.Header>
              BROWSE
            </Card.Header>
@@ -37,7 +38,7 @@ const About = () => (
      <Grid.Column>
        <Card>
         <Icon fitted color='orange' name='edit' size='massive'/>
-         <Card.Content textAlign="center">
+         <Card.Content>
            <Card.Header>
              ORGANIZE
            </Card.Header>
@@ -56,7 +57,7 @@ const About = () => (
      <Grid.Column>
        <Card>
         <Icon fitted color='orange' name='send outline' size='massive'/>
-         <Card.Content textAlign="center">
+         <Card.Content >
            <Card.Header>
              INVITE
            </Card.Header>
@@ -85,7 +86,7 @@ const About = () => (
     <Grid.Column>
       <Card>
        <Icon fitted color='orange' name='code' size='massive'/>
-        <Card.Content textAlign="center">
+        <Card.Content >
           <Card.Header>
             CODE
           </Card.Header>
@@ -104,7 +105,7 @@ const About = () => (
     <Grid.Column>
       <Card>
        <Icon fitted color='orange' name='idea' size='massive'/>
-        <Card.Content textAlign="center">
+        <Card.Content >
           <Card.Header>
             IDEA
           </Card.Header>
@@ -123,7 +124,7 @@ const About = () => (
     <Grid.Column>
       <Card>
        <Icon fitted color='orange' name='like outline' size='massive'/>
-        <Card.Content textAlign="center">
+        <Card.Content >
           <Card.Header>
             CREATE
           </Card.Header>
@@ -184,7 +185,7 @@ const About = () => (
 
    <Grid.Column>
    <Card>
-     <Image src={JoeyImage} height='300px' centered/>
+     <Image src={EvelynImage} height='300px' centered />
      <Card.Content>
        <Card.Header>
          Evelyn Sharp

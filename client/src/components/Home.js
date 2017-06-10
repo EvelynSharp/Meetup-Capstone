@@ -25,9 +25,7 @@ class Home extends Component {
     });
     return(
       <div>
-        <Header as="h3">
-          { username ? `Welcome ${username}` : 'Welcome please sign in' }
-        </Header>
+        
         <Menu className='homesearch'>
           <Menu.Item className='homesearch'>
             <Input icon='search' width={4} className='searchBar'/>

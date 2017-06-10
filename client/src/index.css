@@ -8,6 +8,13 @@ body {
 blue: #0e2049  / rgb(14, 32, 73)
 orange: #f7a64a  / rgb(247, 166, 74)
 */
+.pageContainer {
+  margin-top: 1em !important;
+}
+
+.mainNav {
+  margin-bottom: 0 !important;
+}
 .searchBar {
   margin-right: 1em !important;
 }

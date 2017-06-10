@@ -99,7 +99,7 @@ class EventForm extends Component {
     let { eventName, date, location, category, description, categoryCheck } = this.state;
 
     return(
-      <div className='formContainer'>
+      <div className='formContainer, pageContainer'>
         <Header as="h2" className="eventFormHeader">Please Provide Event Details: </Header>
         <Header as="h4">{`Organizer: ${username}`}</Header>
         <Form onSubmit={ this.submitNewEvent } error>
