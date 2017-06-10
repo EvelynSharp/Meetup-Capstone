@@ -3,6 +3,7 @@ import { Header, Grid, Menu, Segment  } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { getEvents } from '../actions/events';
 import EventList from './EventList';
+import ImageDropzone from './ImageDropzone';
 
 class Dashboard extends Component {
 
@@ -21,6 +22,7 @@ class Dashboard extends Component {
     if(activeItem === 'Account Details') {
       return (
         <div>
+          <ImageDropzone />
           <Header as="h2">{username}</Header>
           <Header as="h3">{_id}</Header>
           <Header as="h3">{role}</Header>

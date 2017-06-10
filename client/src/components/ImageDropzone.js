@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
+import { Button } from 'semantic-ui-react';
 
 class ImageDropzone extends Component {
   constructor() {
@@ -10,17 +11,23 @@ class ImageDropzone extends Component {
     }
   }
 
+  handleImageDrop = (accepted, rejected) => {
+    this.setState({ accepted, rejected });
+  }
+
   render() {
+    let dropzoneRef;
     return (
       <section>
         <div className="dropzone">
           <Dropzone
-            accept="image/jpeg, image/png"
-            onDrop={(accepted, rejected) => { this.setState({ accepted, rejected }); }}
+            accept="image/jpg, image/jpeg, image/png"
+            ref={node => dropzoneRef = node }
+            onDrop={this.handleImageDrop}
           >
-            <p>Try dropping some files here, or click to select files to upload.</p>
-            <p>Only *.jpeg and *.png images will be accepted</p>
+            <p>Upload a profile picture: *.jpg, *.jpeg and *.png</p>
           </Dropzone>
+          <Button type="button" onClick={() => dropzoneRef.open()}>Upload Photo</Button>
         </div>
         <aside>
           <h2>Accepted files</h2>
