@@ -50,6 +50,11 @@ class EventImageDrop extends Component {
             <p>Upload an event picture: *.jpg, *.jpeg and *.png</p>
           </Dropzone>
           <Button className="primBtn" primary type="button" onClick={() => dropzoneRef.open()}>Upload Image</Button>
+          <span>
+            { this.props.toUpdate &&
+              <Button secondary type="button" onClick={this.props.resetUpdateImage}>Cancel</Button>
+            }
+          </span>
         </div>
       </section>
     );

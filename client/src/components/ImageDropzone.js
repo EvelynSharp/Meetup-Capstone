@@ -39,6 +39,7 @@ class ImageDropzone extends Component {
             <p>Upload a profile picture: *.jpg, *.jpeg and *.png</p>
           </Dropzone>
           <Button className="primBtn" primary type="button" onClick={() => dropzoneRef.open()}>Upload Photo</Button>
+          <Button secondary type="button" onClick={this.props.resetUpdateImage}>Cancel</Button>
         </div>
       </section>
     );
