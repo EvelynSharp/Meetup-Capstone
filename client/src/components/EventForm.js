@@ -105,7 +105,7 @@ class EventForm extends Component {
   }
 
   render() {
-    let { username } = this.props;
+    let { username, updateEvent } = this.props;
     let { eventName, date, location, category, description, categoryCheck } = this.state;
 
     return(
@@ -160,9 +160,11 @@ class EventForm extends Component {
               required
             />
           </Form.Field>
-          <Form.Field>
-            <EventImageDrop setImageUrlState={this.setImageUrlState}/>
-          </Form.Field>
+          { !updateEvent &&
+            <Form.Field>
+              <EventImageDrop setImageUrlState={this.setImageUrlState}/>
+            </Form.Field>
+          }
           <Form.Field>
             <Form.TextArea
               label="Description:"

@@ -47,7 +47,7 @@ class EventCards extends Component {
   render(){
     let { events, user, history } = this.props;
     return(
-      <Card.Group>
+      <Card.Group itemsPerRow={3} >
        { events.map( (event, index) => {
         return(
           <Card key={index}>

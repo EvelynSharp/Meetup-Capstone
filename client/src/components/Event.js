@@ -156,11 +156,14 @@ class Event extends Component {
         <div>
         </div>
       }
-      <CommentFormList
-        eventId={ _id }
-        existingComments={ comments }
-        user={this.props.user}
-      />
+      { !edit &&
+        <CommentFormList
+          eventId={ _id }
+          existingComments={ comments }
+          user={this.props.user}
+        />
+      }
+
       </div>
 
     )
