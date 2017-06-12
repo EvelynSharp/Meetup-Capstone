@@ -12,7 +12,7 @@ cloudinary.config({
 
 const uploadImage = multer({ dest: 'uploads/' })
 
-router.post('/:id', uploadImage.single('file'), (req, res) => {
+router.post('/user/:id', uploadImage.single('file'), (req, res) => {
   cloudinary.uploader.upload(req.file.path, (result) => {
     User.findByIdAndUpdate(req.params.id,
       { $set: { profileImage: result.url }},
@@ -26,7 +26,13 @@ router.post('/:id', uploadImage.single('file'), (req, res) => {
   })
 })
 
-router.put('/:id', (req, res) => {
+router.post('/events', uploadImage.single('file'), (req, res) => {
+  cloudinary.uploader.upload(req.file.path, (result) => {
+    return res.json(result.url);
+  });
+});
+
+router.put('/user/:id', (req, res) => {
   User.findByIdAndUpdate(
     req.params.id,
     { $set: {profileImage: req.body.profileImage}},
@@ -39,8 +45,5 @@ router.put('/:id', (req, res) => {
     }
   )
 });
-
-
-
 
 module.exports = router;

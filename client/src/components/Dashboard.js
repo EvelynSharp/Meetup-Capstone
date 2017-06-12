@@ -43,7 +43,7 @@ class Dashboard extends Component {
       profileImageDisplay = (
         <div>
           <Image src={profileImage} />
-          <Button onClick={this.setUpdateImage} primary>Update Photo</Button>
+          <Button className="primBtn" onClick={this.setUpdateImage} primary>Update Photo</Button>
           <Button onClick={this.deleteProfileImage} secondary>Delete Photo</Button>
         </div>
       )

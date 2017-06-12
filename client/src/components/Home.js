@@ -29,7 +29,7 @@ class Home extends Component {
         <Menu className='homesearch'>
           <Menu.Item className='homesearch'>
             <Input icon='search' width={4} className='searchBar'/>
-            <Button primary width={3}>Search</Button>
+            <Button primary className="primBtn" width={3}>SEARCH</Button>
           </Menu.Item>
           <Menu.Item position='right' className='homesearch'>
             Filter By Category:

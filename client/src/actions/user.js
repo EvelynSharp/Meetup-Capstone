@@ -9,7 +9,7 @@ export const logout = () => {
 
 export const removeUserImage = (userid) => {
   return(dispatch) => {
-    fetch(`/api/cloudinarys/${userid}`, {
+    fetch(`/api/cloudinarys/user/${userid}`, {
       method: 'PUT',
       headers:{
         'ACCEPT': 'application/json',

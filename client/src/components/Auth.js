@@ -131,7 +131,7 @@ class Auth extends React.Component {
             </Form.Field>
 
           }
-          <Button className="ui primary button">Submit</Button>
+          <Button className="primBtn" primary>Submit</Button>
         </Form>
       </div>
     )

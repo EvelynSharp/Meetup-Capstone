@@ -62,7 +62,7 @@ class CommentFormList extends Component {
             placeholder='Enter your comment'
             onChange={ e => this.setState({ currentComment: e.target.value })}
           />
-          <Button primary>Add A Comment</Button>
+          <Button className="primBtn" primary>Add A Comment</Button>
         </Form>
         <Comment.Group>
           { this.displayComments() }

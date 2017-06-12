@@ -21,6 +21,7 @@ import  Science3 from '../images/Science3.jpg';
 import  Sports1 from '../images/Sports1.jpg';
 import  Sports2 from '../images/Sports2.jpg';
 import  Sports3 from '../images/Sports3.jpg';
+import EventImageDrop from './EventImageDrop';
 
 
 class EventForm extends Component {
@@ -54,8 +55,13 @@ class EventForm extends Component {
   submitNewEvent = (e) => {
     e.preventDefault();
     let { _id, username, history } = this.props;
-    let imageIndex = Math.floor((Math.random()*3));
-    let imageDisplay = this.decideImage(this.state.category, imageIndex);
+    let imageDisplay;
+    if(this.state.imageUrl === '') {
+      let imageIndex = Math.floor((Math.random()*3));
+      imageDisplay = this.decideImage(this.state.category, imageIndex);
+    } else {
+      imageDisplay = this.state.imageUrl;
+    }
     if (!this.state.updateEvent) {
       if (this.state.category === '') {
         this.setState({ categoryCheck: false })
@@ -92,6 +98,10 @@ class EventForm extends Component {
       default:
         return this.imageSet.Other[imageIndex]
     }
+  }
+
+  setImageUrlState = (imageUrl) => {
+    this.setState({ imageUrl })
   }
 
   render() {
@@ -150,7 +160,9 @@ class EventForm extends Component {
               required
             />
           </Form.Field>
-
+          <Form.Field>
+            <EventImageDrop setImageUrlState={this.setImageUrlState}/>
+          </Form.Field>
           <Form.Field>
             <Form.TextArea
               label="Description:"
@@ -162,7 +174,8 @@ class EventForm extends Component {
           </Form.Field>
           <Button
             type='submit'
-            className='ui primary button'
+            className="primBtn"
+            primary
           >
             Submit
           </Button>

@@ -8,6 +8,18 @@ body {
 blue: #0e2049  / rgb(14, 32, 73)
 orange: #f7a64a  / rgb(247, 166, 74)
 */
+.modalText {
+  font-size: 1.2em;
+  margin-bottom: 1em;
+  color: #778899;
+}
+
+.modalTextFooter {
+  font-size: 1em;
+  margin-top: 1em;
+  color: #778899;
+}
+
 .pageContainer {
   margin-top: 1em !important;
 }
@@ -17,6 +29,9 @@ orange: #f7a64a  / rgb(247, 166, 74)
 }
 .searchBar {
   margin-right: 1em !important;
+}
+.primBtn {
+  background-color: #40537a !important;
 }
 
 .eventFormHeader {

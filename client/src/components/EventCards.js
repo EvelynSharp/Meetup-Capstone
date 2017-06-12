@@ -16,16 +16,7 @@ class EventCards extends Component {
             </span>
             }>
             <Modal.Header>View This Event</Modal.Header>
-            <Modal.Content>
-              <div>Log in or sign up to view this event.</div>
-              <Link to={'/register'}>
-                <Button primary>SIGN UP</Button>
-              </Link>
-              <div>
-                Already have an account?
-                <Link to={'/login'}> Log in</Link>
-              </div>
-            </Modal.Content>
+            { this.loginModal() }
           </Modal>
         </Menu.Item>
       )
@@ -38,6 +29,21 @@ class EventCards extends Component {
     }
   }
 
+  loginModal() {
+    return (
+      <Modal.Content>
+        <div className='modalText'>Sign Up for Eventech to view the event you are interested in. </div>
+        <Link to={'/register'}>
+          <Button primary className="primBtn">SIGN UP</Button>
+        </Link>
+        <div className='modalTextFooter'>
+          Already have an account?
+          <Link to={'/login'}> Log in</Link>
+        </div>
+      </Modal.Content>
+    )
+  }
+
   render(){
     let { events, user, history } = this.props;
     return(
@@ -45,15 +51,29 @@ class EventCards extends Component {
        { events.map( (event, index) => {
         return(
           <Card key={index}>
-            <Link className='eventListHeader'  to={`/event/${event._id}`}>
-              <Image src={event.imageUrl} />
-            </Link>
-            <Card.Content >
-              <Card.Header>
-                <Link className='eventListHeader' to={`/event/${event._id}`}>
-                  { event.eventName }
+            { Object.keys(user).length === 0 ?
+                <Modal size="small" trigger={ <Image src={event.imageUrl} /> }>
+                  <Modal.Header>View This Event</Modal.Header>
+                  { this.loginModal() }
+                </Modal>
+              :
+                <Link to={`/event/${event._id}`}>
+                  <Image src={event.imageUrl} />
                 </Link>
-              </Card.Header>
+            }
+            <Card.Content >
+              { Object.keys(user).length === 0 ?
+                  <Modal size="small" trigger={ <Card.Header> { event.eventName } </Card.Header> } >
+                    <Modal.Header>View This Event</Modal.Header>
+                    { this.loginModal() }
+                  </Modal>
+                :
+                  <Card.Header>
+                    <Link className='eventListHeader' to={`/event/${event._id}`}>
+                       { event.eventName }
+                    </Link>
+                  </Card.Header>
+              }
               <Card.Meta>
                 {`Date: ${event.date.slice(0, 10)}`}
               </Card.Meta>
