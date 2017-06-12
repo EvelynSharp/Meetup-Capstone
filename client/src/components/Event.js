@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { Header, Icon, Image } from 'semantic-ui-react';
+import { Header, Icon, Image, Button } from 'semantic-ui-react';
 import { getEvents,
          deleteEvent,
          eventArrayUpdate
@@ -8,10 +8,11 @@ import { getEvents,
 import EventForm from './EventForm';
 import InviteForm from './InviteForm';
 import CommentFormList from './CommentFormList';
+import EventImageDrop from './EventImageDrop';
 
 class Event extends Component {
 
-  state={ edit: false, share: false }
+  state={ edit: false, share: false, updateImage: false }
 
   componentDidMount = () => {
     this.refreshEvents();
@@ -78,6 +79,14 @@ class Event extends Component {
     }
   }
 
+  setUpdateImage = () => {
+    this.setState({ updateImage: true });
+  }
+
+  resetUpdateImage = () => {
+    this.setState({ updateImage: false });
+  }
+
   render() {
     let { eventName, organizer, date, location, category, description, _id, comments, imageUrl } = this.props.event;
     let { edit, share } = this.state;
@@ -91,7 +100,16 @@ class Event extends Component {
     }
     return(
       <div className='pageContainer'>
-      <Image src={imageUrl} />
+      { this.state.updateImage?
+            <EventImageDrop resetUpdateImage={this.resetUpdateImage} toUpdate={true} eventid={_id}/>
+        :
+          <div>
+            <Image src={imageUrl} />
+            <Button className="primBtn" onClick={this.setUpdateImage} primary>Update Photo</Button>
+          </div>
+      }
+
+
       {this.displayAttendees()}
       { edit ?
         <div>

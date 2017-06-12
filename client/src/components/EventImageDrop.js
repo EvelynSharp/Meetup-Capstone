@@ -3,7 +3,7 @@ import Dropzone from 'react-dropzone';
 import { Button } from 'semantic-ui-react';
 import request from 'superagent';
 import { connect } from 'react-redux'
-
+import { updateEvent } from '../actions/events';
 
 class EventImageDrop extends Component {
   constructor() {
@@ -16,18 +16,29 @@ class EventImageDrop extends Component {
 
   eventImageDrop = (accepted, rejected) => {
     this.setState({ accepted, rejected });
-    request.post(`/api/cloudinarys/events`)
-           .attach('file', accepted[0])
-           .set('Accept', 'application/json')
-           .end( (err, response) => {
-             console.log(response);
-             let url = JSON.parse(response.text);
-             this.props.setImageUrlState(url);
-           })
+    if (this.props.toUpdate) {
+      request.post(`/api/cloudinarys/events/${this.props.eventid}`)
+             .attach('file', accepted[0])
+             .set('Accept', 'application/json')
+             .end( (err, response) => {
+               const eventDetails = JSON.parse(response.text);
+               this.props.dispatch(updateEvent(eventDetails));
+               this.props.resetUpdateImage();
+             })
+    } else {
+      request.post(`/api/cloudinarys/events`)
+             .attach('file', accepted[0])
+             .set('Accept', 'application/json')
+             .end( (err, response) => {
+               let url = JSON.parse(response.text);
+               this.props.setImageUrlState(url);
+             })
+    }
   };
 
   render() {
     let dropzoneRef;
+
     return (
       <section>
         <div className="dropzone">
@@ -45,8 +56,5 @@ class EventImageDrop extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return { user: state.user }
-}
 
-export default connect(mapStateToProps)(EventImageDrop);
+export default connect()(EventImageDrop);
