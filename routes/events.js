@@ -29,10 +29,10 @@ router.post('/', (req, res) => {
 router.put('/:id', (req, res) => {
   let { actionType } = req.body;
   if(!actionType) {
-    let { eventName, organizer, date, location, category, description, attendeeIds } = req.body;
+    let { eventName, organizer, date, location, category, description, attendeeIds, imageUrl } = req.body;
     Event.findByIdAndUpdate(
       req.params.id,
-      { $set: { eventName, organizer, date, location, category, description, attendeeIds }},
+      { $set: { eventName, organizer, date, location, category, description, attendeeIds, imageUrl }},
       { new: true },
       (err, updatedEvent) => {
         if(err)

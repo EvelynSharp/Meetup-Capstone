@@ -14,9 +14,7 @@ const About = () => (
     </Header>
   </Segment>
 
-  <Grid divided='vertically'>
-    <Grid.Row columns={3}>
-      <Grid.Column>
+      <Card.Group itemsPerRow={3}>
         <Card>
           <Icon fitted color='orange' name='unhide' size='massive'/>
           <Card.Content >
@@ -46,9 +44,7 @@ const About = () => (
             </Card.Description>
           </Card.Content>
         </Card>
-      </Grid.Column>
 
-       <Grid.Column>
          <Card>
           <Icon fitted color='orange' name='edit' size='massive'/>
           <Card.Content >
@@ -78,9 +74,7 @@ const About = () => (
             </Card.Description>
           </Card.Content>
          </Card>
-       </Grid.Column>
 
-       <Grid.Column>
          <Card>
           <Icon fitted color='orange' name='send outline' size='massive'/>
            <Card.Content >
@@ -110,9 +104,7 @@ const About = () => (
              </Card.Description>
            </Card.Content>
          </Card>
-       </Grid.Column>
-     </Grid.Row>
-   </Grid>
+        </Card.Group>
 
   <Segment raised padded textAlign='center'>
     <List animated divided horizontal size='huge'>

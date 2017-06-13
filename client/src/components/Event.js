@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { Header, Icon, Image, Button } from 'semantic-ui-react';
 import { getEvents,
          deleteEvent,
-         eventArrayUpdate
+         eventArrayUpdate,
+         updateEvent,
+         randomImageSelection
        } from '../actions/events';
 import EventForm from './EventForm';
 import InviteForm from './InviteForm';
@@ -87,6 +89,12 @@ class Event extends Component {
     this.setState({ updateImage: false });
   }
 
+  seleteEventImage = () => {
+    let newEventImage = randomImageSelection(this.props.event.category);
+    let newEventDetails = { ...this.props.event, imageUrl: newEventImage };
+    this.props.dispatch(updateEvent(newEventDetails));
+  }
+
   render() {
     let { eventName, organizer, date, location, category, description, _id, comments, imageUrl } = this.props.event;
     let { edit, share } = this.state;
@@ -100,12 +108,17 @@ class Event extends Component {
     }
     return(
       <div className='pageContainer'>
-      { this.state.updateImage?
+      { this.state.updateImage ?
             <EventImageDrop resetUpdateImage={this.resetUpdateImage} toUpdate={true} eventid={_id}/>
-        :
+        : 
           <div>
             <Image src={imageUrl} />
-            <Button className="primBtn" onClick={this.setUpdateImage} primary>Update Photo</Button>
+            { isOrganizer &&
+              <div>
+                <Button className="primBtn" onClick={this.setUpdateImage} primary>Update Photo</Button>
+                <Button onClick={this.seleteEventImage} secondary>Delete</Button>
+              </div>
+            }
           </div>
       }
 
