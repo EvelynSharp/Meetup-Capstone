@@ -58,6 +58,7 @@ class Auth extends React.Component {
       <div className='pageContainer'>
         <Header as="h3">{title}</Header>
         <Form onSubmit={this.handleSubmit} error >
+          
           <Form.Input
             id="email"
             label="Email:"

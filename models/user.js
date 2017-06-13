@@ -7,7 +7,12 @@ const User = new Schema({
   password: { type : String },
   role: { type: String, default: 'user' },
   avatarUrl: { type: String, required: true },
-  profileImage: { type: String }
+  profileImage: { type: String },
+  nickName: { type: String },
+  birthDate: { type: String },
+  phoneNumber: { type: String },
+  gender: { type: String},
+  address: { type: String }
 });
 
 User.plugin(passportLocalMongoose);

@@ -6,6 +6,7 @@ import EvelynImage from '../images/EvelynImage.jpg';
 
 const About = () => (
 
+
 <Container className='pageContainer'>
   <Segment raised>
     <Header as='h1' textAlign="center" color="blue">What is EventTech?</Header>
@@ -363,6 +364,8 @@ const About = () => (
 
 
 </Container>
+
+
 )
 
 export default About;

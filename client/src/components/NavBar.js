@@ -80,7 +80,14 @@ class NavBar extends React.Component {
         </Menu.Menu>
       </Menu>
       { location.pathname === '/' &&
-        <Image src={HomeHeader} />
+        <div className='homebanner'>
+          <h2 className='moduleHeader'>Start Your Next Adventure</h2>
+        </div>
+      }
+      { location.pathname === '/about' &&
+        <div className='aboutbanner'>
+          <h2 className='moduleHeader'>Create The Best Experience</h2>
+        </div>
       }
     </div>
   )
