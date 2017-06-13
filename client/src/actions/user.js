@@ -25,37 +25,63 @@ export const currentUser = (user = {}) => {
   return { type: 'USER', user }
 }
 
-export const authenticate = (email, password, avatarUrl, title, history) => {
+export const authenticateNew = (nickName, birthDate, phoneNumber, address, gender, email, password, avatarUrl, title, history) => {
   return (dispatch) => {
-    let endpoint = title === 'Register' ? 'signup' : 'signin';
-    fetch(`/api/auth/${endpoint}`, {
+    fetch(`/api/auth/signup`, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
       credentials: 'include',
       method: 'POST',
-      body: JSON.stringify({ email, password, avatarUrl })
+      body: JSON.stringify({ nickName,
+                             birthDate,
+                             phoneNumber,
+                             address,
+                             gender,
+                             email,
+                             password,
+                             avatarUrl })
    }).then( res => res.json() )
      .then( user => {
         if(user.username) {
           dispatch(currentUser(user));
           history.push('/dashboard');
         } else {
-          if(endpoint==="signup"){
             dispatch({ type: 'USER_ERROR', userError: 'dupedUser' });
-          } else {
-            console.log(user)
-            if (user === 'User not found'){
-              dispatch({ type: 'USER_ERROR', userError: 'NotAUser' });
-            } else {
-              dispatch({ type: 'USER_ERROR', userError: 'wrongPW' });
-            }
-          }
         }
       }
     )
   }}
+
+  export const authenticateLogin = (email, password, history) => {
+    return (dispatch) => {
+      fetch(`/api/auth/signin`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        credentials: 'include',
+        method: 'POST',
+        body: JSON.stringify({ email, password })
+     }).then( res => res.json() )
+       .then( user => {
+          if(user.username) {
+            dispatch(currentUser(user));
+            history.push('/dashboard');
+          } else {
+
+              if (user === 'User not found'){
+                dispatch({ type: 'USER_ERROR', userError: 'NotAUser' });
+              } else {
+                dispatch({ type: 'USER_ERROR', userError: 'wrongPW' });
+              }            
+          }
+        }
+      )
+    }}
+
+
 
 export const tryFetchUser = (cb) => {
   return (dispatch) => {

@@ -17,8 +17,23 @@ const userAttrs = (user) => {
 }
 
 router.post('/signup', (req, res) => {
-  let { email, password, avatarUrl } = req.body;
-  User.register(new User({username: email, avatarUrl: avatarUrl, profileImage:''}), password, (err, user) => {
+  let { nickName,
+        birthDate,
+        phoneNumber,
+        address,
+        gender, 
+        email,
+        password,
+        avatarUrl } = req.body;
+  User.register(new User({username: email,
+                          avatarUrl,
+                          profileImage:'',
+                          nickName,
+                          birthDate,
+                          phoneNumber,
+                          address,
+                          gender
+                        }), password, (err, user) => {
     if (err)
       return res.status(500).json(err);
     user.save( (err, user) => {
@@ -35,8 +50,6 @@ router.post('/signin', (req, res) => {
    if (user) {
      user.authenticate(req.body.password, (err, user, passwordErr) => {
        if (err){
-         console.log(res.json(500, 'User not found'));
-         console.log(err);
          return res.json(500, 'User not found');
        }
        if (passwordErr)

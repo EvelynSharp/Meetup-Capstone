@@ -37,7 +37,7 @@ class Dashboard extends Component {
     let profileImageDisplay;
     if(profileImage === '' || updateImage ) {
       profileImageDisplay = (
-        <ImageDropzone resetUpdateImage={this.resetUpdateImage} userid={_id}/>
+        <ImageDropzone resetUpdateImage={this.resetUpdateImage} userid={_id} profileImage={profileImage}/>
       )
     } else {
       profileImageDisplay = (
