@@ -29,12 +29,13 @@ class ImageDropzone extends Component {
   render() {
     let dropzoneRef;
     return (
-      <section>
+      <section className="uploadedImage">
         <div className="dropzone">
           <Dropzone
             accept="image/jpg, image/jpeg, image/png"
             ref={node => dropzoneRef = node }
             onDrop={this.handleImageDrop}
+            className='imagedrop'
           >
             <p>Upload a profile picture: *.jpg, *.jpeg and *.png</p>
           </Dropzone>

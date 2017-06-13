@@ -8,6 +8,23 @@ body {
 blue: #0e2049  / rgb(14, 32, 73)
 orange: #f7a64a  / rgb(247, 166, 74)
 */
+.userInfo {
+  margin: 1.5em;
+}
+.imagedrop {
+  text-align: center;
+  height: 200px;
+  margin: 1.5em;
+  border: 1px dashed grey;
+}
+
+.profileImage {
+  border: none;
+}
+
+.uploadedImage {
+  text-align: center;
+}
 .modalText {
   font-size: 1.2em;
   margin-bottom: 1em;

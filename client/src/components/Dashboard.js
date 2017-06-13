@@ -41,8 +41,8 @@ class Dashboard extends Component {
       )
     } else {
       profileImageDisplay = (
-        <div>
-          <Image src={profileImage} />
+        <div className='uploadedImage'>
+          <Image src={profileImage} className='imagedrop profileImage' />
           <Button className="primBtn" onClick={this.setUpdateImage} primary>Update Photo</Button>
           <Button onClick={this.deleteProfileImage} secondary>Delete Photo</Button>
         </div>
@@ -50,12 +50,20 @@ class Dashboard extends Component {
     }
     if(activeItem === 'Account Details') {
       return (
-        <div>
-          { profileImageDisplay }
-          <Header as="h2">{username}</Header>
-          <Header as="h3">{_id}</Header>
-          <Header as="h3">{role}</Header>
-        </div>
+        <Grid columns={16}>
+          <Grid.Row>
+            <Grid.Column computer={8} mobile={16} tablet={16}>
+              { profileImageDisplay }
+            </Grid.Column>
+            <Grid.Column computer={8} mobile={16} tablet={16}>
+              <div className='userInfo'>
+                <Header as="h2">{username}</Header>
+                <Header as="h3">{_id}</Header>
+                <Header as="h3">{role}</Header>
+              </div>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       )
     } else if (activeItem === 'My Events') {
       let userEvents = events.filter( event => event.attendeeIds.includes(_id));
