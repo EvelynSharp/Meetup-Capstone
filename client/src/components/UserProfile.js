@@ -39,28 +39,58 @@ class UserProfile extends Component {
     return (
       <div >
         <Form onSubmit={this.handleProUpdate}>
-
-            <label>Nickname:</label>
-            <input className={profileEdit ? "userProEdit" : "userProDisp"} id="nickName" value={ user.nickName } onChange={ profileEdit ? this.handleChange : null } />
-
-            <label>Birth Date:</label>
-            <input className={profileEdit ? "userProEdit" : "userProDisp"} id="birthDate" type="date" value={ user.birthDate } onChange={ profileEdit ? this.handleChange : null }/>
-
-            <label>Phone:</label>
-            <input className={profileEdit ? "userProEdit" : "userProDisp"} id="phoneNumber" value={ user.phoneNumber } onChange={ profileEdit ? this.handleChange : null } />
-
-            <label>Email:</label>
-            <input className="userProDisp" id="username" value={ user.username }/>
-
-            <label>Location:</label>
-            <input className={profileEdit ? "userProEdit" : "userProDisp"} id="address" value={ user.address } onChange={ profileEdit ? this.handleChange : null }/>
-            <Form.Field style={{ textAlign: 'center' }}>
-            { profileEdit ?
-                <Button className="primBtn" primary>Update</Button>
-              :
-                <Button className="primBtn" primary>Edit</Button>
-            }
+          <Form.Group inline>
+            <Form.Field width={5}>
+              <label>Nickname: </label>
             </Form.Field>
+            <Form.Field width={1}>
+            </Form.Field>
+            <input className={profileEdit ? "userProEdit" : "userProDisp"} id="nickName" value={ user.nickName } onChange={ profileEdit ? this.handleChange : null } />
+          </Form.Group>
+
+          <Form.Group inline>
+            <Form.Field width={5}>
+              <label>Birth Date:</label>
+            </Form.Field>
+            <Form.Field width={1}>
+            </Form.Field>
+            <input className={profileEdit ? "userProEdit" : "userProDisp"} id="birthDate" type="date" value={ user.birthDate } onChange={ profileEdit ? this.handleChange : null }/>
+          </Form.Group>
+
+          <Form.Group inline>
+            <Form.Field width={5}>
+              <label>Phone:</label>
+            </Form.Field>
+            <Form.Field width={1}>
+            </Form.Field>
+            <input className={profileEdit ? "userProEdit" : "userProDisp"} id="phoneNumber" value={ user.phoneNumber } onChange={ profileEdit ? this.handleChange : null } />
+          </Form.Group>
+
+          <Form.Group inline>
+            <Form.Field width={5}>
+              <label>Email:</label>
+            </Form.Field>
+            <Form.Field width={1}>
+            </Form.Field>
+            <input className="userProDisp" id="username" value={ user.username }/>
+          </Form.Group>
+
+          <Form.Group inline>
+            <Form.Field width={5}>
+              <label>Location:</label>
+            </Form.Field>
+            <Form.Field width={1}>
+            </Form.Field>
+            <input className={profileEdit ? "userProEdit" : "userProDisp"} id="address" value={ user.address } onChange={ profileEdit ? this.handleChange : null }/>
+          </Form.Group>
+
+          <Form.Field style={{ textAlign: 'center' }}>
+          { profileEdit ?
+              <Button className="primBtn" primary>Update</Button>
+            :
+              <Button className="primBtn" primary>Edit</Button>
+          }
+          </Form.Field>
         </Form>
       </div>
     )
