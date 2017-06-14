@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, Form, Button, Dropdown, Message } from 'semantic-ui-react';
+import { Header, Form, Button, Message } from 'semantic-ui-react';
 import { authenticateLogin } from '../actions/user';
 import { connect } from 'react-redux';
 

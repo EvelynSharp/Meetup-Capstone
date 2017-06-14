@@ -25,7 +25,7 @@ export const currentUser = (user = {}) => {
   return { type: 'USER', user }
 }
 
-export const authenticateNew = (nickName, birthDate, phoneNumber, address, gender, email, password, avatarUrl, title, history) => {
+export const authenticateNew = (nickName, birthDate, phoneNumber, address, gender, email, password, avatarUrl, userBio, title, history) => {
   return (dispatch) => {
     fetch(`/api/auth/signup`, {
       headers: {
@@ -41,7 +41,8 @@ export const authenticateNew = (nickName, birthDate, phoneNumber, address, gende
                              gender,
                              email,
                              password,
-                             avatarUrl })
+                             avatarUrl,
+                             userBio })
    }).then( res => res.json() )
      .then( user => {
         if(user.username) {
@@ -75,13 +76,25 @@ export const authenticateNew = (nickName, birthDate, phoneNumber, address, gende
                 dispatch({ type: 'USER_ERROR', userError: 'NotAUser' });
               } else {
                 dispatch({ type: 'USER_ERROR', userError: 'wrongPW' });
-              }            
+              }
           }
         }
       )
     }}
 
-
+export const updateUserInfo = ( _id, nickName, birthDate, phoneNumber, username, address, avatarUrl) => {
+  return (dispatch) => {
+    fetch(`/api/userinfos/${_id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      method: 'PUT',
+      body: JSON.stringify({ nickName, birthDate, phoneNumber, username, address, avatarUrl })
+    }).then( res => res.json() )
+      .then( user => dispatch(currentUser(user)));
+  }
+}
 
 export const tryFetchUser = (cb) => {
   return (dispatch) => {

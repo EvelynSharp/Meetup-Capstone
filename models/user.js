@@ -12,7 +12,8 @@ const User = new Schema({
   birthDate: { type: String },
   phoneNumber: { type: String },
   gender: { type: String},
-  address: { type: String }
+  address: { type: String },
+  userBio: { type: String }
 });
 
 User.plugin(passportLocalMongoose);

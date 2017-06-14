@@ -5,6 +5,7 @@ import { getEvents } from '../actions/events';
 import { removeUserImage } from '../actions/user';
 import EventList from './EventList';
 import ImageDropzone from './ImageDropzone';
+import UserProfile from './UserProfile';
 
 class Dashboard extends Component {
 
@@ -32,35 +33,33 @@ class Dashboard extends Component {
 
   displayDashbord = () => {
     let { activeItem, updateImage } = this.state;
-    let { username, _id, role, profileImage } = this.props.user;
+    let {  _id, profileImage } = this.props.user;
     let { events, history } = this.props;
     let profileImageDisplay;
     if(profileImage === '' || updateImage ) {
       profileImageDisplay = (
-        <ImageDropzone resetUpdateImage={this.resetUpdateImage} userid={_id} profileImage={profileImage}/>
+        <Grid.Column computer={8} mobile={16} tablet={16}>
+          <ImageDropzone resetUpdateImage={this.resetUpdateImage} userid={_id} profileImage={profileImage}/>
+        </Grid.Column>
       )
     } else {
       profileImageDisplay = (
-        <div className='uploadedImage'>
-          <Image src={profileImage} className='imagedrop profileImage' />
+        <Grid.Column computer={8} mobile={16} tablet={16} textAlign="center">
+          <Image src={profileImage} shape="rounded" centered className='imagedrop profileImage' />
           <Button className="primBtn" onClick={this.setUpdateImage} primary>Update Photo</Button>
           <Button onClick={this.deleteProfileImage} secondary>Delete Photo</Button>
-        </div>
+        </Grid.Column>
       )
     }
     if(activeItem === 'Account Details') {
       return (
         <Grid columns={16}>
           <Grid.Row>
-            <Grid.Column computer={8} mobile={16} tablet={16}>
+
               { profileImageDisplay }
-            </Grid.Column>
+
             <Grid.Column computer={8} mobile={16} tablet={16}>
-              <div className='userInfo'>
-                <Header as="h2">{username}</Header>
-                <Header as="h3">{_id}</Header>
-                <Header as="h3">{role}</Header>
-              </div>
+              <UserProfile />
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -97,7 +96,7 @@ class Dashboard extends Component {
         </Grid.Column>
 
         <Grid.Column  width={12}>
-          <Segment>
+          <Segment className="dashboardCont">
             { this.displayDashbord() }
           </Segment>
         </Grid.Column>

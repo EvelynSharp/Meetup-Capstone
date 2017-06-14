@@ -21,6 +21,8 @@ const events = require('./routes/events');
 //cloudinary
 const cloudinarys = require('./routes/cloudinarys');
 
+const userinfos = require('./routes/userinfos');
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -53,6 +55,7 @@ app.use('/api/events', events);
 //cloudinary routes
 app.use('/api/cloudinarys', cloudinarys);
 
+app.use('/api/userinfos', userinfos);
 
 app.get('*', (request, response) => {
   response.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));

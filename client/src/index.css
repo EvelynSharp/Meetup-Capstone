@@ -49,11 +49,15 @@ body {
 }
 
 
+.dashboardCont {
+  padding-bottom: 3em !important;
+}
 
 
 .userInfo {
   margin: 1.5em;
 }
+
 .imagedrop {
   text-align: center;
   height: 200px;
@@ -63,11 +67,10 @@ body {
 
 .profileImage {
   border: none;
+
 }
 
-.uploadedImage {
-  text-align: center;
-}
+
 .modalText {
   font-size: 1.2em;
   margin-bottom: 1em;

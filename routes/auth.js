@@ -12,8 +12,8 @@ const isAuthenticated = (req, res, next) => {
 
 //Helper function to whitelist attributes
 const userAttrs = (user) => {
-  const { _id, username, role, avatarUrl, profileImage } = user;
-  return { _id, username, role, avatarUrl, profileImage };
+  const { _id, username, role, avatarUrl, profileImage, nickName, birthDate, phoneNumber, address, gender, userBio } = user;
+  return { _id, username, role, avatarUrl, profileImage, nickName, birthDate, phoneNumber, address, gender, userBio };
 }
 
 router.post('/signup', (req, res) => {
@@ -21,10 +21,11 @@ router.post('/signup', (req, res) => {
         birthDate,
         phoneNumber,
         address,
-        gender, 
+        gender,
         email,
         password,
-        avatarUrl } = req.body;
+        avatarUrl,
+        userBio } = req.body;
   User.register(new User({username: email,
                           avatarUrl,
                           profileImage:'',
@@ -32,7 +33,8 @@ router.post('/signup', (req, res) => {
                           birthDate,
                           phoneNumber,
                           address,
-                          gender
+                          gender,
+                          userBio
                         }), password, (err, user) => {
     if (err)
       return res.status(500).json(err);
@@ -63,7 +65,6 @@ router.post('/signin', (req, res) => {
    }
   });
 });
-
 
 
 

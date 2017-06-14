@@ -96,7 +96,7 @@ class Event extends Component {
   }
 
   render() {
-    let { eventName, organizer, date, location, category, description, _id, comments, imageUrl } = this.props.event;
+    let { eventName, organizer, date, location, description, _id, comments, imageUrl } = this.props.event;
     let { edit, share } = this.state;
     let eventToUpdate = this.props.event;
     let dateDisplay = date.slice(0, 10);
@@ -110,7 +110,7 @@ class Event extends Component {
       <div className='pageContainer'>
       { this.state.updateImage ?
             <EventImageDrop resetUpdateImage={this.resetUpdateImage} toUpdate={true} eventid={_id}/>
-        : 
+        :
           <div>
             <Image src={imageUrl} />
             { isOrganizer &&

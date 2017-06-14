@@ -14,6 +14,7 @@ class Register extends React.Component {
                 email: '',
                 password: '',
                 avatarUrl: '',
+                userBio: '',
                 avatarCheck: true,
                 passwordValidation: '',
                 passwordCheck: true,
@@ -36,14 +37,14 @@ class Register extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     let { title, history, dispatch } = this.props;
-    let { nickName, birthDate, phoneNumber, address, gender, email, password, avatarUrl, passwordValidation} = this.state;
+    let { nickName, birthDate, phoneNumber, address, gender, email, password, avatarUrl, userBio, passwordValidation} = this.state;
     if (avatarUrl === '' || password !== passwordValidation) {
       if (avatarUrl === '')
         this.setState({ avatarCheck: false });
       if (password !== passwordValidation)
         this.setState({ passwordCheck: false });
     } else {
-      dispatch(authenticateNew(nickName, birthDate, phoneNumber, address, gender, email, password, avatarUrl, title, history));
+      dispatch(authenticateNew(nickName, birthDate, phoneNumber, address, gender, email, password, avatarUrl, userBio, title, history));
     }
   }
 
