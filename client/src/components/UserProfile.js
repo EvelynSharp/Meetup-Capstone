@@ -35,19 +35,32 @@ class UserProfile extends Component {
 
   render() {
     let { profileEdit, user } = this.state;
+
     return (
-      <div style={{ textAlign: 'center' }}>
+      <div >
         <Form onSubmit={this.handleProUpdate}>
-          <Form.Input id="nickName" value={ user.nickName } onChange={ this.handleChange } />
-          <Form.Input id="birthDate" type="date" value={ user.birthDate } onChange={ this.handleChange }/>
-          <Form.Input id="phoneNumber" value={ user.phoneNumber } onChange={ this.handleChange }/>
-          <Form.Input id="username" value={ user.username } onChange={ this.handleChange }/>
-          <Form.Input id="address" value={ user.address } onChange={ this.handleChange }/>
-          { profileEdit ?
-              <Button className="primBtn" primary>Update</Button>
-            :
-              <Button className="primBtn" primary>Edit</Button>
-          }
+
+            <label>Nickname:</label>
+            <Form.Input id="nickName" value={ user.nickName } onChange={ profileEdit ? this.handleChange : null } />
+
+            <label>Birth Date:</label>
+            <Form.Input id="birthDate" type="date" value={ user.birthDate } onChange={ profileEdit ? this.handleChange : null }/>
+
+            <label>Phone:</label>
+            <Form.Input id="phoneNumber" value={ user.phoneNumber } onChange={ profileEdit ? this.handleChange : null } />
+
+            <label>Email:</label>
+            <Form.Input id="username" value={ user.username }/>
+
+            <label>Location:</label>
+            <Form.Input id="address" value={ user.address } onChange={ profileEdit ? this.handleChange : null }/>
+            <Form.Field style={{ textAlign: 'center' }}>
+            { profileEdit ?
+                <Button className="primBtn" primary>Update</Button>
+              :
+                <Button className="primBtn" primary>Edit</Button>
+            }
+            </Form.Field>
         </Form>
 
 
