@@ -4,6 +4,10 @@ body {
   font-family: sans-serif;
 }
 
+.editBtn {
+  color: blue !important;
+  background-color: white !important;
+}
 .userProDisp {
   border: none !important;
 }

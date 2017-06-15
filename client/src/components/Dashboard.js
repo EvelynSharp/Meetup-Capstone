@@ -75,21 +75,30 @@ class Dashboard extends Component {
           </Grid.Row>
             <Grid.Column computer={16} mobile={16} tablet={16}>
               <Form onSubmit={ this.handleBioUpdate }>
-                <Form.Field
-                    control={TextArea}
-                    label="Bio"
-                    id="userBio"
-                    value={this.state.userBio}
-                    onChange={ (e) => { this.setState({ userBio: e.target.value }) }}
-                />
+                <Form.Field>
+                  <label>Bio</label>
+                  <textarea
+                      className={ bioEdit ? "userProEdit" : "userProDisp" }
+                      id="userBio"
+                      value={this.state.userBio}
+                      onChange={ bioEdit ?
+                                    (e) => { this.setState({ userBio: e.target.value }) }
+                                  :
+                                    null
+                                }
+                  />
+                </Form.Field>
                 { bioEdit ?
                     <Button className="primBtn" primary>Update</Button>
                   :
-                    <div style={{ textAlign: "right"}}>
-                      <Button className="primBtn" primary icon>
-                        <Icon name="edit" size="large" />
-                      </Button>
-                    </div>
+                    <Menu secondary>
+                      <Menu.Menu position="right">
+                        <Menu.Item as='a'>
+                          <Icon className="edit blue large" onClick={this.handleBioUpdate}/>
+                        </Menu.Item>
+                      </Menu.Menu>
+                    </Menu>
+
                 }
               </Form>
             </Grid.Column>

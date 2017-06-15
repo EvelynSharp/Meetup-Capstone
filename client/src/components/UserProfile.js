@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  Button, Form, Icon  } from 'semantic-ui-react';
+import {  Button, Form, Icon, Menu  } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { updateUserInfo } from '../actions/user';
 
@@ -87,12 +87,13 @@ class UserProfile extends Component {
           { profileEdit ?
               <Button className="primBtn" primary>Update</Button>
             :
-              <div style={{ textAlign: "right"}}>
-                <Button className="primBtn" primary icon>
-                  <Icon name="edit" size="large" />
-                </Button>
-
-              </div>
+              <Menu secondary>
+                <Menu.Menu position="right">
+                  <Menu.Item as='a'>
+                    <Icon className="edit blue large" onClick={this.handleProUpdate}/>
+                  </Menu.Item>
+                </Menu.Menu>
+              </Menu>
           }
           </Form.Field>
         </Form>
