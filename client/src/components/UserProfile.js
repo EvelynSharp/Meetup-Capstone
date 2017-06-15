@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  Button, Form  } from 'semantic-ui-react';
+import {  Button, Form, Icon  } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { updateUserInfo } from '../actions/user';
 
@@ -21,13 +21,12 @@ class UserProfile extends Component {
     let { profileEdit, user } = this.state;
     let { _id, nickName, birthDate, phoneNumber, username, address, avatarUrl } = user;
     let { dispatch } = this.props;
-    if(!profileEdit) {
-      this.toggleProEdit();
-    } else {
+    if(profileEdit) {
       dispatch(updateUserInfo(_id, nickName, birthDate, phoneNumber, username, address, avatarUrl));
-      this.toggleProEdit();
     }
+    this.toggleProEdit();
   }
+
   handleChange = (e) => {
     let { id, value } = e.target;
     this.setState({ user: { ...this.state.user, [id] : value } })
@@ -37,8 +36,8 @@ class UserProfile extends Component {
     let { profileEdit, user } = this.state;
 
     return (
-      <div >
-        <Form onSubmit={this.handleProUpdate}>
+      <div>
+        <Form onSubmit={this.handleProUpdate} >
           <Form.Group inline>
             <Form.Field width={5}>
               <label>Nickname: </label>
@@ -88,7 +87,12 @@ class UserProfile extends Component {
           { profileEdit ?
               <Button className="primBtn" primary>Update</Button>
             :
-              <Button className="primBtn" primary>Edit</Button>
+              <div style={{ textAlign: "right"}}>
+                <Button className="primBtn" primary icon>
+                  <Icon name="edit" size="large" />
+                </Button>
+
+              </div>
           }
           </Form.Field>
         </Form>

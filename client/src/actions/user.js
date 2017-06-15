@@ -96,6 +96,21 @@ export const updateUserInfo = ( _id, nickName, birthDate, phoneNumber, username,
   }
 }
 
+export const updateUserBio = ( _id, userBio) => {
+  return (dispatch) => {
+    fetch(`/api/userinfos/${_id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      method: 'PUT',
+      body: JSON.stringify({ userBio, actionType: 'BIO' })
+    }).then( res => res.json() )
+      .then( user => dispatch(currentUser(user)));
+  }
+}
+
+
 export const tryFetchUser = (cb) => {
   return (dispatch) => {
     fetch('/api/auth/user', {

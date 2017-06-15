@@ -8,17 +8,32 @@ const userAttrs = (user) => {
 }
 
 router.put('/:id', (req, res) => {
-  let { nickName, birthDate, phoneNumber, username, address, avatarUrl } = req.body;
-  User.findByIdAndUpdate(
-    req.params.id,
-    { $set: { nickName, birthDate, phoneNumber, username, address, avatarUrl } },
-    { new: true },
-    (err, updatedUser) => {
-      if(err)
-        return res.json(err)
-      return res.json(updatedUser)
-    }
-  )
+  let { nickName, birthDate, phoneNumber, username, address, avatarUrl, actionType } = req.body;
+  if (actionType === 'BIO') {
+    let { userBio } = req.body;
+    User.findByIdAndUpdate(
+      req.params.id,
+      { $set: { userBio } },
+      { new: true },
+      (err, updatedUser) => {
+        if(err)
+          return res.json(err)
+        return res.json(updatedUser)
+      }
+    )
+  } else {
+    User.findByIdAndUpdate(
+      req.params.id,
+      { $set: { nickName, birthDate, phoneNumber, username, address, avatarUrl } },
+      { new: true },
+      (err, updatedUser) => {
+        if(err)
+          return res.json(err)
+        return res.json(updatedUser)
+      }
+    )
+  }
+
 })
 
 

@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
-import { Header, Grid, Menu, Segment, Image, Button  } from 'semantic-ui-react';
+import { Header, Grid, Menu, Segment, Image, Button, Form, TextArea, Icon  } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { getEvents } from '../actions/events';
-import { removeUserImage } from '../actions/user';
+import { removeUserImage, updateUserBio } from '../actions/user';
 import EventList from './EventList';
 import ImageDropzone from './ImageDropzone';
 import UserProfile from './UserProfile';
 
 class Dashboard extends Component {
 
-  state={ activeItem: 'Account Details', updateImage: false }
+  state={ activeItem: 'Account Details', updateImage: false, bioEdit: false, userBio: '' }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   componentDidMount = () => {
     this.props.dispatch(getEvents());
+    this.setState({ userBio: this.props.user.userBio })
   }
 
   setUpdateImage = () => {
@@ -30,9 +31,21 @@ class Dashboard extends Component {
 
   }
 
+  toggleBioEdit = () => {
+    this.setState({ bioEdit: !this.state.bioEdit })
+  }
+
+  handleBioUpdate =(e) => {
+    e.preventDefault();
+    let { dispatch } = this.props;
+    if(this.state.bioEdit){
+      dispatch(updateUserBio(this.props.user._id, this.state.userBio))
+    }
+    this.toggleBioEdit();
+  }
 
   displayDashbord = () => {
-    let { activeItem, updateImage } = this.state;
+    let { activeItem, updateImage, bioEdit } = this.state;
     let {  _id, profileImage } = this.props.user;
     let { events, history } = this.props;
     let profileImageDisplay;
@@ -55,12 +68,32 @@ class Dashboard extends Component {
       return (
         <Grid columns={16}>
           <Grid.Row>
-
               { profileImageDisplay }
-
             <Grid.Column computer={8} mobile={16} tablet={16}>
               <UserProfile />
             </Grid.Column>
+          </Grid.Row>
+            <Grid.Column computer={16} mobile={16} tablet={16}>
+              <Form onSubmit={ this.handleBioUpdate }>
+                <Form.Field
+                    control={TextArea}
+                    label="Bio"
+                    id="userBio"
+                    value={this.state.userBio}
+                    onChange={ (e) => { this.setState({ userBio: e.target.value }) }}
+                />
+                { bioEdit ?
+                    <Button className="primBtn" primary>Update</Button>
+                  :
+                    <div style={{ textAlign: "right"}}>
+                      <Button className="primBtn" primary icon>
+                        <Icon name="edit" size="large" />
+                      </Button>
+                    </div>
+                }
+              </Form>
+            </Grid.Column>
+          <Grid.Row>
           </Grid.Row>
         </Grid>
       )
