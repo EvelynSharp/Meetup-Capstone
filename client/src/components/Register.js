@@ -18,6 +18,7 @@ class Register extends React.Component {
                 avatarCheck: true,
                 passwordValidation: '',
                 passwordCheck: true,
+                pwCharCheck: true
               }
   state = { ...this.defaults }
 
@@ -30,6 +31,9 @@ class Register extends React.Component {
     if (id === 'passwordValidation') {
       this.setState({ passwordCheck: true });
     }
+    if (id === 'password') {
+      this.setState({ pwCharCheck: true });
+    }
     this.setState({ [id]: value });
   }
 
@@ -38,9 +42,11 @@ class Register extends React.Component {
     e.preventDefault();
     let { title, history, dispatch } = this.props;
     let { nickName, birthDate, phoneNumber, address, gender, email, password, avatarUrl, userBio, passwordValidation} = this.state;
-    if (avatarUrl === '' || password !== passwordValidation) {
+    if (avatarUrl === '' || password.length < 8 || password !== passwordValidation ) {
       if (avatarUrl === '')
         this.setState({ avatarCheck: false });
+      if (password.length < 8)
+        this.setState({ pwCharCheck: false });
       if (password !== passwordValidation)
         this.setState({ passwordCheck: false });
     } else {
@@ -54,7 +60,18 @@ class Register extends React.Component {
 
   render() {
     let { title } = this.props;
-    let { email, password, avatarCheck, passwordValidation, passwordCheck, nickName, birthDate, phoneNumber, address, gender} = this.state;
+    let { email,
+          password,
+          avatarCheck,
+          passwordValidation,
+          passwordCheck,
+          nickName,
+          birthDate,
+          phoneNumber,
+          address,
+          gender,
+          pwCharCheck
+        } = this.state;
     return (
       <div className='pageContainer'>
         <Header as="h3">{title}</Header>
@@ -103,6 +120,9 @@ class Register extends React.Component {
             value={password}
             width={11}
           />
+          { !pwCharCheck &&
+            <Message error content='Password minimum is 8 characters.' />
+          }
           <Form.Input
             id="passwordValidation"
             label="Re-enter Password:"
