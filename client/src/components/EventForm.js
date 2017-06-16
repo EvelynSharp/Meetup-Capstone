@@ -13,6 +13,8 @@ class EventForm extends Component {
     organizer: '',
     begDate: '',
     begTime: '',
+    endDate: '',
+    endTime: '',
     location: '',
     category: '',
     description: '',
@@ -21,18 +23,12 @@ class EventForm extends Component {
     updateEvent: false,
     categoryCheck: true,
     ifPastDate: false,
+    ifBadEndTime: false,
    }
 
   state={  ...this.defaultData  }
 
   componentDidMount = () => {
-    // const time = moment("06/15/2017 8:30").format("X");
-    // const currentTime = moment(new Date()).subtract(6, 'hours').format("X")
-    //
-    // const curUnixDate = moment(new Date()).subtract(6, 'hours').format("X");
-    // console.log(curUnixDate)
-    // console.log(time);
-    // console.log('current', currentTime);
     if(this.props.updateEvent) {
       let { eventToUpdate, updateEvent } = this.props;
       this.setState({...eventToUpdate, updateEvent});
@@ -82,28 +78,33 @@ class EventForm extends Component {
 
   handleDateChange = (e) => {
     let { id, value } = e.target;
-    this.setState({ ifPastDate: false });
+    this.setState({ ifPastDate: false, ifBadEndTime: false });
     this.setState({ [id]: value }, () => {
       let { begDate, begTime } = this.state;
       if(begDate !== '' && begTime !== '') {
-        this.checkPastTime();
+        this.checkBadTime();
       }
     })
   }
 
-  checkPastTime = () => {
-    let { begDate, begTime } = this.state;
-    let combinedDate = `${begDate} ${begTime}`;
-    let comUnixDate = moment(combinedDate).subtract(6, 'hours').format("X");
+  checkBadTime = () => {
+    let { begDate, begTime, endDate, endTime } = this.state;
+    let comUnixBegDate = moment(`${begDate} ${begTime}`).subtract(6, 'hours').format("X");
     let curUnixDate = moment(new Date()).subtract(6, 'hours').format("X");
-    if (comUnixDate < curUnixDate) {
+    if (comUnixBegDate < curUnixDate) {
       this.setState({ ifPastDate: true })
+    }
+    if(endDate !== '' && endTime !== '') {
+      let comUnixEndDate = moment(`${endDate} ${endTime}`).subtract(6, 'hours').format("X");
+      if ( comUnixEndDate <= comUnixBegDate) {
+        this.setState({ ifBadEndTime: true });
+      }
     }
   }
 
   render() {
     let { username, updateEvent } = this.props;
-    let { eventName, begDate, begTime, location, category, description, categoryCheck, ifPastDate } = this.state;
+    let { eventName, begDate, begTime, endDate, endTime, location, category, description, categoryCheck, ifPastDate, ifBadEndTime } = this.state;
 
     return(
       <div className='formContainer, pageContainer'>
@@ -148,7 +149,7 @@ class EventForm extends Component {
             />
           }
           <Form.Group inline>
-            <label>Start Date:</label>
+            <Form.Field width={2}> <label>Start Time:</label> </Form.Field>
             <Form.Field required width={4}>
               <input
                 id='begDate'
@@ -172,6 +173,33 @@ class EventForm extends Component {
             <Message
               error
               content='Event time cannot be in the past.'
+            />
+          }
+          <Form.Group inline>
+            <Form.Field width={2}> <label>End Time:</label> </Form.Field>
+            <Form.Field required width={4}>
+              <input
+                id='endDate'
+                value={endDate}
+                type="date"
+                onChange={this.handleDateChange}
+                required
+              />
+            </Form.Field>
+            <Form.Field required width={4}>
+              <input
+                id='endTime'
+                value={endTime}
+                type="time"
+                onChange={this.handleDateChange}
+                required
+              />
+            </Form.Field>
+          </Form.Group>
+          { ifBadEndTime &&
+            <Message
+              error
+              content='Event end time cannot be before or the same as start time.'
             />
           }
           { !updateEvent &&
