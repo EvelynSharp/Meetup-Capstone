@@ -23,6 +23,8 @@ const unAuthenticatedLinks = [
   { name: 'REGISTER', path: '/register' },
 ]
 
+
+
 class NavBar extends React.Component {
 //#0e2049
   buildNavs = (navs) => {
@@ -48,6 +50,7 @@ class NavBar extends React.Component {
              : nav.name === 'LOGIN' ?
               <div className="signInModalCon">
                <Modal className="signInPop" size="small" trigger={ <div className="loginBtn" >{nav.name} </div> }>
+                 <Modal.Header>Sign In</Modal.Header>
                  <Modal.Content>
                   <Login {...this.props} title="Login"/>
                  </Modal.Content>
@@ -61,6 +64,29 @@ class NavBar extends React.Component {
          </Menu.Item>
        )
      });
+  }
+
+  displayGetStart = () => {
+    let { history } = this.props;
+    if (this.props.id) {
+      return (
+        <Button className="imageBtn" onClick={ () => history.push('/newevent')}>Get Started</Button>
+      )
+    } else {
+      return (
+        <Modal size="small" trigger={ <Button className="imageBtn">Get Started</Button>}>
+          <Modal.Header>Sign In</Modal.Header>
+          <Modal.Content>
+            <div className='modalText'>Sign In to create a new event </div>
+            <Login {...this.props} title="Login"/>
+            <div className='modalTextFooter'>
+              Do not have an account?
+              <Link to={'/register'}>Sign Up</Link>
+            </div>
+          </Modal.Content>
+        </Modal>
+      )
+    }
   }
 
   render() {
@@ -96,6 +122,7 @@ class NavBar extends React.Component {
       { location.pathname === '/about' &&
         <div className='aboutbanner'>
           <h2 className='moduleHeader'>Create The Best Experience</h2>
+          { this.displayGetStart() }
         </div>
       }
     </div>

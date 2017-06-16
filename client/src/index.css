@@ -66,6 +66,21 @@ body {
   margin: 0;
 }
 
+.imageBtn {
+  position: absolute;
+  top: 63%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0,0,0,0) !important;
+  border: 3px solid white !important;
+  color: white !important;
+}
+
+.imageBtn:hover, .imageBtn:active {
+  background-color: #40537a !important;
+  border: 3px solid #40537a !important;
+}
+
 .moduleHeader {
   font-weight: 900px;
   color: white;

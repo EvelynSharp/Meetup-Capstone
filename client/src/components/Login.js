@@ -48,7 +48,6 @@ class Login extends React.Component {
     let { email, password } = this.state;
     return (
       <div className='pageContainer' style={{ textAlign: 'center'}}>
-        <Header as="h3">{title}</Header>
         <Form onSubmit={this.handleSubmit} error>
           <Form.Group inline >
             <Form.Field width={2}></Form.Field>
