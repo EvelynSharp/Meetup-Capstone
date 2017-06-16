@@ -28,28 +28,10 @@ class Event extends Component {
     this.setState({ edit: !this.state.edit });
   }
 
-  shareEvent = (emailAddress, email) => {
-    console.log(email + " to " + emailAddress);
-    this.setState({ share: !this.state.share });
-  }
-
   handleDelete = (_id) => {
     let { dispatch, history } = this.props;
     dispatch(deleteEvent(_id));
     history.push('/');
-  }
-
-  displayAttendees = () => {
-    let {event} = this.props;
-
-    return(
-      <div>Attendees:
-        {event.attendeeIds.map((attendee, index) => {
-          return(<div key={index}>{index}: {attendee}</div>)
-        })
-        }
-      </div>
-    )
   }
 
   toggleAttendance = (actionType) => {
@@ -96,24 +78,26 @@ class Event extends Component {
   }
 
   sendEmail = (emailAddress, emailSubject, email) => {
-       window.open("mailto:"+emailAddress+"?subject="+emailSubject+"&Body="+email);
-     }
+    window.open("mailto:"+emailAddress+"?subject="+emailSubject+"&Body="+email);
+  }
+
   sendInvite = () => {
-     let emailSubject="An Invitation from Eventech";
-     let emailAddress="";
-     let { eventName, location, date, _id } = this.props.event;
-     let username = this.props.user.username;
-     let email = (username + " would like to invite you to " +
-       eventName + " at " + location + " on " + date + "." +
-       "\n\nClick here to view event:\nhttp://localhost:3000/event/" + _id);
-     this.sendEmail(emailAddress, emailSubject, email);
-   }
+    let emailSubject="An Invitation from Eventech";
+    let emailAddress="";
+    let { eventName, location, date, _id } = this.props.event;
+    let username = this.props.user.username;
+    let email = (username + " would like to invite you to " +
+        eventName + " at " + location + " on " + date + "." +
+        "\n\nClick here to view event:\nhttp://localhost:3000/event/" + _id);
+    this.sendEmail(emailAddress, emailSubject, email);
+  }
+
   sendEmailToOrganizer = () => {
-     let emailSubject="re: " + this.props.event.eventName;
-     let emailAddress= this.props.event.organizer;
-     let email = "";
-     this.sendEmail(emailAddress, emailSubject, email);
-   }
+    let emailSubject="re: " + this.props.event.eventName;
+    let emailAddress= this.props.event.organizer;
+    let email = "";
+    this.sendEmail(emailAddress, emailSubject, email);
+  }
 
   render() {
     let { eventName, organizer, date, location, description, _id, comments, imageUrl } = this.props.event;
@@ -142,8 +126,6 @@ class Event extends Component {
           </div>
       }
 
-
-      {this.displayAttendees()}
       { edit ?
         <div>
           <EventForm
@@ -159,7 +141,7 @@ class Event extends Component {
             <Header as="h3">You are hosting this event</Header>
             :
             <Header as="h3">
-              Hosted by: { organizer }
+              Hosted by:
               <span
                 data-tooltip="Email the organizer"
                 onClick={ this.sendEmailToOrganizer }>
@@ -186,14 +168,6 @@ class Event extends Component {
                 <Icon className='external share link large green' onClick={ this.sendInvite } />
             </span>
           </div>
-        </div>
-      }
-      { share ?
-        <div>
-          <InviteForm event={ this.props.event } shareEvent={ this.shareEvent }/>
-        </div>
-        :
-        <div>
         </div>
       }
       { !edit &&
