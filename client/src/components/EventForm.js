@@ -39,7 +39,7 @@ class EventForm extends Component {
         this.setState({ categoryCheck: false })
       } else {
         this.setState(
-          { organizer: username, attendeeIds: _id, imageUrl: imageDisplay },
+          { organizer: username, attendeeIds: username, imageUrl: imageDisplay },
           () => {
             let eventDetails = { ...this.state };
             this.props.dispatch(addEvent(eventDetails));

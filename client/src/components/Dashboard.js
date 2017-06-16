@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Grid, Menu, Segment, Image, Button, Form, TextArea, Icon  } from 'semantic-ui-react';
+import { Header, Grid, Menu, Segment, Image, Button, Form, Icon  } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { getEvents } from '../actions/events';
 import { removeUserImage, updateUserBio } from '../actions/user';
@@ -46,7 +46,7 @@ class Dashboard extends Component {
 
   displayDashbord = () => {
     let { activeItem, updateImage, bioEdit } = this.state;
-    let {  _id, profileImage } = this.props.user;
+    let {  _id, username, profileImage } = this.props.user;
     let { events, history } = this.props;
     let profileImageDisplay;
     if(profileImage === '' || updateImage ) {
@@ -107,7 +107,7 @@ class Dashboard extends Component {
         </Grid>
       )
     } else if (activeItem === 'My Events') {
-      let userEvents = events.filter( event => event.attendeeIds.includes(_id));
+      let userEvents = events.filter( event => event.attendeeIds.includes(username));
       return (
         <div>
             <EventList events={userEvents} history={history}/>
