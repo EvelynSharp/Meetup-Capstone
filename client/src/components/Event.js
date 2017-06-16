@@ -10,6 +10,7 @@ import { getEvents,
 import EventForm from './EventForm';
 import CommentFormList from './CommentFormList';
 import EventImageDrop from './EventImageDrop';
+import moment from 'moment';
 
 class Event extends Component {
 
@@ -121,16 +122,18 @@ class Event extends Component {
   }
 
   render() {
-    let { eventName, organizer, begDate, location, description, _id, comments, imageUrl } = this.props.event;
+    let { eventName, organizer, begDate, begTime, endDate, endTime, location, description, _id, comments, imageUrl } = this.props.event;
     let edit = this.state.edit;
     let eventToUpdate = this.props.event;
-    let dateDisplay = begDate.slice(0, 10);
+//    let dateDisplay = begDate.slice(0, 10);
     let isOrganizer;
     if(organizer === this.props.user.username) {
       isOrganizer = true;
     } else {
       isOrganizer = false;
     }
+    let begDateDisp = moment(`${begDate} ${begTime}`).format("YYYY-MM-DD, hh:mm A");
+    let endDateDisp = moment(`${endDate} ${endTime}`).format("YYYY-MM-DD, hh:mm A");
     return(
       <div className='pageContainer'>
       { this.state.updateImage ?
@@ -170,7 +173,8 @@ class Event extends Component {
               </span>
             </Header>
           }
-          <Header as="h4">{ dateDisplay }</Header>
+          <Header as="h4">{`From: ${begDateDisp}`}</Header>
+          <Header as="h4">{`To: ${endDateDisp}`}</Header>
           <p> { description } </p>
           <Header as="h4">{ location }</Header>
           {isOrganizer ?

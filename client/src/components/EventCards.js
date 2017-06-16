@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Icon, Image, Modal, Button, Menu } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-
+import moment from 'moment';
 
 class EventCards extends Component {
 
@@ -49,6 +49,7 @@ class EventCards extends Component {
     return(
       <Card.Group itemsPerRow={3} >
        { events.map( (event, index) => {
+        let timeDateDisp = moment(`${event.begDate} ${event.begTime}`).format("YYYY-MM-DD, hh:mm A");
         return(
           <Card key={index}>
             { Object.keys(user).length === 0 ?
@@ -75,7 +76,7 @@ class EventCards extends Component {
                   </Card.Header>
               }
               <Card.Meta>
-                {`Date: ${event.begDate.slice(0, 10)}`}
+                {timeDateDisp}
               </Card.Meta>
               <Card.Description>
                 {`Location: ${event.location}`}
