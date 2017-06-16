@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { Header, Icon, Image, Button } from 'semantic-ui-react';
+import { Header, Icon, Image, Item, Button } from 'semantic-ui-react';
 import { getEvents,
          deleteEvent,
          eventArrayUpdate,
@@ -8,13 +8,12 @@ import { getEvents,
          randomImageSelection
        } from '../actions/events';
 import EventForm from './EventForm';
-import InviteForm from './InviteForm';
 import CommentFormList from './CommentFormList';
 import EventImageDrop from './EventImageDrop';
 
 class Event extends Component {
 
-  state={ edit: false, share: false, updateImage: false }
+  state={ edit: false, updateImage: false }
 
   componentDidMount = () => {
     this.refreshEvents();
@@ -28,44 +27,25 @@ class Event extends Component {
     this.setState({ edit: !this.state.edit });
   }
 
-  shareEvent = (emailAddress, email) => {
-    console.log(email + " to " + emailAddress);
-    this.setState({ share: !this.state.share });
-  }
-
   handleDelete = (_id) => {
     let { dispatch, history } = this.props;
     dispatch(deleteEvent(_id));
     history.push('/');
   }
 
-  displayAttendees = () => {
-    let {event} = this.props;
-
-    return(
-      <div>Attendees:
-        {event.attendeeIds.map((attendee, index) => {
-          return(<div key={index}>{index}: {attendee}</div>)
-        })
-        }
-      </div>
-    )
-  }
-
   toggleAttendance = (actionType) => {
     let { dispatch, user, event } = this.props;
     if(actionType === 'ATTEND') {
-      console.log("attempting to attend");
-      dispatch(eventArrayUpdate( user._id, event._id, 'ATTEND'));
+      dispatch(eventArrayUpdate( user.username, event._id, 'ATTEND'));
     } else if (actionType === 'UNATTEND') {
-      let filteredAttendees = event.attendeeIds.filter( id => id !== user._id);
+      let filteredAttendees = event.attendeeIds.filter( id => id !== user.username);
       dispatch(eventArrayUpdate(filteredAttendees, event._id, 'UNATTEND'));
     }
   }
 
   displayAttendOption = (isOrganizer) => {
     let { attendeeIds } = this.props.event;
-    let isAttendee = attendeeIds.includes(this.props.user._id);
+    let isAttendee = attendeeIds.includes(this.props.user.username);
     if (!isOrganizer && isAttendee) {
       return (
         <div>
@@ -96,28 +76,53 @@ class Event extends Component {
   }
 
   sendEmail = (emailAddress, emailSubject, email) => {
-       window.open("mailto:"+emailAddress+"?subject="+emailSubject+"&Body="+email);
-     }
+    window.open("mailto:"+emailAddress+"?subject="+emailSubject+"&Body="+email);
+  }
+
   sendInvite = () => {
-     let emailSubject="An Invitation from Eventech";
-     let emailAddress="";
-     let { eventName, location, begDate, _id } = this.props.event;
-     let username = this.props.user.username;
-     let email = (username + " would like to invite you to " +
-       eventName + " at " + location + " on " + begDate + "." +
-       "\n\nClick here to view event:\nhttp://localhost:3000/event/" + _id);
-     this.sendEmail(emailAddress, emailSubject, email);
-   }
+    let emailSubject="An Invitation from Eventech";
+    let emailAddress="";
+    let { eventName, location, begDate, _id } = this.props.event;
+    let nickName = this.props.user.nickName;
+    let email = (nickName + " would like to invite you to " +
+        eventName + " at " + location + " on " + begDate + ". " +
+        "Click here to view event: http://localhost:3000/event/" + _id);
+    this.sendEmail(emailAddress, emailSubject, email);
+  }
+
   sendEmailToOrganizer = () => {
-     let emailSubject="re: " + this.props.event.eventName;
-     let emailAddress= this.props.event.organizer;
-     let email = "";
-     this.sendEmail(emailAddress, emailSubject, email);
-   }
+    let emailSubject="re: " + this.props.event.eventName;
+    let emailAddress= this.props.event.organizer;
+    let email = "";
+    this.sendEmail(emailAddress, emailSubject, email);
+  }
+
+  contactAttendees = () => {
+    let emailSubject="re: " + this.props.event.eventName;
+    let attendees = this.props.event.attendeeIds;
+    let emailAddress=attendees[1];
+    for(let i = 2; i < attendees.length; i++)
+      emailAddress+=","+attendees[i];
+    let email="";
+    this.sendEmail(emailAddress, emailSubject, email);
+  }
+
+  displayAttendees = () => {
+    let attendees = this.props.event.attendeeIds;
+    return(
+      attendees.map( (attendee, index) => {
+        return(
+          <Item key={index} className="listItem">
+          {attendee}
+          </Item>
+        )
+      })
+    )
+  }
 
   render() {
     let { eventName, organizer, begDate, location, description, _id, comments, imageUrl } = this.props.event;
-    let { edit, share } = this.state;
+    let edit = this.state.edit;
     let eventToUpdate = this.props.event;
     let dateDisplay = begDate.slice(0, 10);
     let isOrganizer;
@@ -141,9 +146,7 @@ class Event extends Component {
             }
           </div>
       }
-
-
-      {this.displayAttendees()}
+      <div className="ui divider hidden" />
       { edit ?
         <div>
           <EventForm
@@ -159,7 +162,7 @@ class Event extends Component {
             <Header as="h3">You are hosting this event</Header>
             :
             <Header as="h3">
-              Hosted by: { organizer }
+              Hosted by:
               <span
                 data-tooltip="Email the organizer"
                 onClick={ this.sendEmailToOrganizer }>
@@ -170,12 +173,23 @@ class Event extends Component {
           <Header as="h4">{ dateDisplay }</Header>
           <p> { description } </p>
           <Header as="h4">{ location }</Header>
+          {isOrganizer ?
+            <div>
+              <Header as="h4">Attendees are:</Header>
+              {this.displayAttendees()}
+            </div>
+          : null
+          }
           { this.displayAttendOption(isOrganizer) }
+          <div className="ui divider hidden" />
           <div>
             { isOrganizer &&
               <span>
                 <span data-tooltip="edit event">
                   <Icon className='edit link large red' onClick={ this.toggleEdit } />
+                </span>
+                <span data-tooltip="contact guests">
+                  <Icon className='send link large purple' onClick={ this.contactAttendees } />
                 </span>
                 <span data-tooltip="delete event">
                   <Icon className='remove link large blue' onClick={ () => this.handleDelete(_id) } />
@@ -188,14 +202,7 @@ class Event extends Component {
           </div>
         </div>
       }
-      { share ?
-        <div>
-          <InviteForm event={ this.props.event } shareEvent={ this.shareEvent }/>
-        </div>
-        :
-        <div>
-        </div>
-      }
+      <div className="ui divider hidden" />
       { !edit &&
         <CommentFormList
           eventId={ _id }

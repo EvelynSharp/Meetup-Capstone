@@ -10,9 +10,10 @@ class CommentFormList extends Component {
     e.preventDefault();
     let { currentComment } = this.state;
     let { dispatch, eventId } = this.props;
-    let { username, avatarUrl } = this.props.user;
-    let commentContent = {username, avatarUrl, userComment: currentComment};
-    dispatch(eventArrayUpdate( commentContent, eventId, 'ADD_COMMENT' ));
+    let { username, nickName, avatarUrl } = this.props.user;
+    let commentContent = {username, nickName, avatarUrl, userComment: currentComment};
+    if(currentComment !=='')
+      dispatch(eventArrayUpdate( commentContent, eventId, 'ADD_COMMENT' ));
     this.setState({ currentComment: '' });
   }
 
@@ -31,13 +32,12 @@ class CommentFormList extends Component {
         <Comment key={index}>
           <Comment.Avatar src={c.avatarUrl} />
           <Comment.Content>
-            <Comment.Author as='a'> { c.username } </Comment.Author>
+            <Comment.Author as='a'> {c.nickName} ({c.username}) </Comment.Author>
             <Comment.Metadata>
-              <div> Updated At: </div>
+              <div> says: </div>
             </Comment.Metadata>
             <Comment.Text> { c.userComment } </Comment.Text>
             <Comment.Actions>
-              <Comment.Action>Reply</Comment.Action>
               { username === c.username &&
                 <Comment.Action
                   onClick={ () => this.commentDeletion(index) }
