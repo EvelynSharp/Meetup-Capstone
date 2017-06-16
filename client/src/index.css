@@ -6,7 +6,7 @@ body {
 
 /*#4183C4  #133070*/
 .signInPop {
-
+  width: 30em !important;
   text-align: center !important;
 }
 .signInModalCon{
