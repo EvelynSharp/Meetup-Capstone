@@ -47,31 +47,37 @@ class Login extends React.Component {
     let { title } = this.props;
     let { email, password } = this.state;
     return (
-      <div className='pageContainer'>
+      <div className='pageContainer' style={{ textAlign: 'center'}}>
         <Header as="h3">{title}</Header>
-        <Form onSubmit={this.handleSubmit} error >
-          <Form.Input
-            id="email"
-            label="Email:"
-            required
-            type="email"
-            onChange={this.handleChange}
-            value={email}
-          />
+        <Form onSubmit={this.handleSubmit} error>
+          <Form.Group inline >
+            <Form.Field width={2}></Form.Field>
+            <Form.Field width={3}><label>Email:</label></Form.Field>
+            <Form.Input
+              id="email"
+              required
+              type="email"
+              onChange={this.handleChange}
+              value={email}
+            />
+          </Form.Group>
           { title=== 'Login' && this.props.userError === 'NotAUser' &&
             <Message
               error
               content='User does not exist.'
             />
           }
-          <Form.Input
-            id="password"
-            label="Password:"
-            required
-            type="password"
-            onChange={this.handleChange}
-            value={password}
-          />
+          <Form.Group inline>
+            <Form.Field width={2}></Form.Field>
+            <Form.Field width={3}><label>Password:</label></Form.Field>
+            <Form.Input
+              id="password"
+              required
+              type="password"
+              onChange={this.handleChange}
+              value={password}
+            />
+          </Form.Group>
           { title=== 'Login' && this.props.userError === 'wrongPW' &&
             <Message
               error

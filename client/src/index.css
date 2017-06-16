@@ -4,6 +4,22 @@ body {
   font-family: sans-serif;
 }
 
+/*#4183C4  #133070*/
+.signInPop {
+
+  text-align: center !important;
+}
+.signInModalCon{
+  text-align: center !important;
+}
+.loginBtn {
+  color: #133070;
+  cursor: pointer;
+}
+.loginBtn:hover, .loginBtn:active {
+  color: #4183C4;
+}
+
 .editBtn {
   color: blue !important;
   background-color: white !important;

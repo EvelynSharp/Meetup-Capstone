@@ -1,8 +1,9 @@
 import React from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink, withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Menu } from 'semantic-ui-react';
+import { Menu, Modal, Button } from 'semantic-ui-react';
 import { logout } from '../actions/user';
+import Login from './Login';
 
 
 const links = [
@@ -38,16 +39,24 @@ class NavBar extends React.Component {
                style={{ cursor: 'pointer' }}
                onClick={ () => {
                  dispatch(logout())
-                 history.push('/login')
+                 history.push('/')
                }}
                className='rightMenu'
              >
                {nav.name}
              </a>
-             :
-             <NavLink to={nav.path} className='rightMenu'>
-               {nav.name}
-             </NavLink>
+             : nav.name === 'LOGIN' ?
+              <div className="signInModalCon">
+               <Modal className="signInPop" size="small" trigger={ <div className="loginBtn" >{nav.name} </div> }>
+                 <Modal.Content>
+                  <Login {...this.props} title="Login"/>
+                 </Modal.Content>
+               </Modal>
+               </div>
+                :
+                 <NavLink to={nav.path} className='rightMenu'>
+                   {nav.name}
+                 </NavLink>
            }
          </Menu.Item>
        )
@@ -93,6 +102,16 @@ class NavBar extends React.Component {
   )
  }
 }
+
+
+// <div className='modalText'>Sign Up for Eventech to view the event you are interested in. </div>
+// <Link to={'/register'}>
+//   <Button primary className="primBtn">SIGN UP</Button>
+// </Link>
+// <div className='modalTextFooter'>
+//   Already have an account?
+//  <Link to={'/login'}> Log in</Link>
+// </div>
 
 const mapStateToProps = (state) => {
   return { id: state.user._id }
