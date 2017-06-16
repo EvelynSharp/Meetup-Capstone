@@ -34,15 +34,16 @@ export const authenticateNew = (nickName, birthDate, phoneNumber, address, gende
       },
       credentials: 'include',
       method: 'POST',
-      body: JSON.stringify({ nickName,
-                             birthDate,
-                             phoneNumber,
-                             address,
-                             gender,
-                             email,
-                             password,
-                             avatarUrl,
-                             userBio })
+      body: JSON.stringify({
+              nickName,
+              birthDate,
+              phoneNumber,
+              address,
+              gender,
+              email,
+              password,
+              avatarUrl,
+              userBio })
    }).then( res => res.json() )
      .then( user => {
         if(user.username) {

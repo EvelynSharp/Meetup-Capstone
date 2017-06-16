@@ -101,10 +101,10 @@ class Event extends Component {
   sendInvite = () => {
      let emailSubject="An Invitation from Eventech";
      let emailAddress="";
-     let { eventName, location, date, _id } = this.props.event;
+     let { eventName, location, begDate, _id } = this.props.event;
      let username = this.props.user.username;
      let email = (username + " would like to invite you to " +
-       eventName + " at " + location + " on " + date + "." +
+       eventName + " at " + location + " on " + begDate + "." +
        "\n\nClick here to view event:\nhttp://localhost:3000/event/" + _id);
      this.sendEmail(emailAddress, emailSubject, email);
    }
@@ -116,10 +116,10 @@ class Event extends Component {
    }
 
   render() {
-    let { eventName, organizer, date, location, description, _id, comments, imageUrl } = this.props.event;
+    let { eventName, organizer, begDate, location, description, _id, comments, imageUrl } = this.props.event;
     let { edit, share } = this.state;
     let eventToUpdate = this.props.event;
-    let dateDisplay = date.slice(0, 10);
+    let dateDisplay = begDate.slice(0, 10);
     let isOrganizer;
     if(organizer === this.props.user.username) {
       isOrganizer = true;

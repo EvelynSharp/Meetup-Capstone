@@ -75,7 +75,7 @@ class EventCards extends Component {
                   </Card.Header>
               }
               <Card.Meta>
-                {`Date: ${event.date.slice(0, 10)}`}
+                {`Date: ${event.begDate.slice(0, 10)}`}
               </Card.Meta>
               <Card.Description>
                 {`Location: ${event.location}`}
