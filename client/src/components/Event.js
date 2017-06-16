@@ -95,6 +95,26 @@ class Event extends Component {
     this.props.dispatch(updateEvent(newEventDetails));
   }
 
+  sendEmail = (emailAddress, emailSubject, email) => {
+       window.open("mailto:"+emailAddress+"?subject="+emailSubject+"&Body="+email);
+     }
+  sendInvite = () => {
+     let emailSubject="An Invitation from Eventech";
+     let emailAddress="";
+     let { eventName, location, date, _id } = this.props.event;
+     let username = this.props.user.username;
+     let email = (username + " would like to invite you to " +
+       eventName + " at " + location + " on " + date + "." +
+       "\n\nClick here to view event:\nhttp://localhost:3000/event/" + _id);
+     this.sendEmail(emailAddress, emailSubject, email);
+   }
+  sendEmailToOrganizer = () => {
+     let emailSubject="re: " + this.props.event.eventName;
+     let emailAddress= this.props.event.organizer;
+     let email = "";
+     this.sendEmail(emailAddress, emailSubject, email);
+   }
+
   render() {
     let { eventName, organizer, date, location, description, _id, comments, imageUrl } = this.props.event;
     let { edit, share } = this.state;
@@ -138,7 +158,14 @@ class Event extends Component {
           {isOrganizer ?
             <Header as="h3">You are hosting this event</Header>
             :
-            <Header as="h3">Hosted by: { organizer }</Header>
+            <Header as="h3">
+              Hosted by: { organizer }
+              <span
+                data-tooltip="Email the organizer"
+                onClick={ this.sendEmailToOrganizer }>
+                  {" " + organizer }
+              </span>
+            </Header>
           }
           <Header as="h4">{ dateDisplay }</Header>
           <p> { description } </p>
@@ -156,7 +183,7 @@ class Event extends Component {
               </span>
             }
             <span data-tooltip="share event">
-              <Icon className='external share link large green' onClick={ this.shareEvent } />
+                <Icon className='external share link large green' onClick={ this.sendInvite } />
             </span>
           </div>
         </div>
