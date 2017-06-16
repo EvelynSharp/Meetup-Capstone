@@ -48,14 +48,7 @@ class NavBar extends React.Component {
                {nav.name}
              </a>
              : nav.name === 'LOGIN' ?
-              <div className="signInModalCon">
-               <Modal className="signInPop" size="small" trigger={ <div className="loginBtn" >{nav.name} </div> }>
-                 <Modal.Header>Sign In</Modal.Header>
-                 <Modal.Content>
-                  <Login {...this.props} title="Login"/>
-                 </Modal.Content>
-               </Modal>
-               </div>
+                 this.displayLogin(nav)
                 :
                  <NavLink to={nav.path} className='rightMenu'>
                    {nav.name}
@@ -66,6 +59,29 @@ class NavBar extends React.Component {
      });
   }
 
+  displayLogin = (nav) => {
+    if (this.props.location.pathname === '/login') {
+      return <div className="loginBtn" >{nav.name} </div>
+    } else {
+      return (
+        <div className="signInModalCon">
+         <Modal className="signInPop" size="small" trigger={ <div className="loginBtn" >{nav.name} </div> }>
+           <Modal.Header>Sign In</Modal.Header>
+           <Modal.Content>
+            <Login {...this.props} title="Login"/>
+            <div className='modalTextFooter'>
+              <span className='modalTextPadding'> Do not have an account? </span>
+              <Link to={'/register'}>Sign Up</Link>
+            </div>
+           </Modal.Content>
+         </Modal>
+        </div>
+      )
+    }
+  }
+
+
+
   displayGetStart = () => {
     let { history } = this.props;
     if (this.props.id) {
@@ -74,17 +90,19 @@ class NavBar extends React.Component {
       )
     } else {
       return (
-        <Modal size="small" trigger={ <Button className="imageBtn">Get Started</Button>}>
-          <Modal.Header>Sign In</Modal.Header>
-          <Modal.Content>
-            <div className='modalText'>Sign In to create a new event </div>
-            <Login {...this.props} title="Login"/>
-            <div className='modalTextFooter'>
-              Do not have an account?
-              <Link to={'/register'}>Sign Up</Link>
-            </div>
-          </Modal.Content>
-        </Modal>
+        <div className="signInModalCon">
+          <Modal className="signInPop" size="small" trigger={ <Button className="imageBtn">Get Started</Button>}>
+            <Modal.Header>Sign In</Modal.Header>
+            <Modal.Content>
+              <div className='modalText'>Sign In to create a new event </div>
+              <Login {...this.props} title="Login"/>
+              <div className='modalTextFooter'>
+                <span className='modalTextPadding'> Do not have an account? </span>
+                <Link to={'/register'}>Sign Up</Link>
+              </div>
+            </Modal.Content>
+          </Modal>
+        </div>
       )
     }
   }
@@ -130,15 +148,6 @@ class NavBar extends React.Component {
  }
 }
 
-
-// <div className='modalText'>Sign Up for Eventech to view the event you are interested in. </div>
-// <Link to={'/register'}>
-//   <Button primary className="primBtn">SIGN UP</Button>
-// </Link>
-// <div className='modalTextFooter'>
-//   Already have an account?
-//  <Link to={'/login'}> Log in</Link>
-// </div>
 
 const mapStateToProps = (state) => {
   return { id: state.user._id }

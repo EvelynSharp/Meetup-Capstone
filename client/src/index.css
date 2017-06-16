@@ -127,6 +127,10 @@ body {
   color: #778899;
 }
 
+.modalTextPadding {
+  padding-right: 1em;
+}
+
 .pageContainer {
   margin-top: 1em !important;
 }

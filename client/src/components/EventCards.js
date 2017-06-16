@@ -37,7 +37,7 @@ class EventCards extends Component {
           <Button primary className="primBtn">SIGN UP</Button>
         </Link>
         <div className='modalTextFooter'>
-          Already have an account?
+          <span className='modalTextPadding'> Already have an account? </span>
           <Link to={'/login'}> Log in</Link>
         </div>
       </Modal.Content>
