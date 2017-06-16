@@ -16,6 +16,10 @@ body {
   height: 300px;
 }
 
+.uploadedImage {
+  text-align: center;
+}
+
 .homebanner {
   background:
     linear-gradient(
