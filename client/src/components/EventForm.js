@@ -12,9 +12,9 @@ class EventForm extends Component {
     eventName: '',
     organizer: '',
     begDate: '',
-    begTime: '',
+    begTime: '12:00',
     endDate: '',
-    endTime: '',
+    endTime: '12:00',
     location: '',
     category: '',
     description: '',
@@ -107,123 +107,125 @@ class EventForm extends Component {
     let { eventName, begDate, begTime, endDate, endTime, location, category, description, categoryCheck, ifPastDate, ifBadEndTime } = this.state;
 
     return(
-      <div className='formContainer, pageContainer'>
-        <Header as="h2" className="eventFormHeader">Please Provide Event Details: </Header>
-        <Header as="h4">{`Organizer: ${username}`}</Header>
-        <Form onSubmit={ this.submitNewEvent } error>
-          <Form.Field required width={7}>
-            <label>Event Name:</label>
-            <input
-              id='eventName'
-              value={eventName}
-              type="text"
-              onChange={this.handleEventChange}
+      <div className="ui container">
+        <div className='formContainer, pageContainer'>
+          <Header as="h2" className="eventFormHeader">Please Provide Event Details: </Header>
+          <Header as="h4">{`Organizer: ${username}`}</Header>
+          <Form onSubmit={ this.submitNewEvent } error>
+            <Form.Field required width={7}>
+              <label>Event Name:</label>
+              <input
+                id='eventName'
+                value={eventName}
+                type="text"
+                onChange={this.handleEventChange}
+                required
+              />
+            </Form.Field>
+            <Form.Field width={7}>
+              <label>Location:</label>
+              <input
+                id='location'
+                value={location}
+                type="text"
+                onChange={this.handleEventChange}
+              />
+            </Form.Field>
+            <Form.Field
+              width={4}
+              control={Select}
+              label="Category: "
+              value={category}
+              onChange={ (e, data) => {
+                this.setState({ category: data.value, categoryCheck: true })
+              }}
+              id='category'
+              options = {categoryOptions}
               required
             />
-          </Form.Field>
-          <Form.Field width={7}>
-            <label>Location:</label>
-            <input
-              id='location'
-              value={location}
-              type="text"
-              onChange={this.handleEventChange}
-            />
-          </Form.Field>
-          <Form.Field
-            width={4}
-            control={Select}
-            label="Category: "
-            value={category}
-            onChange={ (e, data) => {
-              this.setState({ category: data.value, categoryCheck: true })
-            }}
-            id='category'
-            options = {categoryOptions}
-            required
-          />
-          { !categoryCheck &&
-            <Message
-              error
-              content='Please fill out this field.'
-            />
-          }
-          <Form.Group inline>
-            <Form.Field width={2}> <label>Start Time:</label> </Form.Field>
-            <Form.Field required width={4}>
-              <input
-                id='begDate'
-                value={begDate}
-                type="date"
-                onChange={this.handleDateChange}
-                required
+            { !categoryCheck &&
+              <Message
+                error
+                content='Please fill out this field.'
               />
-            </Form.Field>
-            <Form.Field required width={4}>
-              <input
-                id='begTime'
-                value={begTime}
-                type="time"
-                onChange={this.handleDateChange}
-                required
+            }
+            <Form.Group inline>
+              <Form.Field width={2}> <label>Start Time:</label> </Form.Field>
+              <Form.Field required width={4}>
+                <input
+                  id='begDate'
+                  value={begDate}
+                  type="date"
+                  onChange={this.handleDateChange}
+                  required
+                />
+              </Form.Field>
+              <Form.Field required width={4}>
+                <input
+                  id='begTime'
+                  value={begTime}
+                  type="time"
+                  onChange={this.handleDateChange}
+                  required
+                />
+              </Form.Field>
+            </Form.Group>
+            { ifPastDate &&
+              <Message
+                error
+                content='Event time cannot be in the past.'
               />
-            </Form.Field>
-          </Form.Group>
-          { ifPastDate &&
-            <Message
-              error
-              content='Event time cannot be in the past.'
-            />
-          }
-          <Form.Group inline>
-            <Form.Field width={2}> <label>End Time:</label> </Form.Field>
-            <Form.Field required width={4}>
-              <input
-                id='endDate'
-                value={endDate}
-                type="date"
-                onChange={this.handleDateChange}
-                required
+            }
+            <Form.Group inline>
+              <Form.Field width={2}> <label>End Time:</label> </Form.Field>
+              <Form.Field required width={4}>
+                <input
+                  id='endDate'
+                  value={endDate}
+                  type="date"
+                  onChange={this.handleDateChange}
+                  required
+                />
+              </Form.Field>
+              <Form.Field required width={4}>
+                <input
+                  id='endTime'
+                  value={endTime}
+                  type="time"
+                  onChange={this.handleDateChange}
+                  required
+                />
+              </Form.Field>
+            </Form.Group>
+            { ifBadEndTime &&
+              <Message
+                error
+                content='Event end time cannot be before or the same as start time.'
               />
-            </Form.Field>
-            <Form.Field required width={4}>
-              <input
-                id='endTime'
-                value={endTime}
-                type="time"
-                onChange={this.handleDateChange}
-                required
-              />
-            </Form.Field>
-          </Form.Group>
-          { ifBadEndTime &&
-            <Message
-              error
-              content='Event end time cannot be before or the same as start time.'
-            />
-          }
-          { !updateEvent &&
+            }
+            { !updateEvent &&
+              <Form.Field>
+                <EventImageDrop setImageUrlState={this.setImageUrlState}/>
+              </Form.Field>
+            }
             <Form.Field>
-              <EventImageDrop setImageUrlState={this.setImageUrlState}/>
+              <Form.TextArea
+                label="Description:"
+                id='description'
+                value={description}
+                type="text"
+                onChange={this.handleEventChange}
+              />
             </Form.Field>
-          }
-          <Form.Field>
-            <Form.TextArea
-              label="Description:"
-              id='description'
-              value={description}
-              type="text"
-              onChange={this.handleEventChange}
-            />
-          </Form.Field>
-          <Button
-            type='submit'
-            className="primBtn"
-            primary
-          >
-            Submit
-          </Button>
-        </Form>
+            <Button
+              type='submit'
+              className="primBtn"
+              primary
+            >
+              Submit
+            </Button>
+          </Form>
+        </div>
       </div>
     )
   }

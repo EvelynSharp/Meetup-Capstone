@@ -120,29 +120,31 @@ class Dashboard extends Component {
 
     let { activeItem } = this.state;
     return(
-      <Grid className='pageContainer'>
-        <Grid.Column width={4}>
-          <Header as="h3">MY ACCOUNT</Header>
-          <Menu fluid vertical tabular>
-            <Menu.Item
-              name='Account Details'
-              active={ activeItem === 'Account Details' }
-              onClick={ this.handleItemClick }
-            />
-            <Menu.Item
-              name='My Events'
-              active={ activeItem === 'My Events' }
-              onClick={ this.handleItemClick }
-            />
-          </Menu>
-        </Grid.Column>
+      <div className="ui container">
+        <Grid className='pageContainer'>
+          <Grid.Column width={4}>
+            <Header as="h3">MY ACCOUNT</Header>
+            <Menu fluid vertical tabular>
+              <Menu.Item
+                name='Account Details'
+                active={ activeItem === 'Account Details' }
+                onClick={ this.handleItemClick }
+              />
+              <Menu.Item
+                name='My Events'
+                active={ activeItem === 'My Events' }
+                onClick={ this.handleItemClick }
+              />
+            </Menu>
+          </Grid.Column>
 
-        <Grid.Column  width={12}>
-          <Segment className="dashboardCont">
-            { this.displayDashbord() }
-          </Segment>
-        </Grid.Column>
-      </Grid>
+          <Grid.Column  width={12}>
+            <Segment className="dashboardCont">
+              { this.displayDashbord() }
+            </Segment>
+          </Grid.Column>
+        </Grid>
+      </div>
     )
   }
 }

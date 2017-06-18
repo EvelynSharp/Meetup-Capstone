@@ -10,6 +10,7 @@ import { getEvents,
 import EventForm from './EventForm';
 import CommentFormList from './CommentFormList';
 import EventImageDrop from './EventImageDrop';
+import OrganizerEvents from './OrganizerEvents';
 import moment from 'moment';
 
 class Event extends Component {
@@ -135,88 +136,94 @@ class Event extends Component {
     let begDateDisp = moment(`${begDate} ${begTime}`).format("YYYY-MM-DD, hh:mm A");
     let endDateDisp = moment(`${endDate} ${endTime}`).format("YYYY-MM-DD, hh:mm A");
     return(
-      <div className='pageContainer'>
-      { this.state.updateImage ?
-            <EventImageDrop resetUpdateImage={this.resetUpdateImage} toUpdate={true} eventid={_id}/>
-        :
-          <div>
-            <Image src={imageUrl} />
-            { isOrganizer &&
-              <div>
-                <Button className="primBtn" onClick={this.setUpdateImage} primary>Update Photo</Button>
-                <Button onClick={this.seleteEventImage} secondary>Delete</Button>
-              </div>
-            }
-          </div>
-      }
-      <div className="ui divider hidden" />
-      { edit ?
-        <div>
-          <EventForm
-            eventToUpdate={eventToUpdate}
-            toggleEdit={this.toggleEdit}
-            updateEvent={true}
-          />
-        </div>
-        :
-        <div>
-          <Header as="h1">{ eventName }</Header>
-          {isOrganizer ?
-            <Header as="h3">You are hosting this event</Header>
-            :
-            <Header as="h3">
-              Hosted by:
-              <span
-                data-tooltip="Email the organizer"
-                onClick={ this.sendEmailToOrganizer }>
-                  {" " + organizer }
-              </span>
-            </Header>
-          }
-          <Header as="h4">{`From: ${begDateDisp}`}</Header>
-          <Header as="h4">{`To: ${endDateDisp}`}</Header>
-          <p> { description } </p>
-          <Header as="h4">{ location }</Header>
-          {isOrganizer ?
+      <div className="ui container">
+        <div className='pageContainer'>
+        { this.state.updateImage ?
+              <EventImageDrop resetUpdateImage={this.resetUpdateImage} toUpdate={true} eventid={_id}/>
+          :
             <div>
-              <Header as="h4">Attendees are:</Header>
-              {this.displayAttendees()}
+              <Image src={imageUrl} />
+              { isOrganizer &&
+                <div>
+                  <Button className="primBtn" onClick={this.setUpdateImage} primary>Update Photo</Button>
+                  <Button onClick={this.seleteEventImage} secondary>Delete</Button>
+                </div>
+              }
             </div>
-          : null
-          }
-          { this.displayAttendOption(isOrganizer) }
-          <div className="ui divider hidden" />
+        }
+        <div className="ui divider hidden" />
+        { edit ?
           <div>
-            { isOrganizer &&
-              <span>
-                <span data-tooltip="edit event">
-                  <Icon className='edit link large red' onClick={ this.toggleEdit } />
-                </span>
-                <span data-tooltip="contact guests">
-                  <Icon className='send link large purple' onClick={ this.contactAttendees } />
-                </span>
-                <span data-tooltip="delete event">
-                  <Icon className='remove link large blue' onClick={ () => this.handleDelete(_id) } />
-                </span>
-              </span>
-            }
-            <span data-tooltip="share event">
-                <Icon className='external share link large green' onClick={ this.sendInvite } />
-            </span>
+            <EventForm
+              eventToUpdate={eventToUpdate}
+              toggleEdit={this.toggleEdit}
+              updateEvent={true}
+            />
           </div>
-        </div>
-      }
-      <div className="ui divider hidden" />
-      { !edit &&
-        <CommentFormList
-          eventId={ _id }
-          existingComments={ comments }
-          user={this.props.user}
-        />
-      }
+          :
+          <div>
+            <Header as="h1">{ eventName }</Header>
+            {isOrganizer ?
+              <Header as="h3">You are hosting this event</Header>
+              :
+              <Header as="h3">
+                Hosted by:
+                <span
+                  data-tooltip="Email the organizer"
+                  onClick={ this.sendEmailToOrganizer }>
+                    {" " + organizer }
+                </span>
+              </Header>
+            }
+            <Header as="h4">{`From: ${begDateDisp}`}</Header>
+            <Header as="h4">{`To: ${endDateDisp}`}</Header>
+            <p> { description } </p>
+            <Header as="h4">{ location }</Header>
+            {isOrganizer ?
+                <div>
+                  <Header as="h4">Attendees are:</Header>
+                  {this.displayAttendees()}
+                </div>
+              : null
+            }
+            { this.displayAttendOption(isOrganizer) }
+            <div className="ui divider hidden" />
+              <div>
+                { isOrganizer &&
+                  <span>
+                    <span data-tooltip="edit event">
+                      <Icon className='edit link large red' onClick={ this.toggleEdit } />
+                    </span>
+                    <span data-tooltip="contact guests">
+                      <Icon className='send link large purple' onClick={ this.contactAttendees } />
+                    </span>
+                    <span data-tooltip="delete event">
+                      <Icon className='remove link large blue' onClick={ () => this.handleDelete(_id) } />
+                    </span>
+                  </span>
+                }
+                <span data-tooltip="share event">
+                    <Icon className='external share link large green' onClick={ this.sendInvite } />
+                </span>
+              </div>
+            </div>
+        }
+        <div className="ui divider hidden" />
+        { !edit &&
+          <CommentFormList
+            eventId={ _id }
+            existingComments={ comments }
+            user={this.props.user}
+          />
+        }
 
       </div>
-
+      <div>
+      { !edit && !isOrganizer &&
+        <OrganizerEvents curEventId={_id} curOrganizer={organizer}/>
+      }
+      </div>
+    </div>
     )
   }
 }

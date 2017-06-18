@@ -68,7 +68,8 @@ body {
 
 .imageBtn {
   position: absolute;
-  top: 63%;
+  font-family: 'Open Sans', sans-serif;
+  top: 57%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: rgba(0,0,0,0) !important;
@@ -82,14 +83,62 @@ body {
 }
 
 .moduleHeader {
-  font-weight: 900px;
+  font-weight: 600px;
+  font-size: 65px;
+  font-family: 'Open Sans', sans-serif;
   color: white;
   padding: 0.4em 1em;
   position: absolute;
-  top: 45%;
+  top: 40%;
   left: 50%;
   font-size: 2em;
   transform: translate(-50%, -50%);
+}
+
+
+.moduleBottom {
+  font-weight: 900px;
+  font-size: 55px;
+  font-family: 'Open Sans', sans-serif;
+  color: #133070;
+  padding: 0.4em 1em;
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  font-size: 2em;
+  transform: translate(-50%, -50%);
+}
+
+.aboutBottom {
+  background:
+    linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
+      ),
+    url(images/aboutheader.jpg);
+  background-size: 2000px auto;
+  background-position: right;
+  height: 18em;
+  width: auto;
+  position: relative;
+  margin: 0;
+}
+
+.imageBtnBottom {
+  position: absolute;
+  font-family: 'Open Sans', sans-serif;
+  top: 62%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #40537a !important;
+  border: 3px solid #40537a !important;
+  color: white !important;
+}
+
+
+.imageBtnBottom:hover, .imageBtnBottom:active {
+  background-color:#4f6fad !important;
+  border: 3px solid #4f6fad !important;
 }
 
 
@@ -144,6 +193,11 @@ body {
 .primBtn {
   background-color: #40537a !important;
 }
+.primBtn:hover, .primBtn:active {
+  background-color:#4f6fad !important;
+}
+
+
 
 .eventFormHeader {
   color: #133070 !important;

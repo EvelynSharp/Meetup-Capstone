@@ -15,7 +15,6 @@ import Register from './components/Register';
 const App = () => (
   <div >
     <NavBar />
-    <div className="ui container">
       <FetchUser>
         <Switch>
           <Route exact path="/" component={Home} />
@@ -28,7 +27,6 @@ const App = () => (
           <Route component={NoMatch} />
         </Switch>
       </FetchUser>
-    </div>
   </div>
 );
 

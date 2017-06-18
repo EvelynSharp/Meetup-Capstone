@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Menu, Modal, Button } from 'semantic-ui-react';
 import { logout } from '../actions/user';
 import Login from './Login';
+import AbtCallAction from './AbtCallAction';
 
 
 const links = [
@@ -80,35 +81,8 @@ class NavBar extends React.Component {
     }
   }
 
-
-
-  displayGetStart = () => {
-    let { history } = this.props;
-    if (this.props.id) {
-      return (
-        <Button className="imageBtn" onClick={ () => history.push('/newevent')}>Get Started</Button>
-      )
-    } else {
-      return (
-        <div className="signInModalCon">
-          <Modal className="signInPop" size="small" trigger={ <Button className="imageBtn">Get Started</Button>}>
-            <Modal.Header>Sign In</Modal.Header>
-            <Modal.Content>
-              <div className='modalText'>Sign In to create a new event </div>
-              <Login {...this.props} title="Login"/>
-              <div className='modalTextFooter'>
-                <span className='modalTextPadding'> Do not have an account? </span>
-                <Link to={'/register'}>Sign Up</Link>
-              </div>
-            </Modal.Content>
-          </Modal>
-        </div>
-      )
-    }
-  }
-
   render() {
-    let { id, location } = this.props;
+    let { id, location, history } = this.props;
     let navs;
 
     if (id) {
@@ -138,10 +112,7 @@ class NavBar extends React.Component {
         </div>
       }
       { location.pathname === '/about' &&
-        <div className='aboutbanner'>
-          <h2 className='moduleHeader'>Create The Best Experience</h2>
-          { this.displayGetStart() }
-        </div>
+        <AbtCallAction position="top" history={history} />
       }
     </div>
   )

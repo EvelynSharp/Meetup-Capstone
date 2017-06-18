@@ -4,7 +4,7 @@ import {  Dropdown, Button, Menu, Input } from 'semantic-ui-react';
 import { getEvents } from '../actions/events';
 import EventCards from './EventCards';
 import { categoryOptions } from '../categoryOptions';
-
+import moment from 'moment';
 
 //<EventList events={events}/>
 class Home extends Component {
@@ -21,10 +21,10 @@ class Home extends Component {
     let { filter } = this.state;
     let filteredEvents = filter === '' ? events : events.filter( e => e.category === filter );
     let sortedEvents = filteredEvents.sort((a,b) => {
-      return new Date(a.date) - new Date(b.date);
+      return moment(`${a.begDate} ${a.begTime}`).format("X") - moment(`${b.begDate} ${b.begTime}`).format("X");
     });
     return(
-      <div>
+      <div className="ui container">
 
         <Menu className='homesearch'>
           <Menu.Item className='homesearch'>
