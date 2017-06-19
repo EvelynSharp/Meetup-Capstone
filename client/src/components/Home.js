@@ -17,7 +17,8 @@ class Home extends Component {
 
   filterPastEvents = (events) => {
     let curUnixDate = moment(new Date()).format("X");
-    return  events.filter( event => moment(`${event.endDate} ${event.endTime}`).format("X") >= curUnixDate )
+    let curEvents = events.filter( event => moment(`${event.endDate} ${event.endTime}`).format("X") >= curUnixDate )
+    return curEvents;
   }
 
 
@@ -25,7 +26,7 @@ class Home extends Component {
     let { events } = this.props;
     let { filter } = this.state;
     let currentEvents = this.filterPastEvents(events);
-    let filteredEvents = filter === '' ? events : events.filter( e => e.category === filter );
+    let filteredEvents = filter === '' ? currentEvents : currentEvents.filter( e => e.category === filter );
     let sortedEvents = filteredEvents.sort((a,b) => {
       return moment(`${a.begDate} ${a.begTime}`).format("X") - moment(`${b.begDate} ${b.begTime}`).format("X");
     });
