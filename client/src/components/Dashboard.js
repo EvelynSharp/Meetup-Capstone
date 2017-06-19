@@ -6,6 +6,7 @@ import { removeUserImage, updateUserBio } from '../actions/user';
 import EventList from './EventList';
 import ImageDropzone from './ImageDropzone';
 import UserProfile from './UserProfile';
+import moment from 'moment';
 
 class Dashboard extends Component {
 
@@ -108,10 +109,27 @@ class Dashboard extends Component {
       )
     } else if (activeItem === 'My Events') {
       let userEvents = events.filter( event => event.attendeeIds.includes(username));
+      let curUserEvents = this.filterPastEvents(userEvents);
       return (
         <div>
-        { userEvents.length !== 0 ?
-            <EventList events={userEvents} history={history}/>
+        { curUserEvents.length !== 0 ?
+            <EventList events={curUserEvents} history={history}/>
+          :
+            <div>
+              <p className='modalText'>You have not signed up for any events</p>
+              <Button className="primBtn" primary onClick={ () => history.push('/')} >Browse Events</Button>
+              <Button secondary onClick={ () => history.push('/newevent')}>Create An Event</Button>
+            </div>
+        }
+        </div>
+      )
+    } else if (activeItem === 'Attended Events') {
+      let userEvents = events.filter( event => event.attendeeIds.includes(username));
+      let pastUserEvents = this.getPastEvents(userEvents);
+      return (
+        <div>
+        { pastUserEvents.length !== 0 ?
+            <EventList events={pastUserEvents} history={history}/>
           :
             <div>
               <p className='modalText'>You have not signed up for any events</p>
@@ -123,6 +141,19 @@ class Dashboard extends Component {
       )
     }
   }
+
+  filterPastEvents = (events) => {
+    let curUnixDate = moment(new Date()).format("X");
+    let curEvents = events.filter( event => moment(`${event.endDate} ${event.endTime}`).format("X") >= curUnixDate )
+    return curEvents;
+  }
+
+  getPastEvents = (events) => {
+    let curUnixDate = moment(new Date()).format("X");
+    let pastEvents = events.filter( event => moment(`${event.endDate} ${event.endTime}`).format("X") <= curUnixDate )
+    return pastEvents;
+  }
+
 
   render() {
 
@@ -141,6 +172,11 @@ class Dashboard extends Component {
               <Menu.Item
                 name='My Events'
                 active={ activeItem === 'My Events' }
+                onClick={ this.handleItemClick }
+              />
+              <Menu.Item
+                name='Attended Events'
+                active={ activeItem === 'Attended Events' }
                 onClick={ this.handleItemClick }
               />
             </Menu>
