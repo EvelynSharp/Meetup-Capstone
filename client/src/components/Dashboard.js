@@ -110,7 +110,15 @@ class Dashboard extends Component {
       let userEvents = events.filter( event => event.attendeeIds.includes(username));
       return (
         <div>
+        { userEvents.length !== 0 ?
             <EventList events={userEvents} history={history}/>
+          :
+            <div>
+              <p className='modalText'>You have not signed up for any events</p>
+              <Button className="primBtn" primary onClick={ () => history.push('/')} >Browse Events</Button>
+              <Button secondary onClick={ () => history.push('/newevent')}>Create An Event</Button>
+            </div>
+        }
         </div>
       )
     }

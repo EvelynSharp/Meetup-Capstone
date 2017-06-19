@@ -1,6 +1,6 @@
 import React from 'react';
 import { Item } from 'semantic-ui-react';
-
+import moment from 'moment';
 
 const EventList = ({ events, history }) => (
   <Item.Group relaxed='very' divided>
@@ -10,7 +10,7 @@ const EventList = ({ events, history }) => (
 
 const displayEvents = ( events, history ) => {
   let sortedEvents = events.sort((a,b) => {
-    return new Date(a.date) - new Date(b.date);
+    return moment(`${a.begDate} ${a.begTime}`).format("X") - moment(`${b.begDate} ${b.begTime}`).format("X");
   });
   return sortedEvents.map( (event, index) => {
     return(
