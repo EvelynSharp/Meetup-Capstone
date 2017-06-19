@@ -43,7 +43,6 @@ class EventForm extends Component {
 
   submitNewEvent = (e) => {
     e.preventDefault();
-
     let { _id, username, history } = this.props;
     let imageDisplay;
     if(this.state.imageUrl === '') {
@@ -54,7 +53,7 @@ class EventForm extends Component {
     if (!this.state.updateEvent) {
       if (this.state.category === '') {
         this.setState({ categoryCheck: false })
-      } else if (!this.state.ifPastDate) {
+      } else if (!this.state.ifPastDate && !this.state.ifBadEndTime) {
         this.setState(
           { organizer: username, attendeeIds: username, imageUrl: imageDisplay },
           () => {
@@ -65,10 +64,12 @@ class EventForm extends Component {
           })
         }
       } else {
-        let eventDetails = { ...this.state };
-        this.props.dispatch(updateEvent(eventDetails));
-        this.setState({ ...this.defaultData });
-        this.props.toggleEdit();
+        if (!this.state.ifPastDate && !this.state.ifBadEndTime) {
+          let eventDetails = { ...this.state };
+          this.props.dispatch(updateEvent(eventDetails));
+          this.setState({ ...this.defaultData });
+          this.props.toggleEdit();
+        }
       }
   }
 

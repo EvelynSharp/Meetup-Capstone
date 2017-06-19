@@ -15,10 +15,16 @@ class Home extends Component {
     this.props.dispatch(getEvents());
   }
 
+  filterPastEvents = (events) => {
+    let curUnixDate = moment(new Date()).format("X");
+    return  events.filter( event => moment(`${event.endDate} ${event.endTime}`).format("X") >= curUnixDate )
+  }
+
 
   render(){
     let { events } = this.props;
     let { filter } = this.state;
+    let currentEvents = this.filterPastEvents(events);
     let filteredEvents = filter === '' ? events : events.filter( e => e.category === filter );
     let sortedEvents = filteredEvents.sort((a,b) => {
       return moment(`${a.begDate} ${a.begTime}`).format("X") - moment(`${b.begDate} ${b.begTime}`).format("X");
