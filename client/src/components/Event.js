@@ -122,6 +122,15 @@ class Event extends Component {
     )
   }
 
+  displayEdit = () => {
+    let { endDate, endTime } = this.props.event;
+    if( moment(`${endDate} ${endTime}`).format("X") <= moment( new Date() ).format("X")) {
+      return <Icon className='edit link large red' disabled />
+    } else {
+      return <Icon className='edit link large red' onClick={ this.toggleEdit } />
+    }
+  }
+
   render() {
     let { eventName, organizer, begDate, begTime, endDate, endTime, location, description, _id, comments, imageUrl } = this.props.event;
     let edit = this.state.edit;
@@ -192,7 +201,7 @@ class Event extends Component {
                 { isOrganizer &&
                   <span>
                     <span data-tooltip="edit event">
-                      <Icon className='edit link large red' onClick={ this.toggleEdit } />
+                      { this.displayEdit() }
                     </span>
                     <span data-tooltip="contact guests">
                       <Icon className='send link large purple' onClick={ this.contactAttendees } />

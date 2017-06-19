@@ -160,9 +160,14 @@ body {
 
 .profileImage {
   border: none;
-
 }
 
+.otherUserPro {
+  text-align: center;
+  height: 250px;
+  margin: 1.5em;
+  margin-bottom: 0.5em !important;
+}
 
 .modalText {
   font-size: 1.2em;

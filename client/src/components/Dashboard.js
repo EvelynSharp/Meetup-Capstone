@@ -116,7 +116,7 @@ class Dashboard extends Component {
             <EventList events={curUserEvents} history={history}/>
           :
             <div>
-              <p className='modalText'>You have not signed up for any events</p>
+              <p className='modalText'>You have not yet signed up for any events</p>
               <Button className="primBtn" primary onClick={ () => history.push('/')} >Browse Events</Button>
               <Button secondary onClick={ () => history.push('/newevent')}>Create An Event</Button>
             </div>
@@ -132,7 +132,7 @@ class Dashboard extends Component {
             <EventList events={pastUserEvents} history={history}/>
           :
             <div>
-              <p className='modalText'>You have not signed up for any events</p>
+              <p className='modalText'>You have not yet attended any events</p>
               <Button className="primBtn" primary onClick={ () => history.push('/')} >Browse Events</Button>
               <Button secondary onClick={ () => history.push('/newevent')}>Create An Event</Button>
             </div>

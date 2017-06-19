@@ -111,6 +111,22 @@ export const updateUserBio = ( _id, userBio) => {
   }
 }
 
+export const getUserInfo = (_id) => {
+  return (dispatch) => {
+    fetch(`/api/userinfos/${_id}`)
+      .then( res => res.json() )
+      .then( userinfo => dispatch({ type: 'VIEW_USER', userinfo }))
+  }
+}
+
+
+export const getEvents = () => {
+  return(dispatch) => {
+    fetch('/api/events')
+      .then( res => res.json() )
+      .then( events => dispatch({ type: 'GET_EVENTS', events}))
+  }
+}
 
 export const tryFetchUser = (cb) => {
   return (dispatch) => {

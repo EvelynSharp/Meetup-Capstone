@@ -11,6 +11,7 @@ import EventForm from './components/EventForm';
 import NoMatch from './components/NoMatch';
 import Event from './components/Event';
 import Register from './components/Register';
+import ViewUser from './components/ViewUser';
 
 const App = () => (
   <div >
@@ -19,6 +20,7 @@ const App = () => (
         <Switch>
           <Route exact path="/" component={Home} />
           <ProtectedRoute path='/event/:id' component={Event} />
+          <ProtectedRoute path='/viewuser/:id' component={ViewUser} />
           <Route path="/about" component={About} />
           <ProtectedRoute path="/dashboard" component={Dashboard} />
           <Route path="/register" render={ (props) => <Register {...props} title="Register" /> } />

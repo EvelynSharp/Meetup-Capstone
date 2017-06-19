@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Card, Icon, Image, Header, Grid } from 'semantic-ui-react';
 import moment from 'moment';
@@ -17,6 +17,7 @@ const OrganizerEvents = ({ curEventId, curOrganizer, events }) => (
     </Grid>
   </div>
 )
+
 
 const findOrganizerEvents = ( curEventId, curOrganizer, events) => {
   let orgEvents = events.filter( event => { return event.organizer === curOrganizer && event._id !== curEventId });
@@ -37,10 +38,9 @@ const displayOrgEvents = ( eventsToDisp ) => {
     let timeDateDisp = moment(`${event.begDate} ${event.begTime}`).format("YYYY-MM-DD, hh:mm A");
     return (
       <Card key={index} centered>
-
         <Card.Content>
           <Link to={`/event/${event._id}`}>
-            <Image floated="left" src={event.imageUrl} size="small"/>
+            <Image floated="left" src={event.imageUrl} size="small" onClick={ () => window.scrollTo(0,0)}/>
           </Link>
           <Card.Header>
             <Link className='eventListHeader' to={`/event/${event._id}`}>

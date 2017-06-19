@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Form, Button, Comment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { eventArrayUpdate } from '../actions/events';
+import { Link } from 'react-router-dom';
 
 class CommentFormList extends Component {
   state = { currentComment: '' }
@@ -10,8 +11,8 @@ class CommentFormList extends Component {
     e.preventDefault();
     let { currentComment } = this.state;
     let { dispatch, eventId } = this.props;
-    let { username, nickName, avatarUrl } = this.props.user;
-    let commentContent = {username, nickName, avatarUrl, userComment: currentComment};
+    let { username, nickName, avatarUrl, _id } = this.props.user;
+    let commentContent = {_id, username, nickName, avatarUrl, userComment: currentComment};
     if(currentComment !=='')
       dispatch(eventArrayUpdate( commentContent, eventId, 'ADD_COMMENT' ));
     this.setState({ currentComment: '' });
@@ -24,15 +25,21 @@ class CommentFormList extends Component {
     dispatch(eventArrayUpdate( filteredComments, eventId, 'REMOVE_COMMENT'));
   }
 
+
+
   displayComments = () => {
     let { existingComments } = this.props;
     let { username } = this.props.user;
     return existingComments.map( (c, index) => {
       return(
         <Comment key={index}>
-          <Comment.Avatar src={c.avatarUrl} />
+          <Link  to={`/viewuser/${c._id}`}>
+            <Comment.Avatar src={c.avatarUrl}/>
+          </Link>
           <Comment.Content>
-            <Comment.Author as='a'> {c.nickName} ({c.username}) </Comment.Author>
+            <Link  to={`/viewuser/${c._id}`}>
+              <Comment.Author as='a'> {c.nickName} ({c.username}) </Comment.Author>
+            </Link>
             <Comment.Metadata>
               <div> says: </div>
             </Comment.Metadata>

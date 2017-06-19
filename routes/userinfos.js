@@ -7,6 +7,24 @@ const userAttrs = (user) => {
   return { _id, username, role, avatarUrl, profileImage, nickName, birthDate, phoneNumber, address, gender, userBio };
 }
 
+router.get('/', (req, res) => {
+  Event.find( (err, events) => {
+    res.json(events);
+  });
+});
+
+
+router.get('/:id', (req, res) => {
+  User.findById(
+    req.params.id,
+    (err, userinfo) => {
+      if(err)
+        return res.json(err);
+      return res.json(userinfo);
+    }
+  )
+})
+
 router.put('/:id', (req, res) => {
   let { nickName, birthDate, phoneNumber, username, address, avatarUrl, actionType } = req.body;
   if (actionType === 'BIO') {
