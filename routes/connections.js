@@ -68,6 +68,32 @@ router.put('/:id', (req, res) => {
         }
       )
     }
+  } else if ( actionType === 'DECLINE_INV') {
+    if (userType === 'UPDATE_INVITER') {
+      let invSent = req.body.updatedArr;
+      User.findByIdAndUpdate(
+        inviterId,
+        { $set: { invSent } },
+        { new: true },
+        (err, updatedUser) => {
+          if(err)
+            return res.json(err)
+          return res.json(updatedUser)
+        }
+      )
+    } else if ( userType === 'UPDATE_INVITEE' ) {
+      let invReceived = req.body.updatedArr;
+      User.findByIdAndUpdate(
+        inviteeId,
+        { $set: { invReceived } },
+        { new: true },
+        (err, updatedUser) => {
+          if(err)
+            return res.json(err)
+          return res.json(updatedUser)
+        }
+      )
+    }
   }
 
 })

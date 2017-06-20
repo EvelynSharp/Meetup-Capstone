@@ -35,7 +35,7 @@ class UserList extends Component {
       return (
         <Item
           key={index}
-          className="listItem"          
+          className="listItem"
         >
           <Item.Image onClick={() => history.push(`/viewuser/${user._id}`)} size='tiny' src={user.avatarUrl} />
           <Item.Content>
@@ -43,8 +43,8 @@ class UserList extends Component {
             <Item.Description>{ user.userBio }</Item.Description>
           </Item.Content>
           <Item.Content>
-            <Button onClick={ () => this.addFriend(user) }>Accept</Button>
-            <Button onClick={this.declineFriend}>Decline</Button>
+            <Button onClick={ () => this.handleInv(user, 'accept') }>Accept</Button>
+            <Button onClick={ () => this.handleInv(user, 'decline')}>Decline</Button>
           </Item.Content>
         </Item>
       )
@@ -61,19 +61,23 @@ class UserList extends Component {
     }
   }
 
-  addFriend = (inviter) => {
-  let inviterId = inviter._id;
-  let inviteeId = this.props.user._id;
-  let updatedInvSent = inviter.invSent.filter( id => id !== inviteeId);
-  let updatedInvRec = this.props.user.invReceived.filter( id => id !== inviterId)
-  let { dispatch } = this.props;
-  dispatch(updateConnections(inviterId, inviteeId, 'UPDATE_INVITER', 'ACCEPT_INV', updatedInvSent ));
-  dispatch(updateConnections(inviterId, inviteeId, 'UPDATE_INVITEE', 'ACCEPT_INV', updatedInvRec ));
+  handleInv = (inviter, action) => {
+    let inviterId = inviter._id;
+    let inviteeId = this.props.user._id;
+    let updatedInvSent = inviter.invSent.filter( id => id !== inviteeId);
+    let updatedInvRec = this.props.user.invReceived.filter( id => id !== inviterId)
+    let { dispatch } = this.props;
+    if ( action === 'accept') {
+      dispatch(updateConnections(inviterId, inviteeId, 'UPDATE_INVITER', 'ACCEPT_INV', updatedInvSent ));
+      dispatch(updateConnections(inviterId, inviteeId, 'UPDATE_INVITEE', 'ACCEPT_INV', updatedInvRec ));
+    } else if ( action === 'decline') {
+      dispatch(updateConnections(inviterId, inviteeId, 'UPDATE_INVITER', 'DECLINE_INV', updatedInvSent ));
+      dispatch(updateConnections(inviterId, inviteeId, 'UPDATE_INVITEE', 'DECLINE_INV', updatedInvRec ));
+    }
+
   }
 
-  declineFriend = () => {
 
-  }
 
   render(){
     let { history } = this.props;
