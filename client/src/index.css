@@ -4,9 +4,23 @@ body {
   font-family: sans-serif;
 }
 
+.pendingBtn {
+  background-color: white !important;
+  color: #427c60 !important;
+  border: none !important;
+}
+
+.pendingBtn:hover, .pendingBtn:active {
+  background-color: white !important;
+  color: #427c60 !important;
+  border: none !important;
+}
+
+/*add media query for when screen is smaller*/
 /*#4183C4  #133070*/
 .signInPop {
   width: 30em !important;
+  margin-left: -14% !important;
   text-align: center !important;
 }
 .signInModalCon{

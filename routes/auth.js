@@ -12,8 +12,8 @@ const isAuthenticated = (req, res, next) => {
 
 //Helper function to whitelist attributes
 const userAttrs = (user) => {
-  const { _id, username, role, avatarUrl, profileImage, nickName, birthDate, phoneNumber, address, gender, userBio } = user;
-  return { _id, username, role, avatarUrl, profileImage, nickName, birthDate, phoneNumber, address, gender, userBio };
+  const { _id, username, role, avatarUrl, profileImage, nickName, birthDate, phoneNumber, address, gender, userBio, friendList, invSent, invReceived } = user;
+  return { _id, username, role, avatarUrl, profileImage, nickName, birthDate, phoneNumber, address, gender, userBio, friendList, invSent, invReceived };
 }
 
 router.post('/signup', (req, res) => {

@@ -20,8 +20,10 @@ const auth = require('./routes/auth');
 const events = require('./routes/events');
 //cloudinary
 const cloudinarys = require('./routes/cloudinarys');
-
+//get user information
 const userinfos = require('./routes/userinfos');
+//friend request
+const connections = require('./routes/connections');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -56,6 +58,8 @@ app.use('/api/events', events);
 app.use('/api/cloudinarys', cloudinarys);
 
 app.use('/api/userinfos', userinfos);
+
+app.use('/api/connections', connections);
 
 app.get('*', (request, response) => {
   response.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));

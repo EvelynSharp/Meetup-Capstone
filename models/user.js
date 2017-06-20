@@ -13,7 +13,10 @@ const User = new Schema({
   phoneNumber: { type: String },
   gender: { type: String},
   address: { type: String },
-  userBio: { type: String }
+  userBio: { type: String },
+  friendList: { type: Array },
+  invSent: { type: Array },
+  invReceived: { type: Array },
 });
 
 User.plugin(passportLocalMongoose);

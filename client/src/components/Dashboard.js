@@ -6,6 +6,7 @@ import { removeUserImage, updateUserBio } from '../actions/user';
 import EventList from './EventList';
 import ImageDropzone from './ImageDropzone';
 import UserProfile from './UserProfile';
+import UserList from './UserList';
 import moment from 'moment';
 
 class Dashboard extends Component {
@@ -47,7 +48,7 @@ class Dashboard extends Component {
 
   displayDashbord = () => {
     let { activeItem, updateImage, bioEdit } = this.state;
-    let {  _id, username, profileImage } = this.props.user;
+    let {  _id, username, profileImage, friendList, invReceived } = this.props.user;
     let { events, history } = this.props;
     let profileImageDisplay;
     if(profileImage === '' || updateImage ) {
@@ -139,6 +140,10 @@ class Dashboard extends Component {
         }
         </div>
       )
+    } else if (activeItem === 'Connections') {
+      return (
+        <UserList history={history} />
+      )
     }
   }
 
@@ -177,6 +182,11 @@ class Dashboard extends Component {
               <Menu.Item
                 name='Attended Events'
                 active={ activeItem === 'Attended Events' }
+                onClick={ this.handleItemClick }
+              />
+              <Menu.Item
+                name='Connections'
+                active={ activeItem === 'Connections' }
                 onClick={ this.handleItemClick }
               />
             </Menu>

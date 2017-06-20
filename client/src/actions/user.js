@@ -120,6 +120,7 @@ export const getUserInfo = (_id) => {
 }
 
 
+
 export const getEvents = () => {
   return(dispatch) => {
     fetch('/api/events')
