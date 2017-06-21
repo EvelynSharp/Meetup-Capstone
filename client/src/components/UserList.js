@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Item, Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { getAllUsers, updateConnections } from '../actions/connections';
+import { getAllUsers, updateConnections, handleInvite } from '../actions/connections';
 
 
 class UserList extends Component {
@@ -30,7 +30,7 @@ class UserList extends Component {
   }
 
   displayInvList = (users) => {
-    let { history } = this.props;
+    let { history, dispatch } = this.props;
     return users.map( (user, index) => {
       return (
         <Item
@@ -44,7 +44,7 @@ class UserList extends Component {
           </Item.Content>
           <Item.Content>
             <Button onClick={ () => this.handleInv(user, 'accept') }>Accept</Button>
-            <Button onClick={ () => this.handleInv(user, 'decline')}>Decline</Button>
+            <Button onClick={ () => this.handleInv(user, 'decline') }>Decline</Button>
           </Item.Content>
         </Item>
       )

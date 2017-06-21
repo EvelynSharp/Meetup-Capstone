@@ -38,7 +38,7 @@ class CommentFormList extends Component {
           </Link>
           <Comment.Content>
             <Link  to={`/viewuser/${c._id}`}>
-              <Comment.Author as='a'> {c.nickName} ({c.username}) </Comment.Author>
+              <Comment.Author> {c.nickName} ({c.username}) </Comment.Author>
             </Link>
             <Comment.Metadata>
               <div> says: </div>

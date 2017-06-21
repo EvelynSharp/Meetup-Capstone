@@ -3,6 +3,17 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+.connectedBtn {
+  background-color: white !important;
+  color: #b0bec5 !important;
+  border: none !important;
+}
+
+.connectedBtn:hover, .connectedBtn:active {
+  background-color: white !important;
+  color: #b0bec5 !important;
+  border: none !important;
+}
 
 .pendingBtn {
   background-color: white !important;
@@ -178,7 +189,7 @@ body {
 
 .otherUserPro {
   text-align: center;
-  height: 250px;
+  height: 150px;
   margin: 1.5em;
   margin-bottom: 0.5em !important;
 }
