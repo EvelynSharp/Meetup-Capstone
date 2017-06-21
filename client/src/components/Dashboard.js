@@ -112,11 +112,13 @@ class Dashboard extends Component {
       let userEvents = events.filter( event => event.attendeeIds.includes(username));
       let curUserEvents = this.filterPastEvents(userEvents);
       return (
-        <div>
+        <div >
         { curUserEvents.length !== 0 ?
-            <EventList events={curUserEvents} history={history}/>
+            <div className="dashboardDisp">
+              <EventList events={curUserEvents} history={history}/>
+            </div>
           :
-            <div>
+            <div className="dashboardDisp">
               <p className='modalText'>You have not yet signed up for any events</p>
               <Button className="primBtn" primary onClick={ () => history.push('/')} >Browse Events</Button>
               <Button secondary onClick={ () => history.push('/newevent')}>Create An Event</Button>
@@ -132,7 +134,7 @@ class Dashboard extends Component {
         { pastUserEvents.length !== 0 ?
             <EventList events={pastUserEvents} history={history}/>
           :
-            <div>
+            <div className="dashboardDisp">
               <p className='modalText'>You have not yet attended any events</p>
               <Button className="primBtn" primary onClick={ () => history.push('/')} >Browse Events</Button>
               <Button secondary onClick={ () => history.push('/newevent')}>Create An Event</Button>

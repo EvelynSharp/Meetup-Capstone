@@ -3,17 +3,29 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+.dashboardDisp {
+  margin-left: 5%;
+  margin-top: 3%;
+}
+
+.removeIcon {
+  color: #b0bec5 !important;
+}
+
+.removeIcon:hover, .removeIcon:active {
+  color: #e53935 !important;
+}
 
 .acceptBtn {
   background-color: white !important;
-  color: #5baf87 !important;
-  border: 3px solid #5baf87 !important;
+  color: #427c60  !important;
+  border: 3px solid #427c60  !important;
 }
 
 .acceptBtn:hover, .acceptBtn:active {
   background-color: white !important;
-  color: #427c60 !important;
-  border: 3px solid #427c60 !important;
+  color: #5baf87 !important;
+  border: 3px solid #5baf87 !important;
 }
 
 

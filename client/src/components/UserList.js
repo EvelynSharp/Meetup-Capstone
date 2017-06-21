@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
-import { Item, Button } from 'semantic-ui-react';
+import { Item, Button, List, Image, Icon, Grid, Header, Divider } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { getAllUsers, updateConnections, handleInvite, removeConnection } from '../actions/connections';
+import { getAllUsers,
+         updateConnections,
+         handleInvite,
+         removeConnection,
+         cleanReduxUsers
+       } from '../actions/connections';
 
 
 class UserList extends Component {
 
+  componentWillUnmount = () => {
+    this.props.dispatch(cleanReduxUsers());
+  }
+
   componentDidMount = () => {
-    this.props.dispatch(getAllUsers())
+    this.props.dispatch(getAllUsers());
   }
 
 //curUserId, idToRemove, curUserFriends, removeIdFriends, userType
@@ -25,20 +34,23 @@ class UserList extends Component {
     let { history } = this.props;
     return users.map( (user, index) => {
       return (
-        <Item
+        <List.Item
           key={index}
           className="listItem"
         >
-          <Item.Image onClick={() => history.push(`/viewuser/${user._id}`)} size='tiny' src={user.avatarUrl} />
-          <Item.Content>
-            <Item.Header onClick={() => history.push(`/viewuser/${user._id}`)}> { user.nickName } </Item.Header>
-            <Item.Meta>{ user.username }</Item.Meta>
-            <Item.Description>{ user.userBio }</Item.Description>
-          </Item.Content>
-          <Item.Content>
-            <Button className="deleteBtn" onClick={ () => this.deleteConnection(user) }>Disconnect</Button>
-          </Item.Content>
-        </Item>
+          <Image
+            avatar
+            onClick={() => history.push(`/viewuser/${user._id}`)}
+            src={ user.profileImage === '' ? user.avatarUrl : user.profileImage }
+          />
+          <List.Content>
+            <List.Header onClick={() => history.push(`/viewuser/${user._id}`)}> { user.nickName } </List.Header>
+            <List.Description>{ user.userBio }</List.Description>
+          </List.Content>
+          <List.Content floated="right">
+            <div className="removeIcon" onClick={ () => this.deleteConnection(user) }>Delete</div>
+          </List.Content>
+        </List.Item>
       )
     })
   }
@@ -55,10 +67,10 @@ class UserList extends Component {
           <Item.Content>
             <Item.Header onClick={() => history.push(`/viewuser/${user._id}`)}> { user.nickName } </Item.Header>
             <Item.Description>{ user.userBio }</Item.Description>
-          </Item.Content>
-          <Item.Content>
-            <Button className="acceptBtn" onClick={ () => this.handleInv(user, 'accept') }>Accept</Button>
-            <Button className="deleteBtn" onClick={ () => this.handleInv(user, 'decline') }>Decline</Button>
+            <Item.Extra>
+              <Button className="acceptBtn" onClick={ () => this.handleInv(user, 'accept') }>Accept</Button>
+              <Button className="deleteBtn" onClick={ () => this.handleInv(user, 'decline') }>Decline</Button>
+            </Item.Extra>
           </Item.Content>
         </Item>
       )
@@ -98,12 +110,45 @@ class UserList extends Component {
     let { friendList, invReceived } = this.props.user;
     return(
       <div>
-        <Item.Group relaxed='very' divided>
-          { this.findUserInfo( invReceived, "Invites" )}
-        </Item.Group>
-        <Item.Group relaxed='very' divided>
-          { this.findUserInfo(  friendList, "Friends" )}
-        </Item.Group>
+        { friendList.length === 0 && invReceived.length === 0 &&
+          <div className="dashboardDisp">
+            <p className='modalText'>Make some new connections through Eventech!</p>
+            <Button className="primBtn" primary onClick={ () => history.push('/')} >Browse Events</Button>
+            <Button secondary onClick={ () => history.push('/newevent')}>Create An Event</Button>
+          </div>
+        }
+        <Grid>
+          { invReceived.length !== 0 &&
+            <Grid.Row className="dashboardDisp">
+              <div>
+                <Header>Pending Connection Request</Header>
+                <Divider  />
+              </div>
+            </Grid.Row>
+          }
+          <Grid.Row style={{ marginLeft: '10%' }}>
+            <Grid.Column width={10}>
+              <Item.Group relaxed='very' divided>
+                { this.findUserInfo( invReceived, "Invites" )}
+              </Item.Group>
+            </Grid.Column>
+          </Grid.Row>
+          { friendList.length !== 0 &&
+            <Grid.Row className="dashboardDisp">
+              <div>
+                <Header>Your Connections</Header>
+                <Divider  />
+              </div>
+            </Grid.Row>
+          }
+          <Grid.Row style={{ marginLeft: '10%' }}>
+            <Grid.Column width={10}>
+              <List relaxed='very' selection divided verticalAlign='middle'>
+                { this.findUserInfo(  friendList, "Friends" )}
+              </List>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </div>
     )
   }

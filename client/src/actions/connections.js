@@ -1,3 +1,11 @@
+
+export const cleanReduxUsers = () => {
+  return(dispatch) => {
+    dispatch({ type: 'CLEAR_ALL_USERS' })
+  }
+}
+
+
 export const removeConnection = (curUserId, idToRemove, updatedArr, userType ) => {
   return(dispatch) => {
     fetch(`/api/connections/remove/${curUserId}`, {
