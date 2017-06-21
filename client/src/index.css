@@ -3,6 +3,33 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.acceptBtn {
+  background-color: white !important;
+  color: #5baf87 !important;
+  border: 3px solid #5baf87 !important;
+}
+
+.acceptBtn:hover, .acceptBtn:active {
+  background-color: white !important;
+  color: #427c60 !important;
+  border: 3px solid #427c60 !important;
+}
+
+
+
+.deleteBtn {
+  background-color: white !important;
+  color: #c62828 !important;
+  border: 3px solid #c62828 !important;
+}
+
+.deleteBtn:hover, .deleteBtn:active {
+  background-color: white !important;
+  color: #e53935 !important;
+  border: 3px solid #e53935 !important;
+}
+
 .connectedBtn {
   background-color: white !important;
   color: #b0bec5 !important;

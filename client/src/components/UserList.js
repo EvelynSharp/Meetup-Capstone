@@ -1,13 +1,24 @@
 import React, { Component } from 'react';
 import { Item, Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { getAllUsers, updateConnections, handleInvite } from '../actions/connections';
+import { getAllUsers, updateConnections, handleInvite, removeConnection } from '../actions/connections';
 
 
 class UserList extends Component {
 
   componentDidMount = () => {
     this.props.dispatch(getAllUsers())
+  }
+
+//curUserId, idToRemove, curUserFriends, removeIdFriends, userType
+  deleteConnection = (userToRemove) => {
+   let { dispatch, user } = this.props;
+   let curUserId = user._id;
+   let idToRemove = userToRemove._id;
+   let curUserFriends = user.friendList.filter( id => id !== idToRemove );
+   let removeIdFriends = userToRemove.friendList.filter( id => id !== curUserId );
+   dispatch(removeConnection(curUserId, idToRemove, curUserFriends, 'UPDATE_CURUSER'));
+   dispatch(removeConnection(curUserId, idToRemove, removeIdFriends, 'UPDATE_CONNECTION'));
   }
 
   displayFriendList = ( users ) => {
@@ -23,6 +34,9 @@ class UserList extends Component {
             <Item.Header onClick={() => history.push(`/viewuser/${user._id}`)}> { user.nickName } </Item.Header>
             <Item.Meta>{ user.username }</Item.Meta>
             <Item.Description>{ user.userBio }</Item.Description>
+          </Item.Content>
+          <Item.Content>
+            <Button className="deleteBtn" onClick={ () => this.deleteConnection(user) }>Disconnect</Button>
           </Item.Content>
         </Item>
       )
@@ -43,8 +57,8 @@ class UserList extends Component {
             <Item.Description>{ user.userBio }</Item.Description>
           </Item.Content>
           <Item.Content>
-            <Button onClick={ () => this.handleInv(user, 'accept') }>Accept</Button>
-            <Button onClick={ () => this.handleInv(user, 'decline') }>Decline</Button>
+            <Button className="acceptBtn" onClick={ () => this.handleInv(user, 'accept') }>Accept</Button>
+            <Button className="deleteBtn" onClick={ () => this.handleInv(user, 'decline') }>Decline</Button>
           </Item.Content>
         </Item>
       )

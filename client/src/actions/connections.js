@@ -1,3 +1,26 @@
+export const removeConnection = (curUserId, idToRemove, updatedArr, userType ) => {
+  return(dispatch) => {
+    fetch(`/api/connections/remove/${curUserId}`, {
+      method: 'PUT',
+      headers:{
+        'ACCEPT': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ idToRemove, updatedArr, userType })
+    }).then( res => res.json() )
+      .then( user => {
+          if(userType === 'UPDATE_CURUSER') {
+            dispatch({ type: 'USER', user })
+          } else if (userType === 'UPDATE_CONNECTION') {
+            dispatch({ type: 'VIEW_USER', userinfo: user})
+          }
+      })
+  }
+}
+
+
+
+
 export const updateConnections = (inviterId, inviteeId, userType, actionType, updatedArr) => {
   return (dispatch) => {
     fetch(`/api/connections/${inviteeId}`, {

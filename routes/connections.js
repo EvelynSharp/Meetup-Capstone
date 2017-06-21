@@ -9,6 +9,37 @@ router.get('/', (req, res) => {
 });
 
 
+router.put('/remove/:id', (req, res) => {
+  let { idToRemove, updatedArr, userType } = req.body;
+  let curUserId = req.params.id;
+  if ( userType === 'UPDATE_CURUSER') {
+    let curUserFriends  = req.body.updatedArr;
+    User.findByIdAndUpdate(
+      curUserId,
+      { $set: { friendList: curUserFriends }},
+      { new: true },
+      (err, updatedUser) => {
+        if(err)
+          return res.json(err)
+        return res.json(updatedUser)
+      }
+    )
+  } else if ( userType === 'UPDATE_CONNECTION') {
+    let removeIdFriends = req.body.updatedArr;
+    User.findByIdAndUpdate(
+      idToRemove,
+      { $set: { friendList: removeIdFriends }},
+      { new: true },
+      (err, updatedUser) => {
+        if(err)
+          return res.json(err)
+        return res.json(updatedUser)
+      }
+    )
+  }
+})
+
+
 router.put('/:id', (req, res) => {
   let { inviterId, userType, actionType } = req.body;
   let inviteeId = req.params.id;
@@ -95,7 +126,6 @@ router.put('/:id', (req, res) => {
       )
     }
   }
-
 })
 
 module.exports = router;
