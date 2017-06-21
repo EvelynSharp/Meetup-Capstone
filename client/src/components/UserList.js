@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Item, Button, List, Image, Icon, Grid, Header, Divider } from 'semantic-ui-react';
+import { Item, Button, List, Image, Icon, Grid, Header, Divider, Modal } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { getAllUsers,
          updateConnections,
@@ -10,6 +10,8 @@ import { getAllUsers,
 
 
 class UserList extends Component {
+
+  state={ open: false }
 
   componentWillUnmount = () => {
     this.props.dispatch(cleanReduxUsers());
@@ -28,6 +30,15 @@ class UserList extends Component {
    let removeIdFriends = userToRemove.friendList.filter( id => id !== curUserId );
    dispatch(removeConnection(curUserId, idToRemove, curUserFriends, 'UPDATE_CURUSER'));
    dispatch(removeConnection(curUserId, idToRemove, removeIdFriends, 'UPDATE_CONNECTION'));
+   this.setState({ open: false });
+  }
+
+  showDeleteModal = () => {
+    this.setState({ open: true });
+  }
+
+  closeDeleteModal = () => {
+    this.setState({ open: false });
   }
 
   displayFriendList = ( users ) => {
@@ -48,7 +59,18 @@ class UserList extends Component {
             <List.Description>{ user.userBio }</List.Description>
           </List.Content>
           <List.Content floated="right">
-            <div className="removeIcon" onClick={ () => this.deleteConnection(user) }>Delete</div>
+            <Modal open={this.state.open} size="small" trigger={ <div className="removeIcon" onClick={this.showDeleteModal}>Delete</div> }>
+              <Modal.Header>Delete This Connection</Modal.Header>
+              <Modal.Content>
+                <div className='modalText'>
+                  {`Please confirm that you'd like to remove ${user.nickName} from your connections` }
+                </div>
+              </Modal.Content>
+              <Modal.Actions>
+                <Button primary className="primBtn" onClick={ () => this.deleteConnection(user)}>CONFIRM</Button>
+                <Button secondary onClick={ this.closeDeleteModal }>CANCEL</Button>
+              </Modal.Actions>
+            </Modal>
           </List.Content>
         </List.Item>
       )
@@ -121,7 +143,7 @@ class UserList extends Component {
           { invReceived.length !== 0 &&
             <Grid.Row className="dashboardDisp">
               <div>
-                <Header>Pending Connection Request</Header>
+                <Header >Pending Connection Request</Header>
                 <Divider  />
               </div>
             </Grid.Row>

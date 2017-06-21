@@ -110,7 +110,7 @@ class EventForm extends Component {
     return(
       <div className="ui container">
         <div className='formContainer, pageContainer'>
-          <Header as="h2" className="eventFormHeader">Please Provide Event Details: </Header>
+          <Header className="pageHeaders">Create A New Event: </Header>
           <Header as="h4">{`Organizer: ${username}`}</Header>
           <Form onSubmit={ this.submitNewEvent } error>
             <Form.Field required width={7}>

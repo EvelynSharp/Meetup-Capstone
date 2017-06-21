@@ -75,7 +75,7 @@ class Register extends React.Component {
     return (
       <Container>
         <div className='pageContainer'>
-          <Header as="h3">{title}</Header>
+          <Header className="pageHeaders">{title}</Header>
           <Form onSubmit={this.handleSubmit} error >
             <Form.Group>
               <Form.Input width={5} id="nickName" label="NickName:" required onChange={this.handleChange} value={nickName} />

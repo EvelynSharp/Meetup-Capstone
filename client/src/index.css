@@ -268,10 +268,13 @@ body {
 
 
 
-.eventFormHeader {
-  color: #133070 !important;
+.pageHeaders {
+  /*font-size: 25px !important;
+  color: #133070 !important;*/
   margin-top: 1.5em !important;
+  font-family: 'Open Sans', sans-serif !important;
 }
+
 .formContainer{
   margin-left: 3em;
   margin-right: 3em;
