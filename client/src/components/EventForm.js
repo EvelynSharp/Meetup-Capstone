@@ -110,8 +110,12 @@ class EventForm extends Component {
     return(
       <div className="ui container">
         <div className='formContainer, pageContainer'>
-          <Header className="pageHeaders">Create A New Event: </Header>
-          <Header as="h4">{`Organizer: ${username}`}</Header>
+          { !updateEvent &&
+            <div>
+              <Header className="pageHeaders">Create A New Event: </Header>
+              <Header as="h4">{`Organizer: ${username}`}</Header>
+            </div>
+          }
           <Form onSubmit={ this.submitNewEvent } error>
             <Form.Field required width={7}>
               <label>Event Name:</label>
@@ -151,8 +155,8 @@ class EventForm extends Component {
               />
             }
             <Form.Group inline>
-              <Form.Field width={2}> <label>Start Time:</label> </Form.Field>
-              <Form.Field required width={4}>
+              <Form.Field width={updateEvent ? 4 : 2}> <label>Start Time:</label> </Form.Field>
+              <Form.Field required width={ updateEvent ? 7 : 4}>
                 <input
                   id='begDate'
                   value={begDate}
@@ -161,7 +165,7 @@ class EventForm extends Component {
                   required
                 />
               </Form.Field>
-              <Form.Field required width={4}>
+              <Form.Field required width={ updateEvent ? 7 : 4}>
                 <input
                   id='begTime'
                   value={begTime}
@@ -178,8 +182,8 @@ class EventForm extends Component {
               />
             }
             <Form.Group inline>
-              <Form.Field width={2}> <label>End Time:</label> </Form.Field>
-              <Form.Field required width={4}>
+              <Form.Field width={updateEvent ? 4 : 2}> <label>End Time:</label> </Form.Field>
+              <Form.Field required width={ updateEvent ? 7 : 4}>
                 <input
                   id='endDate'
                   value={endDate}
@@ -188,7 +192,7 @@ class EventForm extends Component {
                   required
                 />
               </Form.Field>
-              <Form.Field required width={4}>
+              <Form.Field required width={ updateEvent ? 7 : 4}>
                 <input
                   id='endTime'
                   value={endTime}

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { Header, Icon, Image, Item, Button } from 'semantic-ui-react';
+import { Header, Icon, Image, Item, Button, Grid } from 'semantic-ui-react';
 import { getEvents,
          deleteEvent,
          eventArrayUpdate,
@@ -131,6 +131,23 @@ class Event extends Component {
     }
   }
 
+  displayHoster = (isOrganizer) => {
+    if (isOrganizer) {
+      return <Header as="h3">You are hosting this event</Header>
+    } else {
+      return (
+        <Header as="h3">
+          Hosted by:
+          <span
+            data-tooltip="Email the organizer"
+            onClick={ this.sendEmailToOrganizer }>
+              { " " + this.props.event.organizer }
+          </span>
+        </Header>
+      )
+    }
+  }
+
   render() {
     let { eventName, organizer, begDate, begTime, endDate, endTime, location, description, _id, comments, imageUrl } = this.props.event;
     let edit = this.state.edit;
@@ -147,76 +164,76 @@ class Event extends Component {
     return(
       <div className="ui container">
         <div className='pageContainer'>
-        { this.state.updateImage ?
-              <EventImageDrop resetUpdateImage={this.resetUpdateImage} toUpdate={true} eventid={_id}/>
-          :
-            <div>
-              <Image src={imageUrl} />
-              { isOrganizer &&
-                <div>
-                  <Button className="primBtn" onClick={this.setUpdateImage} primary>Update Photo</Button>
-                  <Button onClick={this.seleteEventImage} secondary>Delete</Button>
-                </div>
+        <Grid verticalAlign="top" style={{ marginTop: '3%'}}>
+          <Grid.Row>
+            <Grid.Column width={6}>
+              { this.state.updateImage ?
+                    <EventImageDrop resetUpdateImage={this.resetUpdateImage} toUpdate={true} eventid={_id}/>
+                :
+                  <div>
+                    <Image src={imageUrl} />
+                    { isOrganizer &&
+                      <div>
+                        <Button className="primBtn" onClick={this.setUpdateImage} primary>Update Photo</Button>
+                        <Button onClick={this.seleteEventImage} secondary>Delete</Button>
+                      </div>
+                    }
+                  </div>
               }
-            </div>
-        }
-        <div className="ui divider hidden" />
-        { edit ?
-          <div>
-            <EventForm
-              eventToUpdate={eventToUpdate}
-              toggleEdit={this.toggleEdit}
-              updateEvent={true}
-            />
-          </div>
-          :
-          <div>
-            <Header as="h1">{ eventName }</Header>
-            {isOrganizer ?
-              <Header as="h3">You are hosting this event</Header>
-              :
-              <Header as="h3">
-                Hosted by:
-                <span
-                  data-tooltip="Email the organizer"
-                  onClick={ this.sendEmailToOrganizer }>
-                    {" " + organizer }
-                </span>
-              </Header>
-            }
-            <Header as="h4">{`From: ${begDateDisp}`}</Header>
-            <Header as="h4">{`To: ${endDateDisp}`}</Header>
-            <p> { description } </p>
-            <Header as="h4">{ location }</Header>
-            {isOrganizer ?
+            </Grid.Column>
+            <Grid.Column width={1}>
+            </Grid.Column>
+            <Grid.Column width={8}>
+              { edit ?
                 <div>
-                  <Header as="h4">Attendees are:</Header>
-                  {this.displayAttendees()}
+                  <EventForm
+                    eventToUpdate={eventToUpdate}
+                    toggleEdit={this.toggleEdit}
+                    updateEvent={true}
+                  />
                 </div>
-              : null
-            }
-            { this.displayAttendOption(isOrganizer) }
-            <div className="ui divider hidden" />
-              <div>
-                { isOrganizer &&
-                  <span>
-                    <span data-tooltip="edit event">
-                      { this.displayEdit() }
-                    </span>
-                    <span data-tooltip="contact guests">
-                      <Icon className='send link large purple' onClick={ this.contactAttendees } />
-                    </span>
-                    <span data-tooltip="delete event">
-                      <Icon className='remove link large blue' onClick={ () => this.handleDelete(_id) } />
-                    </span>
-                  </span>
-                }
-                <span data-tooltip="share event">
-                    <Icon className='external share link large green' onClick={ this.sendInvite } />
-                </span>
-              </div>
-            </div>
-        }
+                :
+                <div>
+                  <Header as="h1">{ eventName }</Header>
+                  { this.displayHoster(isOrganizer) }
+                  <Header as="h4">{`From: ${begDateDisp}`}</Header>
+                  <Header as="h4">{`To: ${endDateDisp}`}</Header>
+                  <p> { description } </p>
+                  <Header as="h4">{ location }</Header>
+                  {isOrganizer ?
+                      <div>
+                        <Header as="h4">Attendees are:</Header>
+                        {this.displayAttendees()}
+                      </div>
+                    : null
+                  }
+                  { this.displayAttendOption(isOrganizer) }
+                  <div className="ui divider hidden" />
+                    <div>
+                      { isOrganizer &&
+                        <span>
+                          <span data-tooltip="edit event">
+                            { this.displayEdit() }
+                          </span>
+                          <span data-tooltip="contact guests">
+                            <Icon className='send link large purple' onClick={ this.contactAttendees } />
+                          </span>
+                          <span data-tooltip="delete event">
+                            <Icon className='remove link large blue' onClick={ () => this.handleDelete(_id) } />
+                          </span>
+                        </span>
+                      }
+                      <span data-tooltip="share event">
+                          <Icon className='external share link large green' onClick={ this.sendInvite } />
+                      </span>
+                    </div>
+                  </div>
+              }
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+
+
         <div className="ui divider hidden" />
         { !edit &&
           <CommentFormList

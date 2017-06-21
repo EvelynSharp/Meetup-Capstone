@@ -43,7 +43,12 @@ class UserList extends Component {
 
   displayFriendList = ( users ) => {
     let { history } = this.props;
-    return users.map( (user, index) => {
+    let sortedUsers = users.sort( (a, b) => {
+      let nameA = a.nickName.toUpperCase();
+      let nameB = b.nickName.toUpperCase();
+      return ( nameA < nameB ) ? -1 : (nameA > nameB ) ? 1 : 0;
+    });
+    return sortedUsers.map( (user, index) => {
       return (
         <List.Item
           key={index}
