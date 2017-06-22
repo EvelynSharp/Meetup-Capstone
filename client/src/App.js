@@ -29,6 +29,7 @@ const App = () => (
           <Route component={NoMatch} />
         </Switch>
       </FetchUser>
+
   </div>
 );
 

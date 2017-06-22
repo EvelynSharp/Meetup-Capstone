@@ -46,7 +46,7 @@ class Event extends Component {
   }
 
   displayAttendOption = (isOrganizer) => {
-    let { attendeeIds } = this.props.event;
+    let { attendeeIds = [] } = this.props.event;
     let isAttendee = attendeeIds.includes(this.props.user.username);
     if (!isOrganizer && isAttendee) {
       return (
@@ -61,6 +61,7 @@ class Event extends Component {
         </div>
       )
     }
+
   }
 
   setUpdateImage = () => {
@@ -86,9 +87,16 @@ class Event extends Component {
     let emailAddress="";
     let { eventName, location, begDate, _id } = this.props.event;
     let nickName = this.props.user.nickName;
-    let email = (nickName + " would like to invite you to " +
+    let email='';
+    if (location!=='')
+      email = (nickName + " would like to invite you to " +
         eventName + " at " + location + " on " + begDate + ". " +
         "Click here to view event: http://localhost:3000/event/" + _id);
+    else {
+      email = (nickName + " would like to invite you to " +
+        eventName + " on " + begDate + ". " +
+        "Click here to view event: http://localhost:3000/event/" + _id);
+    }
     this.sendEmail(emailAddress, emailSubject, email);
   }
 
@@ -180,7 +188,7 @@ class Event extends Component {
                     { isOrganizer &&
                       <div>
                         <Button className="primBtn" onClick={this.setUpdateImage} primary>Update Photo</Button>
-                        <Button onClick={this.seleteEventImage} secondary>Delete</Button>
+                        <Button onClick={this.seleteEventImage} secondary>Use A Stock Photo</Button>
                       </div>
                     }
                   </div>
@@ -229,7 +237,7 @@ class Event extends Component {
         { !edit &&
           <CommentFormList
             eventId={ _id }
-            existingComments={ comments }
+            existingComments={ comments = [] }
             user={this.props.user}
           />
         }
