@@ -28,8 +28,13 @@ class CommentFormList extends Component {
 
 
   displayComments = () => {
-    let { existingComments } = this.props;
+    let  existingComments;
     let { username } = this.props.user;
+    if ( this.props.existingComments ) {
+      existingComments = this.props.existingComments;
+    } else {
+      existingComments=[];
+    }
     return existingComments.map( (c, index) => {
       return(
         <Comment key={index}>

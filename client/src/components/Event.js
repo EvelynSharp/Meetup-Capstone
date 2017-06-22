@@ -237,7 +237,7 @@ class Event extends Component {
         { !edit &&
           <CommentFormList
             eventId={ _id }
-            existingComments={ comments = [] }
+            existingComments={ comments }
             user={this.props.user}
           />
         }
