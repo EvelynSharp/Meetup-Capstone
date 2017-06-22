@@ -315,10 +315,10 @@ const About = ({ history }) => (
                     <a href='https://github.com/EvelynSharp' target='_blank'><Icon fitted link color='blue' name='github' size='huge'/></a>
                   </Grid.Column>
                   <Grid.Column>
-                    <Icon link fitted color='blue' name='facebook square' size='huge'/>
+                    <a href='https://www.facebook.com/yihong.shi' target='_blank'><Icon link fitted color='blue' name='facebook square' size='huge'/></a>
                   </Grid.Column>
                   <Grid.Column>
-                    <Icon link fitted color='blue' name='linkedin' size='huge'/>
+                    <a href='https://www.linkedin.com/in/evelyn-sharp-606a8816/' target='_blank'><Icon link fitted color='blue' name='linkedin' size='huge'/></a>
                   </Grid.Column>
                 </Grid.Row>
               </Grid>

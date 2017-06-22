@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { Header, Icon, Image, Item, Button, Grid } from 'semantic-ui-react';
+import { Header, Icon, Image, Item, Button, Grid, Accordion } from 'semantic-ui-react';
 import { getEvents,
          deleteEvent,
          eventArrayUpdate,
@@ -11,6 +11,7 @@ import EventForm from './EventForm';
 import CommentFormList from './CommentFormList';
 import EventImageDrop from './EventImageDrop';
 import OrganizerEvents from './OrganizerEvents';
+import UserList from './UserList';
 import moment from 'moment';
 
 class Event extends Component {
@@ -38,16 +39,19 @@ class Event extends Component {
   toggleAttendance = (actionType) => {
     let { dispatch, user, event } = this.props;
     if(actionType === 'ATTEND') {
-      dispatch(eventArrayUpdate( user.username, event._id, 'ATTEND'));
+      let newAttendee = { email: user.username, id: user._id };
+      dispatch(eventArrayUpdate( newAttendee, event._id, 'ATTEND'));
     } else if (actionType === 'UNATTEND') {
-      let filteredAttendees = event.attendeeIds.filter( id => id !== user.username);
+      let filteredAttendees = event.attendeeIds.filter( a => a.id !== user._id);
       dispatch(eventArrayUpdate(filteredAttendees, event._id, 'UNATTEND'));
     }
   }
 
   displayAttendOption = (isOrganizer) => {
     let { attendeeIds = [] } = this.props.event;
-    let isAttendee = attendeeIds.includes(this.props.user.username);
+    let { username, _id } = this.props.user;
+    let attendeeIdArr = attendeeIds.map( a => {return a.id});
+    let isAttendee = attendeeIdArr.includes( _id );
     if (!isOrganizer && isAttendee) {
       return (
         <div>
@@ -110,9 +114,9 @@ class Event extends Component {
   contactAttendees = () => {
     let emailSubject="re: " + this.props.event.eventName;
     let attendees = this.props.event.attendeeIds;
-    let emailAddress=attendees[1];
+    let emailAddress=attendees[1].email;
     for(let i = 2; i < attendees.length; i++)
-      emailAddress+=","+attendees[i];
+      emailAddress+=","+attendees[i].email;
     let email="";
     this.sendEmail(emailAddress, emailSubject, email);
   }
@@ -161,11 +165,20 @@ class Event extends Component {
     }
   }
 
+  getAttendeeIdList = ( attendeeList = [] ) => {
+    let attendeeIdList=[];
+    if (attendeeList.length !== 0){
+      attendeeIdList = attendeeList.map( att => { return att.id });
+    }
+    return attendeeIdList;
+  }
+
   render() {
-    let { eventName, organizer, begDate, begTime, endDate, endTime, location, description, _id, comments, imageUrl } = this.props.event;
+    let { eventName, organizer, begDate, begTime, endDate, endTime, location, description, attendeeIds, _id, comments, imageUrl } = this.props.event;
     let edit = this.state.edit;
     let eventToUpdate = this.props.event;
 //    let dateDisplay = begDate.slice(0, 10);
+//<Image src={imageUrl} centered/>
     let isOrganizer;
     if(organizer === this.props.user.username) {
       isOrganizer = true;
@@ -174,29 +187,35 @@ class Event extends Component {
     }
     let begDateDisp = moment(`${begDate} ${begTime}`).format("YYYY-MM-DD, hh:mm A");
     let endDateDisp = moment(`${endDate} ${endTime}`).format("YYYY-MM-DD, hh:mm A");
+    let attendeeIdList = this.getAttendeeIdList( attendeeIds );
     return(
       <div className="ui container">
-        <div className='pageContainer'>
+        <div className='pageContainer eventWrap'>
         <Grid verticalAlign="top" style={{ marginTop: '3%'}}>
           <Grid.Row>
-            <Grid.Column width={6}>
+            <Grid.Column width={6} textAlign="center">
               { this.state.updateImage ?
                     <EventImageDrop resetUpdateImage={this.resetUpdateImage} toUpdate={true} eventid={_id}/>
                 :
-                  <div>
-                    <Image src={imageUrl} />
+                  <div >
+                    <div
+                      className='eventBgImg'
+                      style={{ backgroundImage: `url(${imageUrl})`}}
+                    >
+                      <h3 className="eventImgText"> { eventName }</h3>
+                    </div>
                     { isOrganizer &&
-                      <div>
+                      <div style={{ marginTop: '1.5em'}}>
                         <Button className="primBtn" onClick={this.setUpdateImage} primary>Update Photo</Button>
-                        <Button onClick={this.seleteEventImage} secondary>Use A Stock Photo</Button>
+                        <Button onClick={this.seleteEventImage} secondary>Use Stock Photo</Button>
                       </div>
                     }
                   </div>
               }
             </Grid.Column>
-            <Grid.Column width={1}>
+            <Grid.Column width={ edit? 1 : 2 }>
             </Grid.Column>
-            <Grid.Column width={8}>
+            <Grid.Column width={ edit? 8 : 6 }>
               { edit ?
                 <div>
                   <EventForm
@@ -230,17 +249,27 @@ class Event extends Component {
              <p> { description } </p>
             </Grid.Column>
           </Grid.Row>
+          { !edit &&
+            <Grid.Row>
+              <Grid.Column width={6}>
+                <CommentFormList
+                  eventId={ _id }
+                  existingComments={ comments }
+                  user={this.props.user}
+                />
+              </Grid.Column>
+              <Grid.Column width={2}> </Grid.Column>
+              <Grid.Column width={6}>
+                <Accordion styled style={{ marginTop: '1.6em'}}>
+                  <Accordion.Title>View Attendees</Accordion.Title>
+                  <Accordion.Content>
+                    <UserList history={this.props.history} dispFor="events" attendeeList={attendeeIdList}/>
+                  </Accordion.Content>
+                </Accordion>
+              </Grid.Column>
+            </Grid.Row>
+          }
         </Grid>
-
-
-        <div className="ui divider hidden" />
-        { !edit &&
-          <CommentFormList
-            eventId={ _id }
-            existingComments={ comments }
-            user={this.props.user}
-          />
-        }
 
       </div>
       <div>

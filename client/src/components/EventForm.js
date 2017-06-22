@@ -57,8 +57,9 @@ class EventForm extends Component {
       if (this.state.category === '') {
         this.setState({ categoryCheck: false })
       } else if (!this.state.ifPastDate && !this.state.ifBadEndTime ) {
+        let firstAttendee = [{ email: username, id: _id }];
         this.setState(
-          { organizer: username, attendeeIds: username, imageUrl: imageDisplay },
+          { organizer: username, attendeeIds: firstAttendee, imageUrl: imageDisplay },
           () => {
             let eventDetails = { ...this.state };
             this.props.dispatch(addEvent(eventDetails));

@@ -68,7 +68,7 @@ class CommentFormList extends Component {
       <div>
         <Form onSubmit = { this.handleCommentSubmit } >
           <Form.TextArea
-            label='Discussion'
+            label='Discussion:'
             value={currentComment}
             id="currentComment"
             placeholder='Enter your comment'

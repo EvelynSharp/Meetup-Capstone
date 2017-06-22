@@ -46,6 +46,21 @@ class Dashboard extends Component {
     this.toggleBioEdit();
   }
 
+  filterUserEvents = () => {
+    let { events } = this.props;
+    let { _id } = this.props.user;
+    let userEvents =[];
+    for ( let i = 0; i < events.length; i++ ) {
+      let event = events[i];
+      let attendeeList = event.attendeeIds;
+      let attIdList = attendeeList.map( att => { return att.id });
+      if ( attIdList.includes(_id) ) {
+        userEvents.push(event);
+      }
+    }
+    return userEvents;
+  }
+
   displayDashbord = () => {
     let { activeItem, updateImage, bioEdit } = this.state;
     let {  _id, username, profileImage, friendList, invReceived } = this.props.user;
@@ -109,7 +124,13 @@ class Dashboard extends Component {
         </Grid>
       )
     } else if (activeItem === 'My Events') {
-      let userEvents = events.filter( event => event.attendeeIds.includes(username));
+      // let userEvents = events.filter( event =>  {
+      //   event.attendeeIds.filter( att => {
+      //     att.id === _id
+      //   })
+      // } ) ;
+
+      let userEvents = this.filterUserEvents();
       let curUserEvents = this.filterPastEvents(userEvents);
       return (
         <div >
@@ -127,12 +148,14 @@ class Dashboard extends Component {
         </div>
       )
     } else if (activeItem === 'Attended Events') {
-      let userEvents = events.filter( event => event.attendeeIds.includes(username));
+      let userEvents = this.filterUserEvents();
       let pastUserEvents = this.getPastEvents(userEvents);
       return (
         <div>
         { pastUserEvents.length !== 0 ?
-            <EventList events={pastUserEvents} history={history}/>
+            <div className="dashboardDisp">
+              <EventList events={pastUserEvents} history={history}/>
+            </div>
           :
             <div className="dashboardDisp">
               <p className='modalText'>You have not yet attended any events</p>
@@ -144,7 +167,7 @@ class Dashboard extends Component {
       )
     } else if (activeItem === 'Connections') {
       return (
-        <UserList history={history} />
+        <UserList history={history} dispFor="dashboard"/>
       )
     }
   }
