@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Menu, Modal, Button } from 'semantic-ui-react';
+import { Menu, Modal, Button, Icon } from 'semantic-ui-react';
 import { logout } from '../actions/user';
 import Login from './Login';
 import AbtCallAction from './AbtCallAction';
@@ -103,6 +103,11 @@ class NavBar extends React.Component {
           </NavLink>
         </Menu.Item>
         <Menu.Menu  position='right'>
+          <Menu.Item key="homeIcon">
+            <NavLink to={'/'} className='rightMenu'>
+              <Icon name="home" size="large"/>
+            </NavLink>
+          </Menu.Item>
           { this.buildNavs(navs) }
         </Menu.Menu>
       </Menu>

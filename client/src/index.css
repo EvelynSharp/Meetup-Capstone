@@ -270,9 +270,11 @@ body {
 
 
 
+
 .pageHeaders {
   /*font-size: 25px !important;
   color: #133070 !important;*/
+  padding-left: 43% !important;
   margin-top: 1.5em !important;
   font-family: 'Open Sans', sans-serif !important;
 }
