@@ -109,19 +109,6 @@ class Event extends Component {
     this.sendEmail(emailAddress, emailSubject, email);
   }
 
-  displayAttendees = () => {
-    let attendees = this.props.event.attendeeIds;
-    return(
-      attendees.map( (attendee, index) => {
-        return(
-          <Item key={index} className="listItem">
-          {attendee}
-          </Item>
-        )
-      })
-    )
-  }
-
   displayEdit = () => {
     let { endDate, endTime } = this.props.event;
     if( moment(`${endDate} ${endTime}`).format("X") <= moment( new Date() ).format("X")) {
@@ -144,6 +131,24 @@ class Event extends Component {
               { " " + this.props.event.organizer }
           </span>
         </Header>
+      )
+    }
+  }
+
+  displayEventActions = ( isOrganizer ) => {
+    if (isOrganizer) {
+      return(
+        <span>
+          <span data-tooltip="edit event">
+            { this.displayEdit() }
+          </span>
+          <span data-tooltip="contact guests">
+            <Icon className='send link large purple' onClick={ this.contactAttendees } />
+          </span>
+          <span data-tooltip="delete event">
+            <Icon className='remove link large blue' onClick={ () => this.handleDelete(this.props.event._id) } />
+          </span>
+        </span>
       )
     }
   }
@@ -196,39 +201,25 @@ class Event extends Component {
                 <div>
                   <Header as="h1">{ eventName }</Header>
                   { this.displayHoster(isOrganizer) }
-                  <Header as="h4">{`From: ${begDateDisp}`}</Header>
-                  <Header as="h4">{`To: ${endDateDisp}`}</Header>
-                  <p> { description } </p>
-                  <Header as="h4">{ location }</Header>
-                  {isOrganizer ?
-                      <div>
-                        <Header as="h4">Attendees are:</Header>
-                        {this.displayAttendees()}
-                      </div>
-                    : null
+                  <Header as="h5">{`Start Time: ${begDateDisp}`}</Header>
+                  { endDate !== '' && endTime !== '' ?
+                      <Header as="h5">{`End Time: ${endDateDisp}`}</Header>
+                    :
+                      <Header as="h5">{`End Time: TBD`}</Header>
                   }
-                  { this.displayAttendOption(isOrganizer) }
-                  <div className="ui divider hidden" />
-                    <div>
-                      { isOrganizer &&
-                        <span>
-                          <span data-tooltip="edit event">
-                            { this.displayEdit() }
-                          </span>
-                          <span data-tooltip="contact guests">
-                            <Icon className='send link large purple' onClick={ this.contactAttendees } />
-                          </span>
-                          <span data-tooltip="delete event">
-                            <Icon className='remove link large blue' onClick={ () => this.handleDelete(_id) } />
-                          </span>
-                        </span>
-                      }
-                      <span data-tooltip="share event">
-                          <Icon className='external share link large green' onClick={ this.sendInvite } />
-                      </span>
-                    </div>
+                  <Header as="h4">{ location }</Header>
+                   { this.displayAttendOption(isOrganizer) }
+                   { this.displayEventActions(isOrganizer) }
+                    <span data-tooltip="share event">
+                        <Icon className='external share link large green' onClick={ this.sendInvite } />
+                    </span>
                   </div>
               }
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column>
+             <p> { description } </p>
             </Grid.Column>
           </Grid.Row>
         </Grid>

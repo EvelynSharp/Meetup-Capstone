@@ -53,7 +53,14 @@ class UserProfile extends Component {
             </Form.Field>
             <Form.Field width={1}>
             </Form.Field>
-            <input className={profileEdit ? "userProEdit" : "userProDisp"} id="birthDate" type="date" value={ user.birthDate } onChange={ profileEdit ? this.handleChange : null }/>
+            <Form.Field>
+              { user.birthDate === '' ?
+                <div></div>
+                :
+                <input className={profileEdit ? "userProEdit" : "userProDisp"} id="birthDate" type="date" value={ user.birthDate } onChange={ profileEdit ? this.handleChange : null }/>
+              }
+            </Form.Field>
+
           </Form.Group>
 
           <Form.Group inline>

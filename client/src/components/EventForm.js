@@ -50,10 +50,13 @@ class EventForm extends Component {
     } else {
       imageDisplay = this.state.imageUrl;
     }
+    if(this.state.endDate === '') {
+      this.setState({ endTime : '' });
+    }
     if (!this.state.updateEvent) {
       if (this.state.category === '') {
         this.setState({ categoryCheck: false })
-      } else if (!this.state.ifPastDate && !this.state.ifBadEndTime) {
+      } else if (!this.state.ifPastDate && !this.state.ifBadEndTime ) {
         this.setState(
           { organizer: username, attendeeIds: username, imageUrl: imageDisplay },
           () => {
@@ -64,7 +67,7 @@ class EventForm extends Component {
           })
         }
       } else {
-        if (!this.state.ifPastDate && !this.state.ifBadEndTime) {
+        if (!this.state.ifPastDate && !this.state.ifBadEndTime ) {
           let eventDetails = { ...this.state };
           this.props.dispatch(updateEvent(eventDetails));
           this.setState({ ...this.defaultData });
@@ -183,22 +186,20 @@ class EventForm extends Component {
             }
             <Form.Group inline>
               <Form.Field width={updateEvent ? 4 : 2}> <label>End Time:</label> </Form.Field>
-              <Form.Field required width={ updateEvent ? 7 : 4}>
+              <Form.Field width={ updateEvent ? 7 : 4}>
                 <input
                   id='endDate'
                   value={endDate}
                   type="date"
                   onChange={this.handleDateChange}
-                  required
                 />
               </Form.Field>
-              <Form.Field required width={ updateEvent ? 7 : 4}>
+              <Form.Field width={ updateEvent ? 7 : 4}>
                 <input
                   id='endTime'
                   value={endTime}
                   type="time"
                   onChange={this.handleDateChange}
-                  required
                 />
               </Form.Field>
             </Form.Group>
