@@ -12,6 +12,7 @@ import NoMatch from './components/NoMatch';
 import Event from './components/Event';
 import Register from './components/Register';
 import ViewUser from './components/ViewUser';
+import Footer from './components/Footer';
 
 const App = () => (
   <div >
@@ -29,6 +30,7 @@ const App = () => (
           <Route component={NoMatch} />
         </Switch>
       </FetchUser>
+      <Footer />
 
   </div>
 );

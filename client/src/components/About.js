@@ -364,7 +364,6 @@ const About = ({ history }) => (
     </Grid>
 
   </Container>
-  <AbtCallAction position="bottom" history={history} />
 </div>
 
 )
