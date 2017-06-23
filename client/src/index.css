@@ -320,3 +320,7 @@ body {
 .iconBar {
   margin: 10px 25px;
 }
+
+.footerCards {
+  border: 5px solid red;
+}
