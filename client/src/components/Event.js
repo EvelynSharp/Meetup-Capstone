@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { Header, Icon, Image, Item, Button, Grid, Accordion } from 'semantic-ui-react';
+import { Header, Icon, Image, Item, Button, Grid, Accordion, Container } from 'semantic-ui-react';
 import { getEvents,
          deleteEvent,
          eventArrayUpdate,
@@ -54,13 +54,13 @@ class Event extends Component {
     let isAttendee = attendeeIdArr.includes( _id );
     if (!isOrganizer && isAttendee) {
       return (
-        <div>
+        <div style={{ marginBottom: '1em'}}>
           <button onClick={() => this.toggleAttendance('UNATTEND')} className="ui positive active button">Attending</button>
         </div>
       )
     } else if (!isAttendee) {
       return(
-        <div>
+        <div style={{ marginBottom: '1em'}}>
           <button onClick={() => this.toggleAttendance('ATTEND')} className="ui active button">Not Attending</button>
         </div>
       )
@@ -189,94 +189,129 @@ class Event extends Component {
     let endDateDisp = moment(`${endDate} ${endTime}`).format("YYYY-MM-DD, hh:mm A");
     let attendeeIdList = this.getAttendeeIdList( attendeeIds );
     return(
-      <div className="ui container">
-        <div className='pageContainer eventWrap'>
-        <Grid verticalAlign="top" style={{ marginTop: '3%'}}>
-          <Grid.Row>
-            <Grid.Column width={6} textAlign="center">
-              { this.state.updateImage ?
-                    <EventImageDrop resetUpdateImage={this.resetUpdateImage} toUpdate={true} eventid={_id}/>
-                :
-                  <div >
-                    <div
-                      className='eventBgImg'
-                      style={{ backgroundImage: `url(${imageUrl})`}}
-                    >
-                      <h3 className="eventImgText"> { eventName }</h3>
-                    </div>
-                    { isOrganizer &&
-                      <div style={{ marginTop: '1.5em'}}>
-                        <Button className="primBtn" onClick={this.setUpdateImage} primary>Update Photo</Button>
-                        <Button onClick={this.seleteEventImage} secondary>Use Stock Photo</Button>
-                      </div>
-                    }
-                  </div>
-              }
-            </Grid.Column>
-            <Grid.Column width={ edit? 1 : 2 }>
-            </Grid.Column>
-            <Grid.Column width={ edit? 8 : 6 }>
-              { edit ?
-                <div>
-                  <EventForm
-                    eventToUpdate={eventToUpdate}
-                    toggleEdit={this.toggleEdit}
-                    updateEvent={true}
-                  />
-                </div>
-                :
-                <div>
-                  <Header as="h1">{ eventName }</Header>
-                  { this.displayHoster(isOrganizer) }
-                  <Header as="h5">{`Start Time: ${begDateDisp}`}</Header>
-                  { endDate !== '' && endTime !== '' ?
-                      <Header as="h5">{`End Time: ${endDateDisp}`}</Header>
-                    :
-                      <Header as="h5">{`End Time: TBD`}</Header>
-                  }
-                  <Header as="h4">{ location }</Header>
-                   { this.displayAttendOption(isOrganizer) }
-                   { this.displayEventActions(isOrganizer) }
-                    <span data-tooltip="share event">
-                        <Icon className='external share link large green' onClick={ this.sendInvite } />
-                    </span>
-                  </div>
-              }
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column>
-             <p> { description } </p>
-            </Grid.Column>
-          </Grid.Row>
-          { !edit &&
-            <Grid.Row>
-              <Grid.Column width={6}>
-                <CommentFormList
-                  eventId={ _id }
-                  existingComments={ comments }
-                  user={this.props.user}
-                />
-              </Grid.Column>
-              <Grid.Column width={2}> </Grid.Column>
-              <Grid.Column width={6}>
-                <Accordion styled style={{ marginTop: '1.6em'}}>
-                  <Accordion.Title>View Attendees</Accordion.Title>
-                  <Accordion.Content>
-                    <UserList history={this.props.history} dispFor="events" attendeeList={attendeeIdList}/>
-                  </Accordion.Content>
-                </Accordion>
-              </Grid.Column>
-            </Grid.Row>
-          }
-        </Grid>
-
-      </div>
       <div>
-      { !edit && !isOrganizer &&
-        <OrganizerEvents curEventId={_id} curOrganizer={organizer}/>
-      }
-      </div>
+          <div className='eventWrap'>
+          <Grid style={{ background: `url(${imageUrl})`}}>
+
+            <Grid.Row className="eventTopGrid" style={{ marginTop: '2em', paddingBottom: '0'}}>
+
+              <Grid.Column width={2}/>
+              <Grid.Column stretched width={8} textAlign="center" style={{ padding:'0', marginRight: '0'}}>
+                { this.state.updateImage ?
+                      <EventImageDrop resetUpdateImage={this.resetUpdateImage} toUpdate={true} eventid={_id}/>
+                  :
+                    <div >
+                      <div
+                        className='eventBgImg'
+                        style={{ backgroundImage: `url(${imageUrl})`}}
+                      >
+                        <div style={{ background: 'rgba(0,0,0,0.3)', zIndex: '1', height:'100%', width: '100%%'}}>
+                          <h3 className="eventImgText"> { eventName }</h3>
+                        </div>
+                      </div>
+                    </div>
+
+                }
+              </Grid.Column>
+              <Grid.Column width={4} style={{ border: '1px solid #b0bec5', height: '20em', marginLeft: '0', background: '#f5f5f5'}}>
+              </Grid.Column>
+              <Grid.Column width={2}/>
+
+            </Grid.Row>
+
+          </Grid>
+          <Grid className="eventBottomBg">
+            <Grid.Row style={{ padding: '0'}}>
+              <Grid.Column width={2}/>
+              <Grid.Column textAlign="center" width={8} className="eventBtContent">
+                <div>
+                { isOrganizer &&
+                  <div style={{ margin: '1.5em 2em' }}>
+                    <Button className="primBtn" onClick={this.setUpdateImage} primary>Update Photo</Button>
+                    <Button onClick={this.seleteEventImage} secondary>Use Stock Photo</Button>
+                  </div>
+                }
+                </div>
+              </Grid.Column>
+              <Grid.Column width={4} className="eventBtContent"/>
+              <Grid.Column width={2}/>
+            </Grid.Row >
+            <Grid.Row style={{ padding: '0'}}>
+              <Grid.Column width={2}/>
+              <Grid.Column width={8} className="eventBtContent" textAlign="center">
+                { edit ?
+                  <div>
+                    <EventForm
+                      eventToUpdate={eventToUpdate}
+                      toggleEdit={this.toggleEdit}
+                      updateEvent={true}
+                    />
+                  </div>
+                  :
+                  <div>
+                    <Header as="h1" style={{ marginTop: '2em'}}>{ eventName }</Header>
+                    { this.displayHoster(isOrganizer) }
+                    <Header as="h5">{`Start Time: ${begDateDisp}`}</Header>
+                    { endDate !== '' && endTime !== '' ?
+                        <Header as="h5">{`End Time: ${endDateDisp}`}</Header>
+                      :
+                        <Header as="h5">{`End Time: TBD`}</Header>
+                    }
+                    <Header as="h4">{ location }</Header>
+                     { this.displayAttendOption(isOrganizer) }
+                     { this.displayEventActions(isOrganizer) }
+                      <span data-tooltip="share event">
+                          <Icon className='external share link large green' onClick={ this.sendInvite } />
+                      </span>
+                    </div>
+                }
+              </Grid.Column>
+              <Grid.Column width={4} className="eventBtContent"/>
+              <Grid.Column width={2}/>
+            </Grid.Row>
+            { !edit &&
+              <Grid.Row style={{ padding: '0'}}>
+                <Grid.Column width={2}/>
+                <Grid.Column width={12} className="eventBtContent">
+                  <p style={{ margin: '2em 2em'}}> { description } </p>
+                </Grid.Column>
+                <Grid.Column width={2}/>
+              </Grid.Row>
+            }
+            { !edit &&
+              <Grid.Row style={{ padding: '0'}}>
+                <Grid.Column width={2} />
+                <Grid.Column width={7} className="eventBtContent" >
+                  <div style={{ margin: '0 0.2em 0 1em'}}>
+                    <CommentFormList
+                      eventId={ _id }
+                      existingComments={ comments }
+                      user={this.props.user}
+                    />
+                  </div>
+                </Grid.Column>
+
+                <Grid.Column width={5} className="eventBtContent">
+                  <div style={{ marginRight: '1em'}}>
+                    <Accordion styled style={{ marginTop: '1.6em'}}>
+                      <Accordion.Title>View Attendees</Accordion.Title>
+                      <Accordion.Content>
+                        <UserList history={this.props.history} dispFor="events" attendeeList={attendeeIdList}/>
+                      </Accordion.Content>
+                    </Accordion>
+                  </div>
+                </Grid.Column>
+                <Grid.Column width={2}/>
+              </Grid.Row>
+            }
+          </Grid>
+
+        </div>
+        <div>
+        { !edit && !isOrganizer &&
+          <OrganizerEvents curEventId={_id} curOrganizer={organizer}/>
+        }
+        </div>
     </div>
     )
   }

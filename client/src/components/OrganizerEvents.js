@@ -65,7 +65,7 @@ class OrganizerEvents extends Component{
 
     return (
 
-      <div style={{ textAlign: "center"}}>
+      <div style={{ textAlign: "center", marginTop: '5%'}}>
         { this.state.ifShow &&
           <Header>More Events From This Organizer</Header>
         }
