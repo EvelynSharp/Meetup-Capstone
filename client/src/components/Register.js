@@ -134,10 +134,16 @@ class Register extends React.Component {
                     value={password}
                     width={12}
                   />
-                  { !pwCharCheck &&
-                    <Message error content='Password minimum is 8 characters.' />
-                  }
                 </Form.Group>
+                { !pwCharCheck &&
+                  <Form.Group >
+                    <Form.Field width={2} />
+                    <Form.Field width={12}>
+                      <Message error content='Password minimum is 8 characters.' />
+                    </Form.Field>
+                  </Form.Group>
+                }
+
                 <Form.Group>
                   <Form.Field width={2}></Form.Field>
                   <Form.Input
@@ -149,10 +155,15 @@ class Register extends React.Component {
                     value={passwordValidation}
                     width={12}
                   />
-                  { !passwordCheck &&
-                    <Message error content='Password entries need to be the same.' />
-                  }
                 </Form.Group>
+                { !passwordCheck &&
+                  <Form.Group >
+                    <Form.Field width={2} />
+                    <Form.Field width={12}>
+                      <Message error content='Password entries need to be the same.' />
+                    </Form.Field>
+                  </Form.Group>
+                }
                 <Form.Group>
                   <Form.Field width={7}></Form.Field>
                   <Button style={{ margin: '1em 0'}} className="primBtn" primary>Submit</Button>
