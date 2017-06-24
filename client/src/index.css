@@ -6,12 +6,25 @@ body {
 
 .generalBGContainer {
   background: url(images/generalBG.svg);
-  background-position: center;
+
+}
+
+.bgOverlay {
+  height: 100%;
+
+  background: rgba(245, 245, 245, 0.4)
+}
+
+.mainContentContainer {
+  background-color: white;
+  margin: 0 9%;
+  height: 100%;
+
 }
 
 .dashboardDisp {
-  margin-left: 5%;
-  margin-top: 3%;
+  margin: 3% 5%;
+
 }
 
 .removeIcon {

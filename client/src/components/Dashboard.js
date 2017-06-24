@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Grid, Menu, Segment, Image, Button, Form, Icon  } from 'semantic-ui-react';
+import { Header, Grid, Menu, Segment, Image, Button, Form, Icon, Popup  } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { getEvents } from '../actions/events';
 import { removeUserImage, updateUserBio } from '../actions/user';
@@ -90,11 +90,13 @@ class Dashboard extends Component {
               <UserProfile />
             </Grid.Column>
           </Grid.Row>
-            <Grid.Column computer={16} mobile={16} tablet={16}>
+            <Grid.Column width={1}/>
+            <Grid.Column computer={15} mobile={16} tablet={16}>
               <Form onSubmit={ this.handleBioUpdate }>
-                <Form.Field>
-                  <label>Bio</label>
+                <Form.Field >
+                  <label style={{ marginLeft: '2%'}}>Bio</label>
                   <textarea
+                      rows="3"
                       className={ bioEdit ? "userProEdit" : "userProDisp" }
                       id="userBio"
                       value={this.state.userBio}
@@ -111,12 +113,17 @@ class Dashboard extends Component {
                     <Menu secondary>
                       <Menu.Menu position="right">
                         <Menu.Item as='a'>
-                          <Icon className="edit blue large" onClick={this.handleBioUpdate}/>
+                        <Popup
+                          trigger={ <Icon className="edit blue large" onClick={this.handleBioUpdate}/>}
+                          content="Click to edit bio."
+                          basic
+                        />
                         </Menu.Item>
                       </Menu.Menu>
                     </Menu>
 
                 }
+
               </Form>
             </Grid.Column>
           <Grid.Row>
@@ -189,40 +196,44 @@ class Dashboard extends Component {
 
     let { activeItem } = this.state;
     return(
-      <div className="ui container">
-        <Grid className='pageContainer'>
-          <Grid.Column width={4}>
-            <Header as="h3">MY ACCOUNT</Header>
-            <Menu fluid vertical tabular>
-              <Menu.Item
-                name='Account Details'
-                active={ activeItem === 'Account Details' }
-                onClick={ this.handleItemClick }
-              />
-              <Menu.Item
-                name='My Events'
-                active={ activeItem === 'My Events' }
-                onClick={ this.handleItemClick }
-              />
-              <Menu.Item
-                name='Attended Events'
-                active={ activeItem === 'Attended Events' }
-                onClick={ this.handleItemClick }
-              />
-              <Menu.Item
-                name='Connections'
-                active={ activeItem === 'Connections' }
-                onClick={ this.handleItemClick }
-              />
-            </Menu>
-          </Grid.Column>
+      <div className="generalBGContainer">
+        <div className="bgOverlay">
+          <div className="mainContentContainer">          
+            <Grid className='pageContainer'>
+              <Grid.Column width={4}>
+                <Header as="h3" style={{ marginLeft: '1em'}}>MY ACCOUNT</Header>
+                <Menu fluid vertical tabular style={{ marginLeft: '1em'}}>
+                  <Menu.Item
+                    name='Account Details'
+                    active={ activeItem === 'Account Details' }
+                    onClick={ this.handleItemClick }
+                  />
+                  <Menu.Item
+                    name='My Events'
+                    active={ activeItem === 'My Events' }
+                    onClick={ this.handleItemClick }
+                  />
+                  <Menu.Item
+                    name='Attended Events'
+                    active={ activeItem === 'Attended Events' }
+                    onClick={ this.handleItemClick }
+                  />
+                  <Menu.Item
+                    name='Connections'
+                    active={ activeItem === 'Connections' }
+                    onClick={ this.handleItemClick }
+                  />
+                </Menu>
+              </Grid.Column>
 
-          <Grid.Column  width={12}>
-            <Segment className="dashboardCont">
-              { this.displayDashbord() }
-            </Segment>
-          </Grid.Column>
-        </Grid>
+              <Grid.Column  width={12}>
+                <Segment className="dashboardCont">
+                  { this.displayDashbord() }
+                </Segment>
+              </Grid.Column>
+            </Grid>
+          </div>
+        </div>
       </div>
     )
   }

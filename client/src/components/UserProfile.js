@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  Button, Form, Icon, Menu  } from 'semantic-ui-react';
+import {  Button, Form, Icon, Menu, Popup  } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { updateUserInfo } from '../actions/user';
 
@@ -97,7 +97,12 @@ class UserProfile extends Component {
               <Menu secondary>
                 <Menu.Menu position="right">
                   <Menu.Item as='a'>
-                    <Icon className="edit blue large" onClick={this.handleProUpdate}/>
+                    <Popup
+                      trigger={ <Icon className="edit blue large" onClick={this.handleProUpdate}/>}
+                      content="Click to edit profile information."
+                      basic
+                    />
+
                   </Menu.Item>
                 </Menu.Menu>
               </Menu>

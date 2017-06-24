@@ -114,171 +114,175 @@ class EventForm extends Component {
     let { eventName, begDate, begTime, endDate, endTime, location, category, description, categoryCheck, ifPastDate, ifBadEndTime } = this.state;
 
     return(
-      <div className="ui container">
-        <div className='formContainer, pageContainer'>
-          { !updateEvent &&
-            <div>
-              <Header className="pageHeaders">Create A New Event: </Header>
-              <Header as="h4" style={{ marginBottom: '2%', textAlign: 'center'}}>{`Organizer: ${username}`}</Header>
+      <div className="generalBGContainer">
+        <div className="bgOverlay">
+          <div className="mainContentContainer">
+            <div className='formContainer, pageContainer'>
+              { !updateEvent &&
+                <div>
+                  <Header className="pageHeaders">Create A New Event: </Header>
+                  <Header as="h4" style={{ marginBottom: '2%', textAlign: 'center'}}>{`Organizer: ${username}`}</Header>
+                </div>
+              }
+              <Form onSubmit={ this.submitNewEvent } error>
+                <Form.Group>
+                  <Form.Field width={updateEvent ? 1: 3} />
+                  <Form.Field required width={updateEvent ? 13: 10}>
+                    <label>Event Name:</label>
+                    <input
+                      id='eventName'
+                      value={eventName}
+                      type="text"
+                      onChange={this.handleEventChange}
+                      required
+                    />
+                  </Form.Field>
+                  <Form.Field width={updateEvent ? 1: 3} />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Field width={updateEvent ? 1: 3} />
+                  <Form.Field width={updateEvent ? 13: 10}>
+                    <label>Location:</label>
+                    <input
+                      id='location'
+                      value={location}
+                      type="text"
+                      onChange={this.handleEventChange}
+                    />
+                  </Form.Field>
+                  <Form.Field width={updateEvent ? 1: 3} />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Field width={updateEvent ? 1: 3} />
+                  <Form.Field
+                    width={updateEvent ? 13: 10}
+                    control={Select}
+                    label="Category: "
+                    value={category}
+                    onChange={ (e, data) => {
+                      this.setState({ category: data.value, categoryCheck: true })
+                    }}
+                    id='category'
+                    options = {categoryOptions}
+                    required
+                  />
+                  <Form.Field width={updateEvent ? 1: 3} />
+                </Form.Group>
+                { !categoryCheck &&
+                  <Form.Group>
+                    <Form.Field width={updateEvent ? 1: 3} />
+                      <Message
+                        error
+                        content='Please fill out this field.'
+                      />
+                    <Form.Field width={updateEvent ? 1: 3} />
+                  </Form.Group>
+                }
+                <Form.Group >
+                  <Form.Field width={updateEvent ? 1: 3} />
+                  <Form.Field width={updateEvent ? 3 : 2}> <label>Start Time:</label> </Form.Field>
+                  <Form.Field required width={ updateEvent ? 5 : 4}>
+                    <input
+                      id='begDate'
+                      value={begDate}
+                      type="date"
+                      onChange={this.handleDateChange}
+                      required
+                    />
+                  </Form.Field>
+                  <Form.Field required width={ updateEvent ? 5 : 4}>
+                    <input
+                      id='begTime'
+                      value={begTime}
+                      type="time"
+                      onChange={this.handleDateChange}
+                      required
+                    />
+                  </Form.Field>
+
+                  <Form.Field width={updateEvent ? 1: 3} />
+                </Form.Group>
+                { ifPastDate &&
+                  <Form.Group>
+                    <Form.Field width={updateEvent ? 1: 3} />
+                      <Message
+                        error
+                        content='Event time cannot be in the past.'
+                      />
+                    <Form.Field width={updateEvent ? 1: 3} />
+                  </Form.Group>
+                }
+                <Form.Group>
+                  <Form.Field width={updateEvent ? 1: 3} />
+                  <Form.Field width={updateEvent ? 3 : 2}> <label>End Time:</label> </Form.Field>
+                  <Form.Field width={ updateEvent ? 5 : 4}>
+                    <input
+                      id='endDate'
+                      value={endDate}
+                      type="date"
+                      onChange={this.handleDateChange}
+                    />
+                  </Form.Field>
+                  <Form.Field width={ updateEvent ? 5 : 4}>
+                    <input
+                      id='endTime'
+                      value={endTime}
+                      type="time"
+                      onChange={this.handleDateChange}
+                    />
+                  </Form.Field>
+
+                  <Form.Field width={updateEvent ? 1: 3} />
+                </Form.Group>
+
+                { ifBadEndTime &&
+                  <Form.Group>
+                    <Form.Field width={updateEvent ? 1: 3} />
+                      <Message
+                        error
+                        content='Event end time cannot be before or the same as start time.'
+                      />
+                    <Form.Field width={updateEvent ? 1: 3} />
+                  </Form.Group>
+                }
+
+                { !updateEvent &&
+                  <Form.Group style={{ marginTop: '3%', marginBottom: '2%'}}>
+                    <Form.Field width={updateEvent ? 1: 3} />
+                    <Form.Field>
+                      <EventImageDrop setImageUrlState={this.setImageUrlState}/>
+                    </Form.Field>
+                  </Form.Group>
+                }
+                <Form.Group>
+                  <Form.Field width={updateEvent ? 1: 3} />
+                  <Form.Field width={updateEvent ? 13: 10}>
+                    <Form.TextArea
+                      label="Description:"
+                      id='description'
+                      value={description}
+                      type="text"
+                      onChange={this.handleEventChange}
+                    />
+                  </Form.Field>
+                  <Form.Field width={updateEvent ? 1: 3} />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Field width={updateEvent ? 1: 3} />
+                  <Form.Field width={updateEvent ? 13: 10} style={{ textAlign: 'center'}}>
+                    <Button
+                      type='submit'
+                      className="primBtn"
+                      primary
+                    >
+                      Submit
+                    </Button>
+                  </Form.Field>
+                  <Form.Field width={updateEvent ? 1: 3} />
+                </Form.Group>
+              </Form>
             </div>
-          }
-          <Form onSubmit={ this.submitNewEvent } error>
-            <Form.Group>
-              <Form.Field width={updateEvent ? 1: 3} />
-              <Form.Field required width={updateEvent ? 13: 10}>
-                <label>Event Name:</label>
-                <input
-                  id='eventName'
-                  value={eventName}
-                  type="text"
-                  onChange={this.handleEventChange}
-                  required
-                />
-              </Form.Field>
-              <Form.Field width={updateEvent ? 1: 3} />
-            </Form.Group>
-            <Form.Group>
-              <Form.Field width={updateEvent ? 1: 3} />
-              <Form.Field width={updateEvent ? 13: 10}>
-                <label>Location:</label>
-                <input
-                  id='location'
-                  value={location}
-                  type="text"
-                  onChange={this.handleEventChange}
-                />
-              </Form.Field>
-              <Form.Field width={updateEvent ? 1: 3} />
-            </Form.Group>
-            <Form.Group>
-              <Form.Field width={updateEvent ? 1: 3} />
-              <Form.Field
-                width={updateEvent ? 13: 10}
-                control={Select}
-                label="Category: "
-                value={category}
-                onChange={ (e, data) => {
-                  this.setState({ category: data.value, categoryCheck: true })
-                }}
-                id='category'
-                options = {categoryOptions}
-                required
-              />
-              <Form.Field width={updateEvent ? 1: 3} />
-            </Form.Group>
-            { !categoryCheck &&
-              <Form.Group>
-                <Form.Field width={updateEvent ? 1: 3} />
-                  <Message
-                    error
-                    content='Please fill out this field.'
-                  />
-                <Form.Field width={updateEvent ? 1: 3} />
-              </Form.Group>
-            }
-            <Form.Group >
-              <Form.Field width={updateEvent ? 1: 3} />
-              <Form.Field width={updateEvent ? 3 : 2}> <label>Start Time:</label> </Form.Field>
-              <Form.Field required width={ updateEvent ? 5 : 4}>
-                <input
-                  id='begDate'
-                  value={begDate}
-                  type="date"
-                  onChange={this.handleDateChange}
-                  required
-                />
-              </Form.Field>
-              <Form.Field required width={ updateEvent ? 5 : 4}>
-                <input
-                  id='begTime'
-                  value={begTime}
-                  type="time"
-                  onChange={this.handleDateChange}
-                  required
-                />
-              </Form.Field>
-
-              <Form.Field width={updateEvent ? 1: 3} />
-            </Form.Group>
-            { ifPastDate &&
-              <Form.Group>
-                <Form.Field width={updateEvent ? 1: 3} />
-                  <Message
-                    error
-                    content='Event time cannot be in the past.'
-                  />
-                <Form.Field width={updateEvent ? 1: 3} />
-              </Form.Group>
-            }
-            <Form.Group>
-              <Form.Field width={updateEvent ? 1: 3} />
-              <Form.Field width={updateEvent ? 3 : 2}> <label>End Time:</label> </Form.Field>
-              <Form.Field width={ updateEvent ? 5 : 4}>
-                <input
-                  id='endDate'
-                  value={endDate}
-                  type="date"
-                  onChange={this.handleDateChange}
-                />
-              </Form.Field>
-              <Form.Field width={ updateEvent ? 5 : 4}>
-                <input
-                  id='endTime'
-                  value={endTime}
-                  type="time"
-                  onChange={this.handleDateChange}
-                />
-              </Form.Field>
-
-              <Form.Field width={updateEvent ? 1: 3} />
-            </Form.Group>
-
-            { ifBadEndTime &&
-              <Form.Group>
-                <Form.Field width={updateEvent ? 1: 3} />
-                  <Message
-                    error
-                    content='Event end time cannot be before or the same as start time.'
-                  />
-                <Form.Field width={updateEvent ? 1: 3} />
-              </Form.Group>
-            }
-
-            { !updateEvent &&
-              <Form.Group style={{ marginTop: '3%', marginBottom: '2%'}}>
-                <Form.Field width={updateEvent ? 1: 3} />
-                <Form.Field>
-                  <EventImageDrop setImageUrlState={this.setImageUrlState}/>
-                </Form.Field>
-              </Form.Group>
-            }
-            <Form.Group>
-              <Form.Field width={updateEvent ? 1: 3} />
-              <Form.Field width={updateEvent ? 13: 10}>
-                <Form.TextArea
-                  label="Description:"
-                  id='description'
-                  value={description}
-                  type="text"
-                  onChange={this.handleEventChange}
-                />
-              </Form.Field>
-              <Form.Field width={updateEvent ? 1: 3} />
-            </Form.Group>
-            <Form.Group>
-              <Form.Field width={updateEvent ? 1: 3} />
-              <Form.Field width={updateEvent ? 13: 10} style={{ textAlign: 'center'}}>
-                <Button
-                  type='submit'
-                  className="primBtn"
-                  primary
-                >
-                  Submit
-                </Button>
-              </Form.Field>
-              <Form.Field width={updateEvent ? 1: 3} />
-            </Form.Group>
-          </Form>
+          </div>
         </div>
       </div>
     )
