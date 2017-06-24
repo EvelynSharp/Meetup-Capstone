@@ -8,11 +8,14 @@ import { Link } from 'react-router-dom';
 class OrganizerEvents extends Component{
   state = { ifShow: false }
 
-  componentDidMount=()=>{
+  componentDidMount = () => {
     let { curEventId, curOrganizer, events } = this.props;
     let orgEvents = events.filter( event => { return event.organizer === curOrganizer && event._id !== curEventId });
-    if (orgEvents.length !== 0) {
+    let curOrgEvents = this.filterPastEvents(orgEvents);
+    if (curOrgEvents.length !== 0) {
       this.setState({ ifShow: true })
+    } else {
+      this.setState({ ifShow: false })
     }
   }
 
@@ -67,15 +70,18 @@ class OrganizerEvents extends Component{
 
       <div style={{ textAlign: "center"}}>
         { this.state.ifShow &&
+          <div>
           <Header style={{ marginTop: '2em'}}>More Events From This Organizer</Header>
+            <Grid centered>
+              <Grid.Column width={10}>
+                <Card.Group itemsPerRow={1}>
+                  { this.findOrganizerEvents() }
+                </Card.Group>
+              </Grid.Column>
+            </Grid>
+          </div>
         }
-        <Grid centered>
-          <Grid.Column width={10}>
-            <Card.Group itemsPerRow={1}>
-              { this.findOrganizerEvents() }
-            </Card.Group>
-          </Grid.Column>
-        </Grid>
+
       </div>
     )
   }
