@@ -65,9 +65,9 @@ class OrganizerEvents extends Component{
 
     return (
 
-      <div style={{ textAlign: "center", marginTop: '5%'}}>
+      <div style={{ textAlign: "center"}}>
         { this.state.ifShow &&
-          <Header>More Events From This Organizer</Header>
+          <Header style={{ marginTop: '2em'}}>More Events From This Organizer</Header>
         }
         <Grid centered>
           <Grid.Column width={10}>

@@ -213,7 +213,10 @@ class Event extends Component {
 
                 }
               </Grid.Column>
-              <Grid.Column width={4} style={{ border: '1px solid #b0bec5', height: '20em', marginLeft: '0', background: '#f5f5f5'}}>
+              <Grid.Column width={4} style={{ border: '1px solid #eeeeee', height: '20em', marginLeft: '0', background: '#f5f5f5'}}>
+                <Header as="h5">{ `${begDate.slice(0, 10)}`}</Header>
+                <Header as="h1" >{ eventName }</Header>
+                { this.displayHoster(isOrganizer) }
               </Grid.Column>
               <Grid.Column width={2}/>
 
@@ -240,7 +243,7 @@ class Event extends Component {
               <Grid.Column width={2}/>
               <Grid.Column width={8} className="eventBtContent" textAlign="center">
                 { edit ?
-                  <div>
+                  <div style={{ marginTop: '2em'}}>
                     <EventForm
                       eventToUpdate={eventToUpdate}
                       toggleEdit={this.toggleEdit}
@@ -248,9 +251,9 @@ class Event extends Component {
                     />
                   </div>
                   :
-                  <div>
-                    <Header as="h1" style={{ marginTop: '2em'}}>{ eventName }</Header>
-                    { this.displayHoster(isOrganizer) }
+                  <div style={{ marginTop: '2em'}}>
+
+
                     <Header as="h5">{`Start Time: ${begDateDisp}`}</Header>
                     { endDate !== '' && endTime !== '' ?
                         <Header as="h5">{`End Time: ${endDateDisp}`}</Header>
@@ -304,13 +307,17 @@ class Event extends Component {
                 <Grid.Column width={2}/>
               </Grid.Row>
             }
-          </Grid>
+            { !edit && !isOrganizer &&
+              <Grid.Row style={{ padding: '0'}}>
+                <Grid.Column width={2}/>
+                <Grid.Column width={12} className="eventBtContent">
+                  <OrganizerEvents curEventId={_id} curOrganizer={organizer}/>
+                </Grid.Column>
+                <Grid.Column width={2}/>
+              </Grid.Row>
+            }
 
-        </div>
-        <div>
-        { !edit && !isOrganizer &&
-          <OrganizerEvents curEventId={_id} curOrganizer={organizer}/>
-        }
+          </Grid>
         </div>
     </div>
     )
