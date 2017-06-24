@@ -4,6 +4,10 @@ body {
   font-family: sans-serif;
 }
 
+.generalBGContainer {
+  background: url(images/generalBG.svg);
+  background-position: center;
+}
 
 .dashboardDisp {
   margin-left: 5%;

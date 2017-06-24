@@ -73,91 +73,93 @@ class Register extends React.Component {
           pwCharCheck
         } = this.state;
     return (
-      <Container>
-        <div className='pageContainer'>
-          <Header className="pageHeaders">{title}</Header>
-          <Form onSubmit={this.handleSubmit} error>
-            <Form.Group>
-              <Form.Field width={2}></Form.Field>
-              <Form.Input width={5} id="nickName" label="NickName:" required onChange={this.handleChange} value={nickName} />
-              <Form.Field width={1}></Form.Field>
-              <Form.Field required width={5}>
-                <label>Select Avatar:</label>
-                <Dropdown
-                  selection
-                  options={ avatarOptions }
-                  onChange={(e, data) => {
-                    this.setState({avatarUrl: data.value, avatarCheck: true })
+      <div className="generalBGContainer">
+        <div style={{ backgroundColor: 'white', marginLeft: '9%', marginRight: '9%'}}>
+          <div className='pageContainer'>
+            <Header className="pageHeaders">{title}</Header>
+            <Form onSubmit={this.handleSubmit} error>
+              <Form.Group>
+                <Form.Field width={2}></Form.Field>
+                <Form.Input width={5} id="nickName" label="NickName:" required onChange={this.handleChange} value={nickName} />
+                <Form.Field width={2}></Form.Field>
+                <Form.Field required width={5}>
+                  <label>Select Avatar:</label>
+                  <Dropdown
+                    selection
+                    options={ avatarOptions }
+                    onChange={(e, data) => {
+                      this.setState({avatarUrl: data.value, avatarCheck: true })
+                      }
                     }
+                  />
+                  { !avatarCheck &&
+                    <Message error content='Please fill out this field.' />
                   }
-                />
-                { !avatarCheck &&
-                  <Message error content='Please fill out this field.' />
+                </Form.Field>
+              </Form.Group>
+              <Form.Group>
+                <Form.Field width={2}></Form.Field>
+                <Form.Input width={5} type="date" id="birthDate" label="Birth Date:" onChange={this.handleChange} value={birthDate} />
+                <Form.Field width={2}></Form.Field>
+                <Form.Input width={5} type="tel" id="phoneNumber" label="Phone Number:" onChange={this.handleChange} value={phoneNumber} />
+              </Form.Group>
+              <Form.Group inline>
+                <Form.Field width={2}></Form.Field>
+                <label>Gender:</label>
+                <Form.Field width={1}></Form.Field>
+                <Form.Radio label="Male" value="Male" checked={ gender==='Male'} onChange={this.genderSelect}/>
+                <Form.Field width={1}></Form.Field>
+                <Form.Radio label="Female" value="Female" checked={ gender==='Female'} onChange={this.genderSelect}/>
+              </Form.Group>
+              <Form.Group>
+                <Form.Field width={2}></Form.Field>
+                <Form.Input width={12} id="address" label="Location:" onChange={this.handleChange} value={address} />
+              </Form.Group>
+              <Form.Group>
+                <Form.Field width={2}></Form.Field>
+                <Form.Input id="email" label="Email:" required type="email" onChange={this.handleChange} value={email} width={11} />
+                { this.props.userError === 'dupedUser' &&
+                  <Message error content='User already exist.' />
                 }
-              </Form.Field>
-            </Form.Group>
-            <Form.Group>
-              <Form.Field width={2}></Form.Field>
-              <Form.Input width={5} type="date" id="birthDate" label="Birth Date:" onChange={this.handleChange} value={birthDate} />
-              <Form.Field width={1}></Form.Field>
-              <Form.Input width={5} type="tel" id="phoneNumber" label="Phone Number:" onChange={this.handleChange} value={phoneNumber} />
-            </Form.Group>
-            <Form.Group inline>
-              <Form.Field width={2}></Form.Field>
-              <label>Gender:</label>
-              <Form.Field width={1}></Form.Field>
-              <Form.Radio label="Male" value="Male" checked={ gender==='Male'} onChange={this.genderSelect}/>
-              <Form.Field width={1}></Form.Field>
-              <Form.Radio label="Female" value="Female" checked={ gender==='Female'} onChange={this.genderSelect}/>
-            </Form.Group>
-            <Form.Group>
-              <Form.Field width={2}></Form.Field>
-              <Form.Input width={11} id="address" label="Address:" onChange={this.handleChange} value={address} />
-            </Form.Group>
-            <Form.Group>
-              <Form.Field width={2}></Form.Field>
-              <Form.Input id="email" label="Email:" required type="email" onChange={this.handleChange} value={email} width={11} />
-              { this.props.userError === 'dupedUser' &&
-                <Message error content='User already exist.' />
-              }
-            </Form.Group>
-            <Form.Group >
-              <Form.Field width={2}></Form.Field>
-              <Form.Input
-                id="password"
-                label="Password:"
-                required
-                type="password"
-                onChange={this.handleChange}
-                value={password}
-                width={11}
-              />
-              { !pwCharCheck &&
-                <Message error content='Password minimum is 8 characters.' />
-              }
-            </Form.Group>
-            <Form.Group>
-              <Form.Field width={2}></Form.Field>
-              <Form.Input
-                id="passwordValidation"
-                label="Re-enter Password:"
-                required
-                type="password"
-                onChange={this.handleChange}
-                value={passwordValidation}
-                width={11}
-              />
-              { !passwordCheck &&
-                <Message error content='Password entries need to be the same.' />
-              }
-            </Form.Group>
-            <Form.Group>
-              <Form.Field width={7}></Form.Field>
-              <Button style={{ marginTop: '1em'}} className="primBtn" primary>Submit</Button>
-            </Form.Group>
-          </Form>
+              </Form.Group>
+              <Form.Group >
+                <Form.Field width={2}></Form.Field>
+                <Form.Input
+                  id="password"
+                  label="Password:"
+                  required
+                  type="password"
+                  onChange={this.handleChange}
+                  value={password}
+                  width={12}
+                />
+                { !pwCharCheck &&
+                  <Message error content='Password minimum is 8 characters.' />
+                }
+              </Form.Group>
+              <Form.Group>
+                <Form.Field width={2}></Form.Field>
+                <Form.Input
+                  id="passwordValidation"
+                  label="Re-enter Password:"
+                  required
+                  type="password"
+                  onChange={this.handleChange}
+                  value={passwordValidation}
+                  width={12}
+                />
+                { !passwordCheck &&
+                  <Message error content='Password entries need to be the same.' />
+                }
+              </Form.Group>
+              <Form.Group>
+                <Form.Field width={7}></Form.Field>
+                <Button style={{ marginTop: '1em'}} className="primBtn" primary>Submit</Button>
+              </Form.Group>
+            </Form>
+          </div>
         </div>
-      </Container>
+      </div>
     )
   }
 }
