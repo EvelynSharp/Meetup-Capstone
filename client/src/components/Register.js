@@ -117,7 +117,7 @@ class Register extends React.Component {
               </Form.Group>
               <Form.Group>
                 <Form.Field width={2}></Form.Field>
-                <Form.Input id="email" label="Email:" required type="email" onChange={this.handleChange} value={email} width={11} />
+                <Form.Input id="email" label="Email:" required type="email" onChange={this.handleChange} value={email} width={12} />
                 { this.props.userError === 'dupedUser' &&
                   <Message error content='User already exist.' />
                 }

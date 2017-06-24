@@ -132,10 +132,10 @@ class Event extends Component {
 
   displayHoster = (isOrganizer) => {
     if (isOrganizer) {
-      return <Header as="h3">You are hosting this event</Header>
+      return <Header as="h4" style={{ color: '#bdbdbd'}}>You are hosting this event</Header>
     } else {
       return (
-        <Header as="h3">
+        <Header as="h4" style={{ color: '#bdbdbd'}}>
           Hosted by:
           <span
             data-tooltip="Email the organizer"
@@ -214,9 +214,11 @@ class Event extends Component {
                 }
               </Grid.Column>
               <Grid.Column width={4} style={{ border: '1px solid #eeeeee', height: '20em', marginLeft: '0', background: '#f5f5f5'}}>
-                <Header as="h5">{ `${begDate.slice(0, 10)}`}</Header>
+                <div style={{ marginLeft: '10%', marginRight: '10%'}}>
+                <Header as="h3" style={{ color: '#424242', marginTop: '18%' }}>{ `${begDate.slice(0, 10)}`}</Header>
                 <Header as="h1" >{ eventName }</Header>
                 { this.displayHoster(isOrganizer) }
+                </div>
               </Grid.Column>
               <Grid.Column width={2}/>
 
