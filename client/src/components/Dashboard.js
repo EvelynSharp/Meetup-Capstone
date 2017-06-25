@@ -118,7 +118,7 @@ class Dashboard extends Component {
                 { bioEdit ?
                   <div>
                     <Button className="primBtn" primary onClick={this.handleBioUpdate}>Update</Button>
-                    <Button onClick={this.cancelUpdate}>Cancel</Button>
+                    <Button secondary onClick={this.cancelUpdate}>Cancel</Button>
                   </div>
                   :
                     <Menu secondary>

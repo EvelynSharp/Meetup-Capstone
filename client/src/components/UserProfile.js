@@ -98,7 +98,7 @@ class UserProfile extends Component {
           { profileEdit ?
             <div>
               <Button className="primBtn" primary onClick={this.handleProUpdate} >Update</Button>
-              <Button onClick={this.cancelUpdate}>Cancel</Button>
+              <Button secondary onClick={this.cancelUpdate}>Cancel</Button>
             </div>
             :
               <Menu secondary>
