@@ -215,7 +215,7 @@ class Event extends Component {
               </Grid.Column>
               <Grid.Column width={4} style={{ border: '1px solid #eeeeee', height: '20em', marginLeft: '0', background: '#f5f5f5'}}>
                 <div style={{ marginLeft: '10%', marginRight: '10%'}}>
-                <Header as="h3" style={{ color: '#424242', marginTop: '18%' }}>{ `${begDate.slice(0, 10)}`}</Header>
+                <Header as="h3" style={{ color: '#424242', marginTop: '18%' }}>{ begDate ? `${begDate.slice(0, 10)}` : null}</Header>
                 <Header as="h1" >{ eventName }</Header>
                 { this.displayHoster(isOrganizer) }
                 </div>
