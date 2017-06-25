@@ -34,16 +34,24 @@ class Dashboard extends Component {
   }
 
   toggleBioEdit = () => {
-    this.setState({ bioEdit: !this.state.bioEdit })
+    if(this.state.bioEdit)
+      this.setState({ bioEdit: !this.state.bioEdit, userBio: this.props.user.userBio });
+    else
+      this.setState({ bioEdit: !this.state.bioEdit, userBio: this.state.userBio })
+  }
+
+  cancelUpdate = () => {
+    this.setState({bioEdit: false, userBio: this.props.user.userBio})
   }
 
   handleBioUpdate =(e) => {
     e.preventDefault();
+    console.log("updating a bio");
     let { dispatch } = this.props;
     if(this.state.bioEdit){
       dispatch(updateUserBio(this.props.user._id, this.state.userBio))
     }
-    this.toggleBioEdit();
+    this.setState({bioEdit: false});
   }
 
   filterUserEvents = () => {
@@ -92,7 +100,7 @@ class Dashboard extends Component {
           </Grid.Row>
             <Grid.Column width={1}/>
             <Grid.Column computer={15} mobile={16} tablet={16}>
-              <Form onSubmit={ this.handleBioUpdate }>
+              <Form>
                 <Form.Field >
                   <label style={{ marginLeft: '2%'}}>Bio</label>
                   <textarea
@@ -108,13 +116,16 @@ class Dashboard extends Component {
                   />
                 </Form.Field>
                 { bioEdit ?
-                    <Button className="primBtn" primary>Update</Button>
+                  <div>
+                    <Button className="primBtn" primary onClick={this.handleBioUpdate}>Update</Button>
+                    <Button onClick={this.cancelUpdate}>Cancel</Button>
+                  </div>
                   :
                     <Menu secondary>
                       <Menu.Menu position="right">
                         <Menu.Item as='a'>
                         <Popup
-                          trigger={ <Icon className="edit blue large" onClick={this.handleBioUpdate}/>}
+                          trigger={ <Icon className="edit blue large" onClick={this.toggleBioEdit}/>}
                           content="Click to edit bio."
                           basic
                         />
