@@ -12,8 +12,8 @@ const Footer = () => {
           <Segment textAlign='center' color='grey' inverted>
             <Header size='large'>Contact us!</Header>
             <Button.Group vertical>
-                <Button size='massive' color='orange'>eventech@email.com</Button>
-                <Button size='massive' color='orange'>801.555.1236</Button>
+              <Button size='massive' color='orange'>eventech@email.com</Button>
+              <Button size='massive' color='orange'>801.555.1236</Button>
             </Button.Group>
           </Segment>
           <Segment textAlign='center' color='grey' inverted>
