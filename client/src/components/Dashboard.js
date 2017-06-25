@@ -198,7 +198,7 @@ class Dashboard extends Component {
     return(
       <div className="generalBGContainer">
         <div className="bgOverlay">
-          <div className="mainContentContainer">          
+          <div className="mainContentContainer" >
             <Grid className='pageContainer'>
               <Grid.Column width={4}>
                 <Header as="h3" style={{ marginLeft: '1em'}}>MY ACCOUNT</Header>
@@ -227,7 +227,7 @@ class Dashboard extends Component {
               </Grid.Column>
 
               <Grid.Column  width={12}>
-                <Segment className="dashboardCont">
+                <Segment className="dashboardCont" style={{ minHeight: '600px'}}>
                   { this.displayDashbord() }
                 </Segment>
               </Grid.Column>

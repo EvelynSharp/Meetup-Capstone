@@ -47,18 +47,20 @@ class Login extends React.Component {
     let { title } = this.props;
     let { email, password } = this.state;
     return (
-      <div className='pageContainer' style={{ textAlign: 'center'}}>
+      <div className='pageContainer' >
         <Form onSubmit={this.handleSubmit} error>
-          <Form.Group inline >
-            <Form.Field width={2}></Form.Field>
-            <Form.Field width={3}><label>Email:</label></Form.Field>
-            <Form.Input
-              id="email"
-              required
-              type="email"
-              onChange={this.handleChange}
-              value={email}
-            />
+          <Form.Group  >
+            <Form.Field width={4}><label style={{ textAlign: 'left', marginTop: '0.5em'}}>Email:</label></Form.Field>
+            <Form.Field width={1}/>
+            <Form.Field width={11}>
+              <Form.Input
+                id="email"
+                required
+                type="email"
+                onChange={this.handleChange}
+                value={email}
+              />
+            </Form.Field>
           </Form.Group>
           { title=== 'Login' && this.props.userError === 'NotAUser' &&
             <Message
@@ -66,16 +68,19 @@ class Login extends React.Component {
               content='User does not exist.'
             />
           }
-          <Form.Group inline>
-            <Form.Field width={2}></Form.Field>
-            <Form.Field width={3}><label>Password:</label></Form.Field>
-            <Form.Input
-              id="password"
-              required
-              type="password"
-              onChange={this.handleChange}
-              value={password}
-            />
+          <Form.Group >
+            <Form.Field width={4}><label style={{ textAlign: 'left' , marginTop: '0.5em'}}>Password:</label></Form.Field>
+            <Form.Field width={1}/>
+            <Form.Field width={11}>
+              <Form.Input
+                id="password"
+                required
+                type="password"
+                onChange={this.handleChange}
+                value={password}
+              />
+            </Form.Field>
+
           </Form.Group>
           { title=== 'Login' && this.props.userError === 'wrongPW' &&
             <Message
@@ -83,7 +88,7 @@ class Login extends React.Component {
               content='Password entered is incorrect.'
             />
           }
-          <Button className="primBtn" primary>Submit</Button>
+          <Button style={{ marginTop: '0.5em'}} className="primBtn" primary>Submit</Button>
         </Form>
       </div>
     )

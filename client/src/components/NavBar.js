@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Menu, Modal, Button, Icon } from 'semantic-ui-react';
+import { Menu, Modal, Button, Icon, Grid } from 'semantic-ui-react';
 import { logout } from '../actions/user';
 import Login from './Login';
 import AbtCallAction from './AbtCallAction';
@@ -69,7 +69,15 @@ class NavBar extends React.Component {
          <Modal className="signInPop" size="small" trigger={ <div className="loginBtn" >{nav.name} </div> }>
            <Modal.Header>Sign In</Modal.Header>
            <Modal.Content>
-            <Login {...this.props} title="Login"/>
+            <Grid>
+              <Grid.Row>
+                <Grid.Column width={2}/>
+                <Grid.Column width={12}>
+                  <Login {...this.props} title="Login"/>
+                </Grid.Column>
+                <Grid.Column width={2}/>
+              </Grid.Row>
+            </Grid>
             <div className='modalTextFooter'>
               <span className='modalTextPadding'> Do not have an account? </span>
               <Link to={'/register'}>Sign Up</Link>
