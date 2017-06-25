@@ -114,9 +114,9 @@ class EventForm extends Component {
     let { eventName, begDate, begTime, endDate, endTime, location, category, description, categoryCheck, ifPastDate, ifBadEndTime } = this.state;
 
     return(
-      <div className="generalBGContainer">
-        <div className="bgOverlay">
-          <div className="mainContentContainer">
+      <div className={ updateEvent? null : "generalBGContainer"}>
+        <div className={ updateEvent? null : "bgOverlay"}>
+          <div className={ updateEvent? null : "mainContentContainer"}>
             <div className='formContainer, pageContainer'>
               { !updateEvent &&
                 <div>

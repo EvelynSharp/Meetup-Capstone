@@ -4,7 +4,7 @@ import { Modal, Button, Grid, Segment } from 'semantic-ui-react';
 
 const LoginPage = ({ ...props }) => (
   <div className="loginPageCon">
-    <div style={{ margin: '13% 30%'}}  >
+    <div style={{ margin: '13% 32%'}}  >
       <Segment>
         <Grid style={{  padding: '3%'}}>
           <Grid.Row centered >
