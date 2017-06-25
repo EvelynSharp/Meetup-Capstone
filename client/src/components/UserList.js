@@ -42,7 +42,7 @@ class UserList extends Component {
   }
 
   displayFriendList = ( users ) => {
-    let { history } = this.props;
+    let { history, dispFor } = this.props;
     let sortedUsers = users.sort( (a, b) => {
       let nameA = a.nickName.toUpperCase();
       let nameB = b.nickName.toUpperCase();
@@ -57,26 +57,28 @@ class UserList extends Component {
           <Image
             avatar
             onClick={() => history.push(`/viewuser/${user._id}`)}
-            src={ user.profileImage === '' ? user.avatarUrl : user.profileImage }
+            src={ dispFor === 'events' ? user.avatarUrl : user.profileImage === '' ? user.avatarUrl : user.profileImage }
           />
           <List.Content>
             <List.Header onClick={() => history.push(`/viewuser/${user._id}`)}> { user.nickName } </List.Header>
             <List.Description>{ user.userBio }</List.Description>
           </List.Content>
-          <List.Content floated="right">
-            <Modal open={this.state.open} size="small" trigger={ <div className="removeIcon" onClick={this.showDeleteModal}>Delete</div> }>
-              <Modal.Header>Delete This Connection</Modal.Header>
-              <Modal.Content>
-                <div className='modalText'>
-                  {`Please confirm that you'd like to remove ${user.nickName} from your connections` }
-                </div>
-              </Modal.Content>
-              <Modal.Actions>
-                <Button primary className="primBtn" onClick={ () => this.deleteConnection(user)}>CONFIRM</Button>
-                <Button secondary onClick={ this.closeDeleteModal }>CANCEL</Button>
-              </Modal.Actions>
-            </Modal>
-          </List.Content>
+          { dispFor === 'dashboard' &&
+            <List.Content floated="right">
+              <Modal open={this.state.open} size="small" trigger={ <div className="removeIcon" onClick={this.showDeleteModal}>Delete</div> }>
+                <Modal.Header>Delete This Connection</Modal.Header>
+                <Modal.Content>
+                  <div className='modalText'>
+                    {`Please confirm that you'd like to remove ${user.nickName} from your connections` }
+                  </div>
+                </Modal.Content>
+                <Modal.Actions>
+                  <Button primary className="primBtn" onClick={ () => this.deleteConnection(user)}>CONFIRM</Button>
+                  <Button secondary onClick={ this.closeDeleteModal }>CANCEL</Button>
+                </Modal.Actions>
+              </Modal>
+            </List.Content>
+          }
         </List.Item>
       )
     })
@@ -131,13 +133,19 @@ class UserList extends Component {
   }
 
 
-
   render(){
-    let { history } = this.props;
-    let { friendList, invReceived } = this.props.user;
+    let { history, dispFor } = this.props;
+    let friendList, invReceived;
+    if ( dispFor === 'dashboard') {
+      friendList = this.props.user.friendList;
+      invReceived = this.props.user.invReceived;
+    } else if ( dispFor === 'events' ) {
+      invReceived = [];
+      friendList =  this.props.attendeeList;
+    }
     return(
       <div>
-        { friendList.length === 0 && invReceived.length === 0 &&
+        { friendList.length === 0 && invReceived.length === 0 && dispFor === 'dashboard' &&
           <div className="dashboardDisp">
             <p className='modalText'>Make some new connections through Eventech!</p>
             <Button className="primBtn" primary onClick={ () => history.push('/')} >Browse Events</Button>
@@ -145,7 +153,7 @@ class UserList extends Component {
           </div>
         }
         <Grid>
-          { invReceived.length !== 0 &&
+          { invReceived.length !== 0 && dispFor === 'dashboard' &&
             <Grid.Row className="dashboardDisp">
               <div>
                 <Header >Pending Connection Request</Header>
@@ -153,14 +161,16 @@ class UserList extends Component {
               </div>
             </Grid.Row>
           }
-          <Grid.Row style={{ marginLeft: '10%' }}>
-            <Grid.Column width={10}>
-              <Item.Group relaxed='very' divided>
-                { this.findUserInfo( invReceived, "Invites" )}
-              </Item.Group>
-            </Grid.Column>
-          </Grid.Row>
-          { friendList.length !== 0 &&
+          { dispFor === 'dashboard' &&
+            <Grid.Row style={{ marginLeft: '10%' }}>
+              <Grid.Column width={10}>
+                <Item.Group relaxed='very' divided>
+                  { this.findUserInfo( invReceived, "Invites" )}
+                </Item.Group>
+              </Grid.Column>
+            </Grid.Row>
+          }
+          { friendList.length !== 0 && dispFor === 'dashboard' &&
             <Grid.Row className="dashboardDisp">
               <div>
                 <Header>Your Connections</Header>
@@ -168,8 +178,8 @@ class UserList extends Component {
               </div>
             </Grid.Row>
           }
-          <Grid.Row style={{ marginLeft: '10%' }}>
-            <Grid.Column width={10}>
+          <Grid.Row style={ dispFor === 'events' ? { marginLeft: '3%' } : { marginLeft: '10%' }}>
+            <Grid.Column width={ dispFor === 'events' ? 15 : 10}>
               <List relaxed='very' selection divided verticalAlign='middle'>
                 { this.findUserInfo(  friendList, "Friends" )}
               </List>

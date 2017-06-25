@@ -13,12 +13,19 @@ class OrganizerEvents extends Component{
     let orgEvents = events.filter( event => { return event.organizer === curOrganizer && event._id !== curEventId });
     if (orgEvents.length !== 0) {
       this.setState({ ifShow: true })
-    } 
+    }
+  }
+
+  filterPastEvents = (events) => {
+    let curUnixDate = moment(new Date()).format("X");
+    let curEvents = events.filter( event => moment(`${event.endDate} ${event.endTime}`).format("X") >= curUnixDate )
+    return curEvents;
   }
 
   findOrganizerEvents = () => {
     let { curEventId, curOrganizer, events } = this.props;
-    let orgEvents = events.filter( event => { return event.organizer === curOrganizer && event._id !== curEventId });
+    let curEvents = this.filterPastEvents(events);
+    let orgEvents = curEvents.filter( event => { return event.organizer === curOrganizer && event._id !== curEventId });
     const maxOrgEvents = 3;
     let sortedOrgEvents = orgEvents.sort((a,b) => {
       return moment(`${a.begDate} ${a.begTime}`).format("X") - moment(`${b.begDate} ${b.begTime}`).format("X");
@@ -60,7 +67,7 @@ class OrganizerEvents extends Component{
 
       <div style={{ textAlign: "center"}}>
         { this.state.ifShow &&
-          <Header>More Events From This Organizer</Header>
+          <Header style={{ marginTop: '2em'}}>More Events From This Organizer</Header>
         }
         <Grid centered>
           <Grid.Column width={10}>

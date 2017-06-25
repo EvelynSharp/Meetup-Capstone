@@ -28,8 +28,13 @@ class CommentFormList extends Component {
 
 
   displayComments = () => {
-    let { existingComments } = this.props;
+    let  existingComments;
     let { username } = this.props.user;
+    if ( this.props.existingComments ) {
+      existingComments = this.props.existingComments;
+    } else {
+      existingComments=[];
+    }
     return existingComments.map( (c, index) => {
       return(
         <Comment key={index}>
@@ -63,7 +68,7 @@ class CommentFormList extends Component {
       <div>
         <Form onSubmit = { this.handleCommentSubmit } >
           <Form.TextArea
-            label='Discussion'
+            label='Discussion:'
             value={currentComment}
             id="currentComment"
             placeholder='Enter your comment'

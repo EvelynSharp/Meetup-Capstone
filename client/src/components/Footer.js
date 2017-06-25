@@ -1,59 +1,46 @@
 import React from 'react';
-import { Container, Card, Table, List } from 'semantic-ui-react';
+import { Segment, Button, Item, Icon, Header } from 'semantic-ui-react';
 
 
 const Footer = () => {
     return(
-      <Container className='aboutBottom' textAlign='center'>
-        <Card.Group itemsPerRow={3}>
-          <Card className='footerCards'>
-            <Card.Content>
-              <Card.Header>Contact Information</Card.Header>
-              <Card.Description>
-              <Table celled>
-                  <Table.Header>
-                    <Table.Row>
-                      <Table.Cell>Phone:</Table.Cell>
-                      <Table.Cell>801-555-1234</Table.Cell>
-                    </Table.Row>
-                  </Table.Header>
-
-                  <Table.Body>
-                    <Table.Row>
-                      <Table.Cell>Email:</Table.Cell>
-                      <Table.Cell>sayhi@eventech.com</Table.Cell>
-                    </Table.Row>
-                  </Table.Body>
-                </Table>
-              </Card.Description>
-            </Card.Content>
-          </Card>
-
-          <Card className='footerCards'>
-            <Card.Content>
-              <Card.Header>Location & Hours</Card.Header>
-              <Card.Description>
-                123 DevPoint Labs Way <br />
-                Salt Lake City, UT <br />
-                Open 365 - 24 - 7
-              </Card.Description>
-            </Card.Content>
-          </Card>
-          <Card className='footerCards'>
-            <Card.Content>
-              <Card.Header>FAQs</Card.Header>
-              <Card.Description>
-                <List>
-                  <List.Item>How do I organize an event?</List.Item>
-                  <List.Item>How can I invite my friends?</List.Item>
-                  <List.Item>How can I see who is coming?</List.Item>
-                </List>
-              </Card.Description>
-            </Card.Content>
-          </Card>
-
-        </Card.Group>
-      </Container>
+      <Segment.Group>
+        <Segment textAlign='center' color='blue' inverted className='footerSegment'>
+          <Header size='large'>Eventech - Organize, Connect, Play!</Header>
+        </Segment>
+        <Segment.Group horizontal verticalAlign='middle'>
+          <Segment textAlign='center' color='grey' inverted>
+            <Header size='large'>Contact us!</Header>
+            <Button.Group vertical>
+                <Button size='massive' color='orange'>eventech@email.com</Button>
+                <Button size='massive' color='orange'>801.555.1236</Button>
+            </Button.Group>
+          </Segment>
+          <Segment textAlign='center' color='grey' inverted>
+            <Header size='large'>Connect with us!</Header>
+            <Button.Group vertical center>
+              <Button color='facebook' size='big'>
+                <Icon name='facebook' /> Facebook
+              </Button>
+              <Button color='twitter' size='big'>
+                <Icon name='twitter' /> Twitter
+              </Button>
+              <Button color='linkedin' size='big'>
+                <Icon name='linkedin' /> LinkedIn
+              </Button>
+              <Button color='instagram' size='big'>
+                <Icon name='instagram' /> Instagram
+              </Button>
+            </Button.Group>
+          </Segment>
+        </Segment.Group>
+        <Segment color='blue' inverted>
+          <Header size='large'>
+            <Icon name='copyright'/>
+            2017 - Eventech
+          </Header>
+        </Segment>
+      </Segment.Group>
     )
 }
 

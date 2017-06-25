@@ -152,216 +152,200 @@ const About = ({ history }) => (
       <Header as='h3' textAlign="center">The chief metaphor used to describe building a company is designing an organism. This has defined their approach to growing and nurturing meeting organizer startup EventTech. If you look at it this way, they say, you’re much more likely to create something that can adapt to shifting environments and survive without micromanagement. Like any organism, a startup will die if it can’t properly identify and leverage nutrients.</Header>
     </Segment>
 
-     <Grid divided='vertically'>
-      <Grid.Row columns={3}>
-        <Grid.Column>
-          <Card>
-           <Icon fitted color='orange' name='code' size='massive'/>
-            <Card.Content >
-              <Card.Header className='cardHeader'>
-                CODE..
-              </Card.Header>
-              <Card.Description>
-                <List divided verticalAlign='middle' size='big'>
-                  <List.Item>
-                    <List.Content>
-                      <List.Header className='aboutPageText'>We attended boot camp</List.Header>
-                    </List.Content>
-                  </List.Item>
 
-                  <List.Item>
-                    <List.Content>
-                      <List.Header className='aboutPageText'>We learned JavaScript stuff</List.Header>
-                    </List.Content>
-                  </List.Item>
+    <Card.Group itemsPerRow={3}>
+      <Card>
+       <Icon fitted color='orange' name='code' size='massive'/>
+        <Card.Content >
+          <Card.Header className='cardHeader'>
+            CODE..
+          </Card.Header>
+          <Card.Description>
+            <List divided verticalAlign='middle' size='big'>
+              <List.Item>
+                <List.Content>
+                  <List.Header className='aboutPageText'>We attended boot camp</List.Header>
+                </List.Content>
+              </List.Item>
 
-                  <List.Item>
-                    <List.Content>
-                      <List.Header className='aboutPageText'>We practiced hard</List.Header>
-                    </List.Content>
-                  </List.Item>
-                </List>
-              </Card.Description>
-            </Card.Content>
-          </Card>
-        </Grid.Column>
+              <List.Item>
+                <List.Content>
+                  <List.Header className='aboutPageText'>We learned JavaScript stuff</List.Header>
+                </List.Content>
+              </List.Item>
 
-        <Grid.Column>
-          <Card>
-           <Icon fitted color='orange' name='lightbulb' size='massive'/>
-            <Card.Content >
-              <Card.Header className='cardHeader'>
-                IDEA..
-              </Card.Header>
-              <Card.Description>
-                <List divided verticalAlign='middle' size='big'>
-                  <List.Item>
-                    <List.Content>
-                      <List.Header className='aboutPageText'>We thought of a solid idea</List.Header>
-                    </List.Content>
-                  </List.Item>
+              <List.Item>
+                <List.Content>
+                  <List.Header className='aboutPageText'>We practiced hard</List.Header>
+                </List.Content>
+              </List.Item>
+            </List>
+          </Card.Description>
+        </Card.Content>
+      </Card>
+      <Card>
+       <Icon fitted color='orange' name='lightbulb' size='massive'/>
+        <Card.Content >
+          <Card.Header className='cardHeader'>
+            IDEA..
+          </Card.Header>
+          <Card.Description>
+            <List divided verticalAlign='middle' size='big'>
+              <List.Item>
+                <List.Content>
+                  <List.Header className='aboutPageText'>We thought of a solid idea</List.Header>
+                </List.Content>
+              </List.Item>
 
-                  <List.Item>
-                    <List.Content>
-                      <List.Header className='aboutPageText'>We put our new skills to use</List.Header>
-                    </List.Content>
-                  </List.Item>
+              <List.Item>
+                <List.Content>
+                  <List.Header className='aboutPageText'>We put our new skills to use</List.Header>
+                </List.Content>
+              </List.Item>
 
-                  <List.Item>
-                    <List.Content>
-                      <List.Header className='aboutPageText'>We just made it</List.Header>
-                    </List.Content>
-                  </List.Item>
-                </List>
-              </Card.Description>
-            </Card.Content>
-          </Card>
-        </Grid.Column>
+              <List.Item>
+                <List.Content>
+                  <List.Header className='aboutPageText'>We just made it</List.Header>
+                </List.Content>
+              </List.Item>
+            </List>
+          </Card.Description>
+        </Card.Content>
+      </Card>
 
-        <Grid.Column>
-          <Card>
-           <Icon fitted color='orange' name='like outline' size='massive'/>
-            <Card.Content >
-              <Card.Header className='cardHeader'>
-                CREATE..
-              </Card.Header>
-              <Card.Description>
-                <List divided verticalAlign='middle' size='big'>
-                  <List.Item>
-                    <List.Content>
-                      <List.Header className='aboutPageText'>NodeJS</List.Header>
-                    </List.Content>
-                  </List.Item>
+      <Card>
+       <Icon fitted color='orange' name='like outline' size='massive'/>
+        <Card.Content >
+          <Card.Header className='cardHeader'>
+            CREATE..
+          </Card.Header>
+          <Card.Description>
+            <List divided verticalAlign='middle' size='big'>
+              <List.Item>
+                <List.Content>
+                  <List.Header className='aboutPageText'>NodeJS</List.Header>
+                </List.Content>
+              </List.Item>
 
-                  <List.Item>
-                    <List.Content>
-                      <List.Header className='aboutPageText'>ReactJS</List.Header>
-                    </List.Content>
-                  </List.Item>
+              <List.Item>
+                <List.Content>
+                  <List.Header className='aboutPageText'>ReactJS</List.Header>
+                </List.Content>
+              </List.Item>
 
-                  <List.Item>
-                    <List.Content>
-                      <List.Header className='aboutPageText'>Semantic UI</List.Header>
-                    </List.Content>
-                  </List.Item>
-                </List>
-              </Card.Description>
-            </Card.Content>
-          </Card>
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
+              <List.Item>
+                <List.Content>
+                  <List.Header className='aboutPageText'>Semantic UI</List.Header>
+                </List.Content>
+              </List.Item>
+            </List>
+          </Card.Description>
+        </Card.Content>
+      </Card>
+    </Card.Group>
 
     <Segment raised>
       <Header as='h1' textAlign="center" color="blue">Who are we?</Header>
       <Header as='h3' textAlign="center">We learned to code at DevPoint Labs coding boot camp.</Header>
     </Segment>
 
-    <Grid divided='vertically'>
-     <Grid.Row columns={3}>
-       <Grid.Column>
-         <Card>
-           <Image src={KamiImage} height='300px' centered />
-           <Card.Content>
-             <Card.Header>
-               Kami Dewey
-             </Card.Header>
-             <Card.Meta>
-               <span>
-                 30 years old
-               </span>
-             </Card.Meta>
-             <Card.Description>
-               Kami is from Seattle, WA.
-             </Card.Description>
-             <Card.Content>
-              <Grid divided='vertically'>
-                <Grid.Row columns={3}>
-                  <Grid.Column>
-                    <a href='https://github.com/kamity87' target='_blank'><Icon link fitted color='blue' name='github' size='huge'/></a>
-                  </Grid.Column>
-                  <Grid.Column>
-                    <a href='https://www.facebook.com/kamity' target='_blank'><Icon link fitted color='blue' name='facebook square' size='huge'/></a>
-                  </Grid.Column>
-                  <Grid.Column>
-                    <Icon link fitted color='blue' name='linkedin' size='huge'/>
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
-             </Card.Content>
-           </Card.Content>
-         </Card>
-       </Grid.Column>
+    <Card.Group itemsPerRow={3}>
+     <Card>
+       <Image src={KamiImage} height='300px' centered />
+       <Card.Content>
+         <Card.Header>
+           Kami Dewey
+         </Card.Header>
+         <Card.Meta>
+           <span>
+             30 years old
+           </span>
+         </Card.Meta>
+         <Card.Description>
+           Kami is from Seattle, WA.
+         </Card.Description>
+         <Card.Content>
+          <Grid divided='vertically'>
+            <Grid.Row columns={3}>
+              <Grid.Column>
+                <a href='https://github.com/kamity87' target='_blank'><Icon link fitted color='blue' name='github' size='huge'/></a>
+              </Grid.Column>
+              <Grid.Column>
+                <a href='https://www.facebook.com/kamity' target='_blank'><Icon link fitted color='blue' name='facebook square' size='huge'/></a>
+              </Grid.Column>
+              <Grid.Column>
+                <Icon link fitted color='blue' name='linkedin' size='huge'/>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+         </Card.Content>
+       </Card.Content>
+     </Card>
 
-       <Grid.Column>
-         <Card>
-           <Image src={EvelynImage} height='300px' centered />
-           <Card.Content>
-             <Card.Header>
-               Evelyn Sharp
-             </Card.Header>
-             <Card.Meta>
-               <span>
-                 27 years old
-               </span>
-             </Card.Meta>
-             <Card.Description>
-               Evelyn is from China.
-             </Card.Description>
-             <Card.Content>
-              <Grid divided='vertically'>
-                <Grid.Row columns={3}>
-                  <Grid.Column>
-                    <a href='https://github.com/EvelynSharp' target='_blank'><Icon fitted link color='blue' name='github' size='huge'/></a>
-                  </Grid.Column>
-                  <Grid.Column>
-                    <Icon link fitted color='blue' name='facebook square' size='huge'/>
-                  </Grid.Column>
-                  <Grid.Column>
-                    <Icon link fitted color='blue' name='linkedin' size='huge'/>
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
-             </Card.Content>
-           </Card.Content>
-         </Card>
-       </Grid.Column>
+     <Card>
+       <Image src={EvelynImage} height='300px' centered />
+       <Card.Content>
+         <Card.Header>
+           Evelyn Sharp
+         </Card.Header>
+         <Card.Meta>
+           <span>
+             27 years old
+           </span>
+         </Card.Meta>
+         <Card.Description>
+           Evelyn is from China.
+         </Card.Description>
+         <Card.Content>
+          <Grid divided='vertically'>
+            <Grid.Row columns={3}>
+              <Grid.Column>
+                <a href='https://github.com/EvelynSharp' target='_blank'><Icon fitted link color='blue' name='github' size='huge'/></a>
+              </Grid.Column>
+              <Grid.Column>
+                <a href='https://www.facebook.com/yihong.shi' target='_blank'><Icon link fitted color='blue' name='facebook square' size='huge'/></a>
+              </Grid.Column>
+              <Grid.Column>
+                <a href='https://www.linkedin.com/in/evelyn-sharp-606a8816/' target='_blank'><Icon link fitted color='blue' name='linkedin' size='huge'/></a>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+         </Card.Content>
+       </Card.Content>
+     </Card>
 
-       <Grid.Column>
-         <Card>
-           <Image src={JoeyImage} height='300px' centered/>
-           <Card.Content>
-             <Card.Header>
-               Joey Schrader
-             </Card.Header>
-             <Card.Meta>
-               <span>
-                 28 years old
-               </span>
-             </Card.Meta>
-             <Card.Description>
-               Joey is from Riverton, UT.
-             </Card.Description>
-             <Card.Content>
-              <Grid divided='vertically'>
-                <Grid.Row columns={3}>
-                  <Grid.Column>
-                    <a href='https://github.com/mojo3131' target='_blank'><Icon link fitted color='blue' name='github' size='huge'/></a>
-                  </Grid.Column>
-                  <Grid.Column>
-                    <a href='https://www.facebook.com/joey.schrader.3' target='_blank'><Icon link fitted color='blue' name='facebook square' size='huge'/></a>
-                  </Grid.Column>
-                  <Grid.Column>
-                    <a href='https://www.linkedin.com/in/joey-schrader-472388aa' target='_blank'><Icon link fitted color='blue' name='linkedin' size='huge'/></a>
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
-             </Card.Content>
-           </Card.Content>
-         </Card>
-       </Grid.Column>
-     </Grid.Row>
-    </Grid>
+     <Card>
+       <Image src={JoeyImage} height='300px' centered/>
+       <Card.Content>
+         <Card.Header>
+           Joey Schrader
+         </Card.Header>
+         <Card.Meta>
+           <span>
+             28 years old
+           </span>
+         </Card.Meta>
+         <Card.Description>
+           Joey is from Riverton, UT.
+         </Card.Description>
+         <Card.Content>
+          <Grid divided='vertically'>
+            <Grid.Row columns={3}>
+              <Grid.Column>
+                <a href='https://github.com/mojo3131' target='_blank'><Icon link fitted color='blue' name='github' size='huge'/></a>
+              </Grid.Column>
+              <Grid.Column>
+                <a href='https://www.facebook.com/joey.schrader.3' target='_blank'><Icon link fitted color='blue' name='facebook square' size='huge'/></a>
+              </Grid.Column>
+              <Grid.Column>
+                <a href='https://www.linkedin.com/in/joey-schrader-472388aa' target='_blank'><Icon link fitted color='blue' name='linkedin' size='huge'/></a>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+         </Card.Content>
+       </Card.Content>
+     </Card>
+    </Card.Group>
 
   </Container>
 </div>

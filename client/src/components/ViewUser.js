@@ -19,14 +19,38 @@ class ViewUser extends Component {
 
   }
 
+  filterUserEvents = () => {
+    let { events } = this.props;
+    let { _id } = this.props.userinfo;
+    let userEvents =[];
+    for ( let i = 0; i < events.length; i++ ) {
+      let event = events[i];
+      let attendeeList = event.attendeeIds;
+      let attIdList = attendeeList.map( att => { return att.id });
+      if ( attIdList.includes(_id) ) {
+        userEvents.push(event);
+      }
+    }
+    return userEvents;
+  }
+
   findUserEvents = (username, listType) => {
-    let allUserEvents = this.props.events.filter( event => event.attendeeIds.includes(username) );
+    let allUserEvents = this.filterUserEvents();
     let curEvents = allUserEvents.filter( e => moment(`${e.endDate} ${e.endTime}`).format("X") > moment( new Date() ).format("X"));
     let pastEvents = allUserEvents.filter( e => moment(`${e.endDate} ${e.endTime}`).format("X") <= moment( new Date() ).format("X"));
     if (listType === 'current') {
-      return <EventList events={curEvents} history={this.props.history} />
+      if(curEvents.length === 0) {
+        return <div style={{ textAlign: "center" }}>This user does not have any future events</div>
+      } else {
+        return <EventList events={curEvents} history={this.props.history} />
+      }
     } else if (listType === 'past') {
-      return <EventList events={pastEvents} history={this.props.history} />
+      if (pastEvents.length === 0) {
+        return <div style={{ textAlign: "center" }}>This user does not have any past events</div>
+      } else {
+        return <EventList events={pastEvents} history={this.props.history} />
+      }
+
     }
   }
 
@@ -88,7 +112,7 @@ class ViewUser extends Component {
     return (
       <Grid>
         <Grid.Column computer={16} mobile={16} tablet={16} textAlign="center">
-          <Image src={profileImage} shape="rounded" centered className='otherUserPro profileImage' />
+          <Image src={profileImage === '' ? avatarUrl : profileImage} shape="rounded" centered className='otherUserPro profileImage' />
         </Grid.Column>
         <Grid.Column computer={16} mobile={16} tablet={16} textAlign="center">
           <Header>{ nickName }</Header>
@@ -99,19 +123,20 @@ class ViewUser extends Component {
         <Grid.Column computer={16} mobile={16} tablet={16} textAlign="center">
           <p>{ userBio } </p>
         </Grid.Column>
-        <Grid.Row>
-          <Grid.Column computer={8} mobile={16} tablet={16} textAlign="center">
+        <Grid.Row></Grid.Row>
+        <Grid.Row centered>
+          <Grid.Column computer={6} mobile={16} tablet={16} textAlign="center">
             <Header>LIVE EVENTS</Header>
           </Grid.Column>
-          <Grid.Column computer={8} mobile={16} tablet={16} textAlign="center">
+          <Grid.Column computer={6} mobile={16} tablet={16} textAlign="center">
             <Header>PAST EVENTS</Header>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row centered>
-          <Grid.Column computer={6} mobile={16} tablet={16} textAlign="center">
+          <Grid.Column computer={6} mobile={16} tablet={16} textAlign="center" >
             { this.findUserEvents(username, 'current')}
           </Grid.Column>
-          <Grid.Column computer={6} mobile={16} tablet={16} textAlign="center">
+          <Grid.Column computer={6} mobile={16} tablet={16} textAlign="center" >
             { this.findUserEvents(username, 'past')}
           </Grid.Column>
           </Grid.Row>
