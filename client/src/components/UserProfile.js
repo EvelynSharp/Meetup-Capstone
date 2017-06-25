@@ -16,6 +16,10 @@ class UserProfile extends Component {
     this.setState({ profileEdit: !this.state.profileEdit })
   }
 
+  cancelUpdate = () => {
+    this.setState({ profileEdit: false, user: this.props.user })
+  }
+
   handleProUpdate = (e) => {
     e.preventDefault();
     let { profileEdit, user } = this.state;
@@ -37,7 +41,7 @@ class UserProfile extends Component {
 
     return (
       <div>
-        <Form onSubmit={this.handleProUpdate} >
+        <Form>
           <Form.Group inline>
             <Form.Field width={5}>
               <label>Nickname: </label>
@@ -55,7 +59,7 @@ class UserProfile extends Component {
             </Form.Field>
             <Form.Field>
               { user.birthDate === '' ?
-                <div></div>
+              profileEdit && <input className="userProEdit" id="birthDate" type="date" onChange={ profileEdit ? this.handleChange : null }/>
                 :
                 <input className={profileEdit ? "userProEdit" : "userProDisp"} id="birthDate" type="date" value={ user.birthDate } onChange={ profileEdit ? this.handleChange : null }/>
               }
@@ -92,13 +96,16 @@ class UserProfile extends Component {
 
           <Form.Field style={{ textAlign: 'center' }}>
           { profileEdit ?
-              <Button className="primBtn" primary>Update</Button>
+            <div>
+              <Button className="primBtn" primary onClick={this.handleProUpdate} >Update</Button>
+              <Button onClick={this.cancelUpdate}>Cancel</Button>
+            </div>
             :
               <Menu secondary>
                 <Menu.Menu position="right">
                   <Menu.Item as='a'>
                     <Popup
-                      trigger={ <Icon className="edit blue large" onClick={this.handleProUpdate}/>}
+                      trigger={ <Icon className="edit blue large" onClick={this.toggleProEdit}/>}
                       content="Click to edit profile information."
                       basic
                     />
