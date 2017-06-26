@@ -57,13 +57,12 @@ class UserProfile extends Component {
             </Form.Field>
             <Form.Field width={1}>
             </Form.Field>
-            <Form.Field>
+      
               { user.birthDate === '' ?
-              profileEdit && <input className="userProEdit" id="birthDate" type="date" onChange={ profileEdit ? this.handleChange : null }/>
+                profileEdit && <input className="userProEdit" id="birthDate" type="date" onChange={ this.handleChange }/>
                 :
                 <input className={profileEdit ? "userProEdit" : "userProDisp"} id="birthDate" type="date" value={ user.birthDate } onChange={ profileEdit ? this.handleChange : null }/>
               }
-            </Form.Field>
 
           </Form.Group>
 
