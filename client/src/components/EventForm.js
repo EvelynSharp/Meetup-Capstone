@@ -269,7 +269,7 @@ class EventForm extends Component {
                 </Form.Group>
                 <Form.Group>
                   <Form.Field width={updateEvent ? 1: 3} />
-                  <Form.Field width={updateEvent ? 13: 10} style={{ textAlign: 'center'}}>
+                  <Form.Field width={updateEvent ? 13: 10} style={{ textAlign: 'center', paddingBottom:'2em'}}>
                     <Button
                       type='submit'
                       className="primBtn"

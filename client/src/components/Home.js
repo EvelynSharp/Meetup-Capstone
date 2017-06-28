@@ -5,6 +5,7 @@ import { getEvents } from '../actions/events';
 import EventCards from './EventCards';
 import { categoryOptions } from '../categoryOptions';
 import moment from 'moment';
+import Footer from './Footer';
 
 //<EventList events={events}/>
 class Home extends Component {
@@ -31,26 +32,31 @@ class Home extends Component {
       return moment(`${a.begDate} ${a.begTime}`).format("X") - moment(`${b.begDate} ${b.begTime}`).format("X");
     });
     return(
-      <div className="ui container">
+      <div>
+        <div className="ui container">
 
-        <Menu className='homesearch'>
-          <Menu.Item className='homesearch'>
-            <Input icon='search' width={4} className='searchBar'/>
-            <Button primary className="primBtn" width={3}>SEARCH</Button>
-          </Menu.Item>
-          <Menu.Item position='right' className='homesearch'>
-            Filter By Category:
-            <Dropdown
-              id='ddFilter'
-              selection
-              options={categoryOptions}
-              onChange={(e, data) => this.setState({filter: data.value}) }
-              width={4}
-            />
-          </Menu.Item>
-        </Menu>
+          <Menu className='homesearch'>
+            <Menu.Item className='homesearch'>
+              <Input icon='search' width={4} className='searchBar'/>
+              <Button primary className="primBtn" width={3}>SEARCH</Button>
+            </Menu.Item>
+            <Menu.Item position='right' className='homesearch'>
+              Filter By Category:
+              <Dropdown
+                id='ddFilter'
+                selection
+                options={categoryOptions}
+                onChange={(e, data) => this.setState({filter: data.value}) }
+                width={4}
+              />
+            </Menu.Item>
+          </Menu>
 
-        <EventCards events={sortedEvents} history={this.props.history} />
+          <EventCards events={sortedEvents} history={this.props.history} />
+        </div>
+        <div style={{ marginTop: '5%'}}>
+          <Footer />
+        </div>
       </div>
     )
   }

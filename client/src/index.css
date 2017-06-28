@@ -264,7 +264,7 @@ body {
     url(images/aboutheader.jpg);
   background-size: 2000px auto;
   background-position: right;
-  height: 18em;
+  height: 22em;
   width: auto;
   position: relative;
   margin: 0;
@@ -341,7 +341,7 @@ body {
 
 .eventWrap {
   margin-top: 1% !important;
-  
+
 }
 
 .mainNav {

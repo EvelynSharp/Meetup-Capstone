@@ -13,6 +13,7 @@ import Event from './components/Event';
 import Register from './components/Register';
 import ViewUser from './components/ViewUser';
 
+
 const App = () => (
   <div >
     <NavBar />

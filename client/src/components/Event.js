@@ -12,6 +12,7 @@ import CommentFormList from './CommentFormList';
 import EventImageDrop from './EventImageDrop';
 import OrganizerEvents from './OrganizerEvents';
 import UserList from './UserList';
+import Footer from './Footer';
 import moment from 'moment';
 
 class Event extends Component {
@@ -190,7 +191,7 @@ class Event extends Component {
     let attendeeIdList = this.getAttendeeIdList( attendeeIds );
     return(
       <div>
-          <div className='eventWrap'>
+          <div className='eventWrap' >
           <Grid style={{ background: `url(${imageUrl})`}}>
 
             <Grid.Row className="eventTopGrid" style={{ marginTop: '2em', paddingBottom: '0'}}>
@@ -287,7 +288,7 @@ class Event extends Component {
               <Grid.Row style={{ padding: '0'}}>
                 <Grid.Column width={2} />
                 <Grid.Column width={7} className="eventBtContent" >
-                  <div style={{ margin: '0 0.2em 0 1em'}}>
+                  <div style={{ margin: '0 0.2em 0 1em', paddingBottom: '8em'}}>
                     <CommentFormList
                       eventId={ _id }
                       existingComments={ comments }
@@ -297,7 +298,7 @@ class Event extends Component {
                 </Grid.Column>
 
                 <Grid.Column width={5} className="eventBtContent">
-                  <div style={{ marginRight: '1em'}}>
+                  <div style={{ marginRight: '1em', paddingBottom: '8em'}}>
                     <Accordion styled style={{ marginTop: '1.6em'}}>
                       <Accordion.Title>View Attendees</Accordion.Title>
                       <Accordion.Content>
@@ -312,15 +313,17 @@ class Event extends Component {
             { !edit && !isOrganizer &&
               <Grid.Row style={{ padding: '0'}}>
                 <Grid.Column width={2}/>
-                <Grid.Column width={12} className="eventBtContent">
+                <Grid.Column width={12} className="eventBtContent" style={{ paddingBottom: '8em'}}>
                   <OrganizerEvents curEventId={_id} curOrganizer={organizer}/>
                 </Grid.Column>
                 <Grid.Column width={2}/>
               </Grid.Row>
+
             }
 
           </Grid>
         </div>
+        <Footer />
     </div>
     )
   }

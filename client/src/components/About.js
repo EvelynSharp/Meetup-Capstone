@@ -4,6 +4,7 @@ import  JoeyImage from '../images/JoeyImage.jpg';
 import KamiImage from '../images/KamiImage.jpg';
 import EvelynImage from '../images/EvelynImage.jpg';
 import AbtCallAction from './AbtCallAction';
+import Footer from './Footer';
 
 const About = ({ history }) => (
 
@@ -349,6 +350,7 @@ const About = ({ history }) => (
 
   </Container>
   <AbtCallAction position="bottom" history={history} />
+  <Footer />
 </div>
 
 )
