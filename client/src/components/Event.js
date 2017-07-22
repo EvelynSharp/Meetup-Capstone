@@ -17,7 +17,7 @@ import moment from 'moment';
 
 class Event extends Component {
 
-  state={ edit: false, updateImage: false }
+  state={ edit: false, updateImage: false, showAttendee: true }
 
   componentDidMount = () => {
     this.refreshEvents();
@@ -174,6 +174,10 @@ class Event extends Component {
     return attendeeIdList;
   }
 
+  toggleAttView = () => {
+    this.setState({ showAttendee: !this.state.showAttendee })
+  }
+
   render() {
     let { eventName, organizer, begDate, begTime, endDate, endTime, location, description, attendeeIds, _id, comments, imageUrl } = this.props.event;
     let edit = this.state.edit;
@@ -300,8 +304,8 @@ class Event extends Component {
                 <Grid.Column width={5} className="eventBtContent">
                   <div style={{ marginRight: '1em', paddingBottom: '8em'}}>
                     <Accordion styled style={{ marginTop: '1.6em'}}>
-                      <Accordion.Title>View Attendees</Accordion.Title>
-                      <Accordion.Content>
+                      <Accordion.Title onClick={this.toggleAttView}>View Attendees</Accordion.Title>
+                      <Accordion.Content active={this.state.showAttendee}>
                         <UserList history={this.props.history} dispFor="events" attendeeList={attendeeIdList}/>
                       </Accordion.Content>
                     </Accordion>

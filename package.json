@@ -1,7 +1,10 @@
 {
-  "name": "cra-express-starter",
+  "name": "meetup-capstone",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "node": "7.10.1"
+  },
   "scripts": {
     "start": "node ./bin/www",
     "build-production": "cd client/ && npm install --only=dev && npm install && npm run build",
