@@ -46,6 +46,13 @@ class EventCards extends Component {
 
   render(){
     let { events, user, history } = this.props;
+    if (events.length === 0) {
+      return (
+        <div style={{paddingBottom: '30%', textAlign: 'top'}}>
+          No Matching Events Found
+        </div>
+      )
+    }
     return(
       <Card.Group itemsPerRow={3} >
        { events.map( (event, index) => {
