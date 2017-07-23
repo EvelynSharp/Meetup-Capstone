@@ -36,10 +36,7 @@ class Home extends Component {
         <div className="ui container">
 
           <Menu className='homesearch'>
-            <Menu.Item className='homesearch'>
-              <Input icon='search' width={4} className='searchBar'/>
-              <Button primary className="primBtn" width={3}>SEARCH</Button>
-            </Menu.Item>
+
             <Menu.Item position='right' className='homesearch'>
               Filter By Category:
               <Dropdown
